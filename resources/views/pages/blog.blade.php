@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Berita & Wawasan Teknis Truk | PT SHINDO Authorized Dealer')
+@section('title', 'Blog & Berita | SHINDO')
 @section('meta_description', 'Update artikel teknis, panduan perawatan dump truck tambang, wawasan efisiensi bahan bakar, dan berita terkini industri kendaraan komersial SHACMAN di Indonesia.')
 
 @push('styles')

@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', ($seriesData['full_name'] ?? 'SHACMAN Series') . ' - Spesifikasi & Fitur Lengkap | PT SHINDO')
+@section('title', ($seriesData['full_name'] ?? 'SHACMAN Series') . ' | SHINDO')
 @section('meta_description', strip_tags($seriesData['intro'] ?? 'Spesifikasi resmi truk heavy duty SHACMAN.'))
 
 @push('styles')

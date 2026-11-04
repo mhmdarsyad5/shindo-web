@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', $site->site_name ?? 'SHACMAN Indonesia | Authorized Dealer SHINDO - Tangguh di Segala Medan')</title>
+    <title>@yield('title', 'SHINDO | Dealer Resmi SHACMAN Indonesia')</title>
 
     <meta name="description"
         content="@yield('meta_description', 'Authorized Dealer Resmi SHACMAN Indonesia - Solusi Truk Heavy Duty Terbaik & Tangguh di Segala Medan.')">
@@ -58,7 +58,7 @@
                 </a>
 
                 <!-- Desktop Navigation Menu -->
-                <nav class="hidden md:flex items-stretch h-full space-x-6 lg:space-x-8 text-sm font-medium">
+                <nav class="hidden md:flex items-center space-x-1 lg:space-x-1.5 text-sm font-medium">
                     @foreach($site->nav_items ?? [] as $nav)
                         @php
                             $isProduk = ($nav['label'] ?? '') === 'Produk' || ($nav['label'] ?? '') === 'Dump Truck' || str_contains($nav['url'] ?? '', 'produk');
@@ -67,10 +67,13 @@
                         @endphp
 
                         @if($isProduk)
+                            @php
+                                $isProdukActive = request()->is('produk*');
+                            @endphp
                             <!-- Dropdown Produk dengan 3 Series (Duta Hino Style) -->
-                            <div class="relative group flex items-center h-full">
+                            <div class="relative group flex items-center h-[68px] sm:h-[74px]">
                                 <a href="{{ url('/produk') }}"
-                                    class="dh-nav-link inline-flex items-center gap-1.5 h-full px-1 text-sm font-semibold {{ request()->is('produk*') ? 'is-active' : '' }}">
+                                    class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-sm transition-colors {{ $isProdukActive ? 'bg-[#004880] text-white font-bold' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
                                     <span>Produk</span>
                                     <svg class="w-3.5 h-3.5 transition-transform duration-250 ease-out group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
@@ -106,7 +109,7 @@
                             </div>
                         @else
                             <a href="{{ $nav['url'] ?? '#' }}"
-                                class="dh-nav-link inline-flex items-center h-full px-1 text-sm font-semibold {{ $isActive ? 'is-active' : '' }}">
+                                class="inline-flex items-center px-3.5 py-1.5 text-sm transition-colors {{ $isActive ? 'bg-[#004880] text-white font-bold' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
                                 <span>{{ $nav['label'] ?? '' }}</span>
                             </a>
                         @endif
@@ -151,16 +154,19 @@
                 @endphp
 
                 @if($isDumpTruck)
+                    @php
+                        $isProdukActive = request()->is('produk*');
+                    @endphp
                     <!-- Mobile Accordion for Dump Truck -->
                     <div class="space-y-1">
                         <button type="button" id="mobile-dumptruck-toggle"
-                            class="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-white hover:bg-white/10">
+                            class="w-full flex items-center justify-between px-3.5 py-2.5 text-base transition-colors {{ $isProdukActive ? 'bg-[#004880] text-white font-bold' : 'text-white hover:bg-white/10 font-medium' }}">
                             <span>Produk</span>
                             <svg id="mobile-dumptruck-arrow" class="w-4 h-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        <div id="mobile-dumptruck-submenu" class="hidden pl-4 pr-2 py-1.5 space-y-1 bg-[#004880]/50">
+                        <div id="mobile-dumptruck-submenu" class="hidden pl-4 pr-2 py-1.5 space-y-1 bg-[#004880]/50 my-1">
                             <a href="{{ route('produk.series', 'x3000') }}"
                                 class="block px-3 py-1.5 text-sm text-slate-100 hover:text-white">
                                 SHACMAN X3000 Series
@@ -184,7 +190,7 @@
                     </div>
                 @else
                     <a href="{{ $nav['url'] ?? '#' }}"
-                        class="block px-3 py-2 text-base {{ $isActive ? 'font-semibold text-white bg-white/15' : 'font-medium text-white hover:bg-white/10' }}">
+                        class="block px-3.5 py-2.5 text-base transition-colors {{ $isActive ? 'bg-[#004880] text-white font-bold' : 'text-white hover:bg-white/10 font-medium' }}">
                         {{ $nav['label'] ?? '' }}
                     </a>
                 @endif

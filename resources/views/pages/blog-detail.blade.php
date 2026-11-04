@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', $post->title . ' | PT SHINDO Berita & Artikel')
+@section('title', Str::limit($post->title, 40) . ' | SHINDO')
 @section('meta_description', Str::limit(strip_tags($post->excerpt ?? $post->content), 150))
 
 @section('content')

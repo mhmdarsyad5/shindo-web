@@ -103,7 +103,7 @@ class HomepageSetting extends Model
     public static function current(): self
     {
         return static::firstOrCreate([], [
-            'site_title' => 'SHACMAN Indonesia | Authorized Dealer SHINDO - Tangguh di Segala Medan',
+            'site_title' => 'SHINDO | Dealer Resmi SHACMAN Indonesia',
             'meta_description' => 'Authorized Dealer Resmi SHACMAN Indonesia - Solusi Truk Heavy Duty Terbaik & Tangguh di Segala Medan.',
             'navbar_logo' => 'homepage/shacman-shindo-white.png',
             'nav_items' => [

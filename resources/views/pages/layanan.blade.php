@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Layanan Purna Jual & Servis Resmi | PT SHINDO SHACMAN Indonesia')
+@section('title', 'Layanan Purna Jual | SHINDO')
 @section('meta_description', 'Layanan aftersales resmi dump truck SHACMAN Indonesia: periodic maintenance, mobile on-site mechanic 24/7, pasokan genuine spare parts Weichai dan FAST, serta kontrak servis armada.')
 
 @push('styles')

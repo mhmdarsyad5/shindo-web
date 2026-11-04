@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Kontak & Permintaan Penawaran | PT SHINDO Authorized Dealer SHACMAN Indonesia')
+@section('title', 'Kontak Kami | SHINDO')
 @section('meta_description', 'Hubungi head office, central workshop, dan tim sales resmi PT SHINDO untuk permintaan quotation armada truk SHACMAN, order suku cadang, dan on-site breakdown service.')
 
 @push('styles')

@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Katalog Truk SHACMAN | PT SHINDO Authorized Dealer')
+@section('title', 'Katalog Produk | SHINDO')
 @section('meta_description', 'Katalog lengkap heavy-duty dump truck dan tractor head SHACMAN X3000, F3000, dan H3000. Konfigurasi 6x4 dan 8x4 untuk tambang dan logistik.')
 
 @push('styles')

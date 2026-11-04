@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('title', 'Tentang Kami | PT Shindo Tractors Adiperkasa - Dealer Resmi SHACMAN Indonesia')
+@section('title', 'Tentang Kami | SHINDO')
 @section('meta_description', 'Profil PT Shindo Tractors Adiperkasa, distributor utama SHACMAN Dump Truck di Indonesia dengan pengalaman lebih dari lima dekade, visi misi perusahaan, jaringan cabang, dan layanan purna jual SHASS.')
 
 @push('styles')
