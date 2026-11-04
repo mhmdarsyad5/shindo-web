@@ -1122,18 +1122,11 @@
             </div>
         </div>
 
-        <!-- ================= SECTION 09: HOW CAN WE HELP (pro_detail08) ================= -->
-        <div class="pro_detail08">
-            <div class="content">
-                <a href="https://wa.me/{{ $waPhone }}?text={{ $quoteMsg }}" target="_blank" rel="noopener noreferrer" class="info">
-                    <div class="box">
-                        <div class="tit fz32" style="color: #ffffff !important;">BAGAIMANA KAMI DAPAT MEMBANTU ANDA?</div>
-                        <div class="con" style="color: #ffffff !important;">Hubungi perwakilan resmi dealer PT SHINDO untuk konsultasi spesifikasi teknis dan penawaran harga terbaik.</div>
-                        <div class="more">Hubungi Kami Sekarang</div>
-                    </div>
-                </a>
-            </div>
-        </div>
+        <!-- ================= CINEMATIC ARMADA SHOWCASE BANNER ================= -->
+        <section class="relative w-full overflow-hidden bg-[#070e1e] border-t border-slate-800 mt-12 sm:mt-16 lg:mt-24">
+            <img src="{{ asset('images/series/pro_detail08_1.jpg') }}" alt="Armada Truk SHACMAN PT SHINDO"
+                class="w-full h-auto block select-none pointer-events-none">
+        </section>
 
     </section>
 @endsection

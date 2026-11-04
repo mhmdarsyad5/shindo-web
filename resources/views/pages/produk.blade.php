@@ -215,26 +215,10 @@
         </div>
     </section>
 
-    <!-- ================= CTA BANNER SECTION ================= -->
-    <section class="relative w-full overflow-hidden text-white py-14 sm:py-20 lg:py-24 border-t border-slate-200">
-        <img src="{{ asset('images/series/pro_detail08_1.jpg') }}" alt="Armada Truk Shacman Operasional"
-            class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none">
-        <div class="absolute inset-0 bg-[#00163c]/75 sm:bg-[#00163c]/65 backdrop-brightness-95"></div>
-
-        <div class="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 z-10 text-center flex flex-col items-center reveal-on-scroll">
-            <h3 class="text-2xl sm:text-4xl lg:text-5xl font-bold uppercase font-barlow-condensed not-italic text-white leading-tight drop-shadow-md">
-                BAGAIMANA KAMI DAPAT MEMBANTU ANDA?
-            </h3>
-            <p class="mt-3 text-xs sm:text-base text-slate-100 max-w-2xl mx-auto leading-relaxed drop-shadow">
-                Hubungi perwakilan resmi dealer PT SHINDO untuk konsultasi spesifikasi teknis, pembiayaan, dan penawaran harga terbaik armada SHACMAN.
-            </p>
-            <div class="mt-6 sm:mt-8">
-                <a href="{{ url('/kontak') }}"
-                    class="inline-flex items-center justify-center px-8 sm:px-10 py-3.5 bg-[#0067b1] hover:bg-[#005a9c] text-white font-bold text-xs sm:text-sm uppercase font-barlow-condensed not-italic tracking-wider transition-all duration-200 shadow-lg">
-                    Hubungi Kami Sekarang
-                </a>
-            </div>
-        </div>
+    <!-- ================= CINEMATIC ARMADA SHOWCASE BANNER ================= -->
+    <section class="relative w-full overflow-hidden bg-[#070e1e] border-t border-slate-800">
+        <img src="{{ asset('images/series/pro_detail08_1.jpg') }}" alt="Armada Truk SHACMAN PT SHINDO"
+            class="w-full h-auto block select-none pointer-events-none">
     </section>
 @endsection
 

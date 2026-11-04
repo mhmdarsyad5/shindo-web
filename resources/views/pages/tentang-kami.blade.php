@@ -5,6 +5,24 @@
 
 @push('styles')
     <style>
+        /* Scrim Ease Gradient & Mask: Subtle, natural fade at bottom 25% */
+        .service-fade-mask {
+            -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, rgba(0, 0, 0, 0.85) 82%, rgba(0, 0, 0, 0.35) 93%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, #000 70%, rgba(0, 0, 0, 0.85) 82%, rgba(0, 0, 0, 0.35) 93%, transparent 100%);
+        }
+
+        .service-smooth-fade {
+            background: linear-gradient(
+                to top,
+                #ffffff 0%,
+                #ffffff 15%,
+                rgba(255, 255, 255, 0.9) 35%,
+                rgba(255, 255, 255, 0.6) 60%,
+                rgba(255, 255, 255, 0.2) 85%,
+                transparent 100%
+            );
+        }
+
         /* ================= COMMERCIAL VEHICLE INDUSTRIAL MOTION & UTILS ================= */
         .reveal-on-scroll {
             opacity: 0;
@@ -297,162 +315,114 @@
     <section class="w-full bg-white text-slate-900 py-16 sm:py-24 border-b border-slate-200 relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
-            <!-- Section Intro -->
-            <div class="max-w-3xl mb-12 sm:mb-16 reveal-on-scroll">
-                <h2
-                    class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase not-italic font-barlow-condensed tracking-tight text-[#00163c] leading-[0.98]">
-                    Layanan Purna Jual SHASS
-                </h2>
-                <p class="mt-4 text-slate-600 text-sm sm:text-base leading-relaxed font-normal max-w-2xl">
-                    Namun, dedikasi kami tidak berhenti pada penjualan unit semata. Kami memahami bahwa dukungan purna jual
-                    adalah
-                    kunci keberhasilan jangka panjang. Oleh karena itu, kami menghadirkan <strong>SHASS (SHINDO After-Sales
-                        Service)</strong>,
-                    sebuah sistem layanan purna jual yang komprehensif dan tak tertandingi.
-                </p>
-                <p class="mt-2 text-slate-600 text-sm sm:text-base leading-relaxed font-normal">
-                    Dengan dukungan tersebut, kami memastikan bahwa operasional Anda berjalan lancar tanpa hambatan berarti.
-                </p>
+            <!-- Section Intro: Balanced Editorial Layout ala Halaman Layanan -->
+            <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 mb-12 sm:mb-16 reveal-on-scroll">
+                <div class="max-w-2xl">
+                    <span
+                        class="inline-flex items-center px-3.5 py-1 bg-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider mb-3 shadow-xs">
+                        LAYANAN AFTERSALES
+                    </span>
+                    <h2
+                        class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase not-italic font-barlow-condensed tracking-tight text-[#00163c] leading-none">
+                        Layanan Purna Jual SHASS
+                    </h2>
+                </div>
+                <div class="max-w-xl text-slate-600 text-sm sm:text-base leading-relaxed">
+                    <p>
+                        Dedikasi kami tidak berhenti pada penjualan unit semata. Melalui <strong
+                            class="text-slate-900 font-semibold">SHASS (SHINDO After-Sales Service)</strong>, kami
+                        menghadirkan sistem layanan purna jual komprehensif demi memastikan operasional armada Anda selalu
+                        berjalan optimal dan lancar tanpa hambatan di setiap lokasi kerja.
+                    </p>
+                </div>
             </div>
 
-            <!-- 4 Keunggulan SHASS: Dynamic Heavy-Duty Cards -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- 4 Keunggulan SHASS: Minimalist Editorial Cards ala Halaman Layanan -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-10">
 
-                <!-- Card 1: Mekanik Profesional -->
-                <div
-                    class="bg-white border border-slate-200 hover:border-[#0067b1] flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 group reveal-on-scroll reveal-delay-100">
-                    <div class="relative w-full h-56 overflow-hidden bg-slate-100">
+                <!-- 01. Mekanik Profesional -->
+                <div class="flex flex-col group reveal-on-scroll reveal-delay-100">
+                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
                         <img src="{{ asset('images/service-banner-mechanic.jpg') }}" alt="124+ Mekanik Profesional SHASS"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        <div class="absolute top-3 left-3">
-                            <span
-                                class="text-[11px] font-sans font-bold uppercase tracking-wider text-white bg-[#00163c]/90 px-2.5 py-0.5 border border-white/20">
-                                SERTIFIKASI ATPM
-                            </span>
-                        </div>
-                        <div class="absolute bottom-2.5 left-3.5">
-                            <span
-                                class="text-2xl sm:text-3xl font-bold font-barlow-condensed uppercase not-italic text-white tracking-wider block drop-shadow-md">
-                                124+ MEKANIK
-                            </span>
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                        <div
+                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
                         </div>
                     </div>
-                    <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <h3
-                                class="text-base font-bold font-sans text-slate-900 group-hover:text-[#0067b1] transition-colors">
-                                Lebih dari 124 mekanik profesional
-                            </h3>
-                            <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed font-normal">
-                                Teknisi tersertifikasi pabrikan yang terlatih menangani overhaul mesin, transmisi FAST,
-                                serta sistem hidrolik langsung di lokasi site.
-                            </p>
-                        </div>
+                    <div class="pt-4 flex flex-col">
+                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">01</span>
+                        <h3
+                            class="text-base sm:text-lg font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                            Lebih dari 124 Mekanik Profesional
+                        </h3>
+                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                            Teknisi tersertifikasi ATPM yang terlatih menangani overhaul mesin Weichai, transmisi FAST, serta sistem hidrolik langsung di lokasi site.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Card 2: 5 Cabang Eksklusif -->
-                <div
-                    class="bg-white border border-slate-200 hover:border-[#0067b1] flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 group reveal-on-scroll reveal-delay-150">
-                    <div class="relative w-full h-56 overflow-hidden bg-slate-100">
+                <!-- 02. 5 Cabang Eksklusif -->
+                <div class="flex flex-col group reveal-on-scroll reveal-delay-150">
+                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
                         <img src="{{ asset('images/service-banner-facility.jpg') }}"
                             alt="5 Cabang Eksklusif Seluruh Indonesia"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        <div class="absolute top-3 left-3">
-                            <span
-                                class="text-[11px] font-sans font-bold uppercase tracking-wider text-white bg-[#0067b1]/90 px-2.5 py-0.5 border border-white/20">
-                                JANGKAUAN
-                            </span>
-                        </div>
-                        <div class="absolute bottom-2.5 left-3.5">
-                            <span
-                                class="text-2xl sm:text-3xl font-bold font-barlow-condensed uppercase not-italic text-white tracking-wider block drop-shadow-md">
-                                5 CABANG
-                            </span>
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                        <div
+                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
                         </div>
                     </div>
-                    <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <h3
-                                class="text-base font-bold font-sans text-slate-900 group-hover:text-[#0067b1] transition-colors">
-                                Didukung oleh 5 cabang eksklusif di seluruh Indonesia
-                            </h3>
-                            <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed font-normal">
-                                Fasilitas workshop representatif dan kantor operasional yang tersebar strategis di sentra
-                                logistik dan pertambangan di seluruh Indonesia.
-                            </p>
-                        </div>
+                    <div class="pt-4 flex flex-col">
+                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">02</span>
+                        <h3
+                            class="text-base sm:text-lg font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                            Didukung 5 Cabang Eksklusif
+                        </h3>
+                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                            Fasilitas workshop representatif dan kantor operasional yang tersebar strategis di sentra logistik dan pertambangan di seluruh Indonesia.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Card 3: Layanan 24/7 -->
-                <div
-                    class="bg-white border border-slate-200 hover:border-[#0067b1] flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 group reveal-on-scroll reveal-delay-200">
-                    <div class="relative w-full h-56 overflow-hidden bg-slate-100">
+                <!-- 03. Layanan Pelanggan 24/7 -->
+                <div class="flex flex-col group reveal-on-scroll reveal-delay-200">
+                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
                         <img src="{{ asset('images/service-banner-support.jpg') }}" alt="Layanan Pelanggan 24/7"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        <div class="absolute top-3 left-3">
-                            <span
-                                class="text-[11px] font-sans font-bold uppercase tracking-wider text-white bg-[#00163c]/90 px-2.5 py-0.5 border border-white/20">
-                                RESPONSE TIME
-                            </span>
-                        </div>
-                        <div class="absolute bottom-2.5 left-3.5">
-                            <span
-                                class="text-2xl sm:text-3xl font-bold font-barlow-condensed uppercase not-italic text-white tracking-wider block drop-shadow-md">
-                                SIAGA 24/7
-                            </span>
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                        <div
+                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
                         </div>
                     </div>
-                    <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <h3
-                                class="text-base font-bold font-sans text-slate-900 group-hover:text-[#0067b1] transition-colors">
-                                Layanan pelanggan 24/7
-                            </h3>
-                            <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed font-normal">
-                                Customer support dan unit servis darurat yang siap merespons kebutuhan Anda setiap saat agar
-                                produktivitas operasional tidak terhenti.
-                            </p>
-                        </div>
+                    <div class="pt-4 flex flex-col">
+                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">03</span>
+                        <h3
+                            class="text-base sm:text-lg font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                            Layanan Pelanggan Siaga 24/7
+                        </h3>
+                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                            Customer support dan unit servis darurat yang siap merespons kebutuhan Anda setiap saat agar produktivitas operasional tidak terhenti.
+                        </p>
                     </div>
                 </div>
 
-                <!-- Card 4: Suku Cadang di Lokasi (Site Support) -->
-                <div
-                    class="bg-white border border-slate-200 hover:border-[#0067b1] flex flex-col justify-between overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 group reveal-on-scroll reveal-delay-300">
-                    <div class="relative w-full h-56 overflow-hidden bg-slate-100">
+                <!-- 04. Suku Cadang di Lokasi (Site Support) -->
+                <div class="flex flex-col group reveal-on-scroll reveal-delay-250">
+                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
                         <img src="{{ asset('images/service-banner-parts.jpg') }}"
                             alt="Ketersediaan Suku Cadang di Lokasi Site Support"
-                            class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
-                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-                        <div class="absolute top-3 left-3">
-                            <span
-                                class="text-[11px] font-sans font-bold uppercase tracking-wider text-white bg-[#00163c]/90 px-2.5 py-0.5 border border-white/20">
-                                INVENTORY ON-SITE
-                            </span>
-                        </div>
-                        <div class="absolute bottom-2.5 left-3.5">
-                            <span
-                                class="text-2xl sm:text-3xl font-bold font-barlow-condensed uppercase not-italic text-white tracking-wider block drop-shadow-md">
-                                SITE SUPPORT
-                            </span>
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                        <div
+                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
                         </div>
                     </div>
-                    <div class="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <h3
-                                class="text-base font-bold font-sans text-slate-900 group-hover:text-[#0067b1] transition-colors">
-                                Ketersediaan suku cadang di lokasi (site support)
-                            </h3>
-                            <p class="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed font-normal">
-                                Depo suku cadang konsinyasi orisinal yang disiapkan langsung di area proyek Anda untuk
-                                memangkas waktu tunggu komponen.
-                            </p>
-                        </div>
+                    <div class="pt-4 flex flex-col">
+                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">04</span>
+                        <h3
+                            class="text-base sm:text-lg font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                            Ketersediaan Suku Cadang di Lokasi
+                        </h3>
+                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                            Depo suku cadang konsinyasi orisinal yang disiapkan langsung di area proyek Anda untuk memangkas waktu tunggu komponen armada.
+                        </p>
                     </div>
                 </div>
 
@@ -478,125 +448,11 @@
             </div>
 
             <!-- Showcase Gambar Branch (Peta Jaringan Cabang dari dealershacman.com) -->
-            <div class="bg-white p-3 sm:p-6 border-2 border-slate-200 shadow-xl mb-12 reveal-on-scroll">
+            <div class="bg-white p-3 sm:p-6 border-2 border-slate-200 shadow-xl reveal-on-scroll">
                 <div class="relative overflow-hidden bg-slate-100 flex items-center justify-center">
                     <img src="{{ asset('images/about-branch-map.jpg') }}"
                         alt="Peta Jaringan Cabang PT Shindo Tractors Adiperkasa di Indonesia"
                         class="w-full h-auto max-h-[550px] object-contain select-none">
-                </div>
-            </div>
-
-            <!-- Detail 5 Alamat Cabang Resmi (Berdasarkan Data Branch Resmi) -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 font-sans reveal-on-scroll reveal-delay-150">
-                <!-- Branch 1: Jakarta Headquarter -->
-                <div
-                    class="bg-white p-6 border border-slate-200 border-t-4 border-t-[#00163c] shadow-xs hover:shadow-md transition-shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-[#00163c] uppercase tracking-wider">HEADQUARTER</span>
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-1">Jakarta Headquarter</h3>
-                    <p class="text-xs text-[#0067b1] font-semibold mb-3">Unit Showroom, After Sales Support & Sparepart</p>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        THC 59 Kamal Penjaringan, Jakarta Utara DKI Jakarta 14470
-                    </p>
-                    <div class="border-t border-slate-100 pt-3 text-xs space-y-1 text-slate-600">
-                        <p><span class="font-semibold text-slate-800">Tel:</span> (021) 225 743 51</p>
-                        <p><span class="font-semibold text-slate-800">HP / WA:</span> +62 821 2888 9556</p>
-                        <p><span class="font-semibold text-slate-800">Email:</span> sales@shindo.id</p>
-                    </div>
-                </div>
-
-                <!-- Branch 2: Balikpapan Branches -->
-                <div
-                    class="bg-white p-6 border border-slate-200 border-t-4 border-t-[#0067b1] shadow-xs hover:shadow-md transition-shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-[#0067b1] uppercase tracking-wider">KALIMANTAN HUB</span>
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-1">Balikpapan Branches</h3>
-                    <p class="text-xs text-[#0067b1] font-semibold mb-3">After Sales Support & Sparepart</p>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        Ruko Stallkuda, Jl. Jenderal Sudirman No.41B, Gunung Bahagia, Kecamatan Balikpapan Selatan, Kota
-                        Balikpapan, Kalimantan Timur 76114
-                    </p>
-                    <div class="border-t border-slate-100 pt-3 text-xs text-slate-600">
-                        <p><span class="font-semibold text-slate-800">Fokus:</span> Tambang Batubara & Konstruksi IKN</p>
-                    </div>
-                </div>
-
-                <!-- Branch 3: Morowali Branches -->
-                <div
-                    class="bg-white p-6 border border-slate-200 border-t-4 border-t-[#0067b1] shadow-xs hover:shadow-md transition-shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-[#0067b1] uppercase tracking-wider">SULAWESI NIKEL</span>
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-1">Morowali Branches</h3>
-                    <p class="text-xs text-[#0067b1] font-semibold mb-3">After Sales Support & Sparepart</p>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        Desa Lalampu, Kecamatan Bahodopi, Morowali, Sulawesi Tengah
-                    </p>
-                    <div class="border-t border-slate-100 pt-3 text-xs text-slate-600">
-                        <p><span class="font-semibold text-slate-800">Fokus:</span> Hauling Tambang Nikel & Smelter</p>
-                    </div>
-                </div>
-
-                <!-- Branch 4: Semarang Branches -->
-                <div
-                    class="bg-white p-6 border border-slate-200 border-t-4 border-t-slate-700 shadow-xs hover:shadow-md transition-shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">JAWA TENGAH</span>
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-1">Semarang Branches</h3>
-                    <p class="text-xs text-[#0067b1] font-semibold mb-3">After Sales Support & Sparepart</p>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        Jl. Citarum No.31, Bugangan, Kec. Semarang Timur, Kota Semarang, Jawa Tengah 50126
-                    </p>
-                    <div class="border-t border-slate-100 pt-3 text-xs text-slate-600">
-                        <p><span class="font-semibold text-slate-800">Fokus:</span> Koridor Logistik Pantura & Quarry</p>
-                    </div>
-                </div>
-
-                <!-- Branch 5: Surabaya Branches -->
-                <div
-                    class="bg-white p-6 border border-slate-200 border-t-4 border-t-slate-700 shadow-xs hover:shadow-md transition-shadow">
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-slate-700 uppercase tracking-wider">JAWA TIMUR</span>
-                        <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
-                    </div>
-                    <h3 class="text-lg font-bold text-slate-900 mb-1">Surabaya Branches</h3>
-                    <p class="text-xs text-[#0067b1] font-semibold mb-3">After Sales Support</p>
-                    <p class="text-xs text-slate-600 leading-relaxed mb-4">
-                        Ruko Pondok Candra Indah TF 19, Pondok Candra, Palem, Wadungasri, Kabupaten Sidoarjo, Jawa Timur
-                        60400
-                    </p>
-                    <div class="border-t border-slate-100 pt-3 text-xs text-slate-600">
-                        <p><span class="font-semibold text-slate-800">Fokus:</span> Distribusi Pelabuhan & Hauling Jawa
-                            Timur</p>
-                    </div>
-                </div>
-
-                <!-- Quick Action Box: Konsultasi Armada -->
-                <div class="bg-[#00163c] text-white p-6 border border-[#00163c] shadow-xs flex flex-col justify-between">
-                    <div>
-                        <span class="text-xs font-bold text-blue-300 uppercase tracking-wider block mb-2">KONSULTASI
-                            ARMADA</span>
-                        <h3 class="text-xl font-bold font-barlow-condensed uppercase tracking-wide mb-2">
-                            Percayakan Alat Berat Anda kepada Kami
-                        </h3>
-                        <p class="text-xs text-slate-300 leading-relaxed">
-                            Percayakan kebutuhan transportasi alat berat Anda kepada kami, dan rasakan perbedaan yang dibawa
-                            oleh kualitas, keandalan, dan layanan pelanggan yang luar biasa.
-                        </p>
-                    </div>
-                    <div class="pt-4">
-                        <a href="{{ url('/kontak') }}"
-                            class="inline-flex items-center justify-center w-full px-5 py-3 bg-[#0067b1] hover:bg-[#00528e] text-white font-bold text-xs uppercase tracking-wider transition-colors shadow-sm">
-                            <span>Hubungi Kami Sekarang</span>
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -622,10 +478,6 @@
                                 class="w-full h-full object-cover select-none">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#00163c]/50 via-transparent to-transparent">
                             </div>
-                            <div
-                                class="absolute bottom-4 left-4 text-white text-xs font-sans font-bold uppercase tracking-wider bg-black/60 px-3 py-1 border border-white/20">
-                                STRATEGIC HAULING PARTNER
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -633,10 +485,6 @@
                 <!-- Right Column: Copywriting & Commitments -->
                 <div class="lg:col-span-6 order-1 lg:order-2 space-y-6 reveal-on-scroll reveal-delay-200">
                     <div>
-                        <span
-                            class="inline-flex items-center px-3 py-1 bg-[#0067b1]/10 text-[#0067b1] border border-[#0067b1]/20 text-xs font-sans font-bold uppercase tracking-wider mb-3">
-                            KEMITRAAN
-                        </span>
                         <h2
                             class="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase not-italic font-barlow-condensed tracking-tight text-[#00163c] leading-[1.02]">
                             Komitmen Kemitraan Jangka Panjang

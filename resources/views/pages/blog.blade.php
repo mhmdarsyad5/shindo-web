@@ -50,9 +50,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal-on-scroll">
                 <div class="max-w-2xl">
-                    <span class="inline-flex items-center px-3 py-1 bg-[#0067b1]/10 text-[#0067b1] text-xs font-sans font-bold uppercase tracking-wider mb-3 border border-[#0067b1]/20">
-                        BERITA TERBARU
-                    </span>
                     <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase font-barlow-condensed not-italic text-[#00163c] leading-none tracking-tight">
                         BLOG & ARTIKEL TERBARU
                     </h1>
@@ -178,31 +175,10 @@
         </div>
     </section>
 
-    <!-- ================= 3. TECHNICAL SUPPORT CTA ================= -->
-    <section class="relative w-full overflow-hidden text-white py-14 sm:py-20 lg:py-24 border-t border-slate-200">
-        <img src="{{ asset('images/series/pro_detail08_1.jpg') }}" alt="Armada Truk Shacman Operasional"
-            class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none">
-        <div class="absolute inset-0 bg-[#00163c]/75 sm:bg-[#00163c]/65 backdrop-brightness-95"></div>
-
-        <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
-            <div class="bg-white border-t-4 border-[#0067b1] border-x border-b border-slate-200 p-6 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl reveal-on-scroll">
-                <div>
-                    <div class="text-xs font-sans text-[#0067b1] font-bold uppercase tracking-wider mb-1">
-                        BANTUAN TEKNIS
-                    </div>
-                    <h4 class="text-xl sm:text-3xl font-bold uppercase font-barlow-condensed not-italic text-[#00163c]">
-                        PUNYA KENDALA TEKNIS PADA ARMADA TRUK ANDA?
-                    </h4>
-                    <p class="text-slate-600 text-xs sm:text-sm mt-1 max-w-2xl leading-relaxed font-normal">
-                        Konsultasikan dengan tim mekanik dan aftersales service SHINDO untuk troubleshooting dan ketersediaan part.
-                    </p>
-                </div>
-                <a href="{{ url('/kontak') }}"
-                    class="px-8 py-3.5 bg-[#0067b1] hover:bg-[#005a9c] text-white font-bold text-xs uppercase font-barlow-condensed not-italic tracking-wider shadow-md transition-colors flex-shrink-0">
-                    Hubungi Aftersales Support
-                </a>
-            </div>
-        </div>
+    <!-- ================= CINEMATIC ARMADA SHOWCASE BANNER ================= -->
+    <section class="relative w-full overflow-hidden bg-[#070e1e] border-t border-slate-800">
+        <img src="{{ asset('images/series/pro_detail08_1.jpg') }}" alt="Armada Truk SHACMAN PT SHINDO"
+            class="w-full h-auto block select-none pointer-events-none">
     </section>
 @endsection
 

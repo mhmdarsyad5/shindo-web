@@ -69,7 +69,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal-on-scroll">
                 <div class="max-w-2xl">
-                    <span class="inline-flex items-center px-3 py-1 bg-[#0067b1]/10 text-[#0067b1] text-xs font-sans font-bold uppercase tracking-wider mb-3 border border-[#0067b1]/20">
+                    <span class="inline-flex items-center px-3.5 py-1 bg-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider mb-3 shadow-xs">
                         {{ $settings->services_badge ?? 'LAYANAN AFTERSALES' }}
                     </span>
                     <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase font-barlow-condensed not-italic text-[#00163c] leading-none tracking-tight">
@@ -298,45 +298,10 @@
         </div>
     </section>
 
-    <!-- ================= 4. EMERGENCY CALLOUT BANNER (SERIES DETAIL HOW WE CAN HELP STYLE) ================= -->
-    @php
-        $waPhone = preg_replace('/[^0-9]/', '', $site->office_phone ?? '6281234567890');
-        if (str_starts_with($waPhone, '0')) {
-            $waPhone = '62' . substr($waPhone, 1);
-        }
-    @endphp
-    <section class="relative w-full overflow-hidden text-white py-14 sm:py-20 border-t border-slate-200">
-        <!-- Background Image with Shacman Trucks -->
-        <img src="{{ asset('images/series/pro_detail08_1.jpg') }}" alt="Armada Truk Shacman"
-            class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none">
-        <div class="absolute inset-0 bg-[#00163c]/75 sm:bg-[#00163c]/65 backdrop-brightness-95"></div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="bg-white border-t-4 border-[#0067b1] border-x border-b border-slate-200 p-6 sm:p-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6 shadow-2xl reveal-on-scroll">
-                <div>
-                    <span class="text-xs font-sans font-bold text-[#0067b1] uppercase tracking-wider block mb-1">
-                        LAYANAN DARURAT
-                    </span>
-                    <h3 class="text-2xl sm:text-4xl font-bold font-barlow-condensed uppercase not-italic leading-none text-[#00163c]">
-                        BUTUH DUKUNGAN MEKANIK ATAU SUKU CADANG DI SITE?
-                    </h3>
-                    <p class="mt-2.5 text-xs sm:text-sm text-slate-600 max-w-2xl leading-relaxed font-normal">
-                        Hubungi koordinator technical service PT SHINDO untuk respon cepat darurat, diagnosa teknis, atau jadwal servis armada di lokasi proyek Anda.
-                    </p>
-                </div>
-                <div class="flex flex-col sm:flex-row gap-3 w-full sm:w-auto shrink-0">
-                    <a href="https://wa.me/{{ $waPhone }}?text={{ urlencode('Halo Technical Support PT SHINDO, kami membutuhkan emergency dispatch mekanik / konsultasi aftersales armada.') }}"
-                        target="_blank" rel="noopener noreferrer"
-                        class="px-6 py-3.5 bg-[#0067b1] hover:bg-[#005a9c] text-white font-bold text-xs uppercase font-barlow-condensed not-italic tracking-wider transition-colors text-center shadow-md">
-                        Hubungi Emergency Support (24 Jam)
-                    </a>
-                    <a href="{{ url('/kontak') }}"
-                        class="px-6 py-3.5 border-2 border-slate-300 hover:border-[#00163c] bg-white hover:bg-slate-50 text-slate-800 font-bold text-xs uppercase font-barlow-condensed not-italic tracking-wider transition-colors text-center">
-                        Hubungi Kantor Kami
-                    </a>
-                </div>
-            </div>
-        </div>
+    <!-- ================= CINEMATIC ARMADA SHOWCASE BANNER ================= -->
+    <section class="relative w-full overflow-hidden bg-[#070e1e] border-t border-slate-800">
+        <img src="{{ asset('images/series/pro_detail08_1.jpg') }}" alt="Armada Truk SHACMAN PT SHINDO"
+            class="w-full h-auto block select-none pointer-events-none">
     </section>
 @endsection
 

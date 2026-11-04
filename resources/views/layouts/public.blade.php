@@ -9,6 +9,10 @@
     <meta name="description"
         content="@yield('meta_description', 'Authorized Dealer Resmi SHACMAN Indonesia - Solusi Truk Heavy Duty Terbaik & Tangguh di Segala Medan.')">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('favicon.png') }}">
+    <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+
     <!-- Google Fonts: Barlow & Barlow Condensed -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
