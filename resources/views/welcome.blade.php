@@ -157,7 +157,7 @@
                                 <!-- Dropdown Produk dengan 3 Series (Duta Hino Style) -->
                                 <div class="relative group flex items-center h-[68px] sm:h-[74px]">
                                     <a href="{{ url('/produk') }}"
-                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-sm transition-colors {{ $isProdukActive ? 'bg-[#004880] text-white font-bold' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
+                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-sm transition-colors {{ $isProdukActive ? 'bg-[#004880] text-white font-medium' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
                                         <span>Produk</span>
                                         <svg class="w-3.5 h-3.5 transition-transform duration-250 ease-out group-hover:rotate-180"
                                             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -194,7 +194,7 @@
                                 </div>
                             @else
                                 <a href="{{ $nav['url'] ?? '#' }}"
-                                    class="inline-flex items-center px-3.5 py-1.5 text-sm transition-colors {{ $isActive ? 'bg-[#004880] text-white font-bold' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
+                                    class="inline-flex items-center px-3.5 py-1.5 text-sm transition-colors {{ $isActive ? 'bg-[#004880] text-white font-medium' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
                                     <span>{{ $nav['label'] ?? '' }}</span>
                                 </a>
                             @endif
@@ -246,7 +246,7 @@
                         <!-- Mobile Accordion for Produk -->
                         <div class="space-y-1">
                             <button type="button" id="mobile-dumptruck-toggle"
-                                class="w-full flex items-center justify-between px-3.5 py-2.5 text-base transition-colors {{ $isProdukActive ? 'bg-[#004880] text-white font-bold' : 'text-white hover:bg-white/10 font-medium' }}">
+                                class="w-full flex items-center justify-between px-3.5 py-2.5 text-base transition-colors {{ $isProdukActive ? 'bg-[#004880] text-white font-medium' : 'text-white hover:bg-white/10 font-medium' }}">
                                 <span>Produk</span>
                                 <svg id="mobile-dumptruck-arrow" class="w-4 h-4 transition-transform duration-200" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -277,7 +277,7 @@
                         </div>
                     @else
                         <a href="{{ $nav['url'] ?? '#' }}"
-                            class="block px-3.5 py-2.5 text-base transition-colors {{ $isActive ? 'bg-[#004880] text-white font-bold' : 'text-white hover:bg-white/10 font-medium' }}">
+                            class="block px-3.5 py-2.5 text-base transition-colors {{ $isActive ? 'bg-[#004880] text-white font-medium' : 'text-white hover:bg-white/10 font-medium' }}">
                             {{ $nav['label'] ?? '' }}
                         </a>
                     @endif
