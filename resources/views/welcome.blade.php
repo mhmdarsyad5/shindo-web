@@ -34,6 +34,22 @@
             font-family: 'Barlow', ui-sans-serif, system-ui, sans-serif !important;
         }
 
+        /* Scrim Ease Gradient & Mask: Subtle, natural fade at bottom 25% */
+        .service-fade-mask {
+            -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 70%, rgba(0, 0, 0, 0.85) 82%, rgba(0, 0, 0, 0.35) 93%, transparent 100%);
+            mask-image: linear-gradient(to bottom, #000 0%, #000 70%, rgba(0, 0, 0, 0.85) 82%, rgba(0, 0, 0, 0.35) 93%, transparent 100%);
+        }
+
+        .service-smooth-fade {
+            background: linear-gradient(to top,
+                    #ffffff 0%,
+                    #ffffff 15%,
+                    rgba(255, 255, 255, 0.9) 35%,
+                    rgba(255, 255, 255, 0.6) 60%,
+                    rgba(255, 255, 255, 0.2) 85%,
+                    transparent 100%);
+        }
+
         /* ================= SCROLL ENTRANCE ANIMATIONS ================= */
         .reveal-on-scroll {
             opacity: 0;
@@ -105,7 +121,7 @@
 </head>
 
 <body
-    class="bg-white text-neutral-900 antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-amber-400 selection:text-neutral-900">
+    class="bg-white text-neutral-900 antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-[#0067b1] selection:text-white">
 
     <!-- ================= HEADER WRAPPER ================= -->
     <header id="main-header"
@@ -145,7 +161,7 @@
                                     </a>
 
                                     <!-- Dropdown Submenu: Pas di Bawah Kotak Navbar, Sharp Non-rounded, Animasi Halus -->
-                                    <div class="dh-dropdown-menu w-56 shadow-2xl z-50">
+                                    <div class="dh-dropdown-menu w-64 shadow-2xl z-50">
                                         <div class="bg-white border border-slate-200 py-1.5">
                                             <a href="{{ route('produk.series', 'x3000') }}" class="dh-dropdown-item">
                                                 <span>SHACMAN X3000 Series</span>
@@ -156,6 +172,18 @@
                                             <a href="{{ route('produk.series', 'f3000') }}" class="dh-dropdown-item">
                                                 <span>SHACMAN F3000 Series</span>
                                             </a>
+
+                                            <!-- Tombol Katalog Produk: Dibedain & Ditaro di Bawah -->
+                                            <div class="pt-1.5 mt-1 border-t border-slate-200 px-2 pb-0.5">
+                                                <a href="{{ url('/produk') }}"
+                                                    class="flex items-center justify-between px-3 py-2 bg-slate-50 hover:bg-[#0067b1] text-slate-800 hover:text-white border border-slate-200 hover:border-[#0067b1] transition-all duration-200 group/btn">
+                                                    <span class="text-xs font-bold font-sans uppercase tracking-wider">Katalog Produk</span>
+                                                    <svg class="w-3.5 h-3.5 text-[#0067b1] group-hover/btn:text-white transform group-hover/btn:translate-x-0.5 transition-all"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                    </svg>
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -179,7 +207,7 @@
                     <!-- Mobile Menu Button -->
                     <div class="flex md:hidden items-center">
                         <button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
-                            class="text-white p-2 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                            class="text-white p-2 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white"
                             aria-label="Toggle Navigation">
                             <svg id="hamburger-icon" class="h-6 w-6 block" fill="none" viewBox="0 0 24 24"
                                 stroke="currentColor">
@@ -208,31 +236,38 @@
                         <!-- Mobile Accordion for Produk -->
                         <div class="space-y-1">
                             <button type="button" id="mobile-dumptruck-toggle"
-                                class="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-white hover:bg-white/10 hover:text-amber-300">
+                                class="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-white hover:bg-white/10">
                                 <span>Produk</span>
                                 <svg id="mobile-dumptruck-arrow" class="w-4 h-4 transition-transform duration-200" fill="none"
                                     viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                                 </svg>
                             </button>
-                            <div id="mobile-dumptruck-submenu" class="hidden pl-4 pr-2 py-1 space-y-1 bg-[#004880]/50">
+                            <div id="mobile-dumptruck-submenu" class="hidden pl-4 pr-2 py-1.5 space-y-1 bg-[#004880]/50">
                                 <a href="{{ route('produk.series', 'x3000') }}"
-                                    class="block px-3 py-1.5 text-sm text-slate-100 hover:text-amber-300">
+                                    class="block px-3 py-1.5 text-sm text-slate-100 hover:text-white">
                                     SHACMAN X3000 Series
                                 </a>
                                 <a href="{{ route('produk.series', 'h3000') }}"
-                                    class="block px-3 py-1.5 text-sm text-slate-100 hover:text-amber-300">
+                                    class="block px-3 py-1.5 text-sm text-slate-100 hover:text-white">
                                     SHACMAN H3000 Series
                                 </a>
                                 <a href="{{ route('produk.series', 'f3000') }}"
-                                    class="block px-3 py-1.5 text-sm text-slate-100 hover:text-amber-300">
+                                    class="block px-3 py-1.5 text-sm text-slate-100 hover:text-white">
                                     SHACMAN F3000 Series
                                 </a>
+                                <div class="pt-2 mt-1 border-t border-white/15 px-1 pb-1">
+                                    <a href="{{ url('/produk') }}"
+                                        class="flex items-center justify-between px-3 py-2 bg-white/10 hover:bg-white text-white hover:text-[#00163c] text-xs font-bold font-sans uppercase tracking-wider transition-colors">
+                                        <span>Katalog Produk</span>
+                                        <span>→</span>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     @else
                         <a href="{{ $nav['url'] ?? '#' }}"
-                            class="block px-3 py-2 text-base {{ request()->is(ltrim($nav['url'] ?? '', '/')) ? 'font-semibold text-[#f59e0b] bg-white/10' : 'font-medium text-white hover:bg-white/10 hover:text-amber-300' }}">
+                            class="block px-3 py-2 text-base {{ request()->is(ltrim($nav['url'] ?? '', '/')) ? 'font-semibold text-white bg-white/15' : 'font-medium text-white hover:bg-white/10' }}">
                             {{ $nav['label'] ?? '' }}
                         </a>
                     @endif
@@ -279,18 +314,18 @@
     </section>
 
     <!-- ================= STATS BANNER SECTION ================= -->
-    <section class="w-full bg-[#0b132b] border-t border-slate-800/60 py-4 sm:py-7 lg:py-8 flex-shrink-0 z-20">
+    <section class="w-full bg-[#00163c] border-y border-slate-800/80 py-5 sm:py-7 lg:py-8 flex-shrink-0 z-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 lg:gap-8 items-center">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 items-center">
 
                 @foreach($settings->stats ?? [] as $idx => $stat)
                     <div
-                        class="flex items-center space-x-2.5 sm:space-x-4 reveal-on-scroll {{ $idx === 0 ? 'reveal-delay-100' : ($idx === 1 ? 'reveal-delay-200' : ($idx === 2 ? 'reveal-delay-300' : 'reveal-delay-400')) }}">
+                        class="flex items-center space-x-3 sm:space-x-4 reveal-on-scroll {{ $idx === 0 ? 'reveal-delay-100' : ($idx === 1 ? 'reveal-delay-200' : ($idx === 2 ? 'reveal-delay-300' : 'reveal-delay-400')) }}">
                         <div
-                            class="w-9 h-9 sm:w-12 sm:h-12 bg-[#151c33] border border-white/5 flex items-center justify-center text-slate-300 flex-shrink-0 shadow-xs">
+                            class="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 border border-white/10 flex items-center justify-center text-white flex-shrink-0 shadow-xs">
                             @if(($stat['icon'] ?? '') === 'handshake')
                                 <!-- Handshake Icon -->
-                                <svg class="w-5 h-5 sm:w-6.5 sm:h-6.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="m11 17 2 2a1 1 0 0 0 1.4 0l4.3-4.3a1 1 0 0 0 0-1.4l-3-3a1 1 0 0 0-1.4 0L13 11.6">
                                     </path>
@@ -301,7 +336,7 @@
                                 </svg>
                             @elseif(($stat['icon'] ?? '') === 'map-pin')
                                 <!-- Location Pin Icon -->
-                                <svg class="w-5 h-5 sm:w-6.5 sm:h-6.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <path
                                         d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0">
@@ -310,7 +345,7 @@
                                 </svg>
                             @elseif(($stat['icon'] ?? '') === 'shield-check')
                                 <!-- Shield Check Icon -->
-                                <svg class="w-5 h-5 sm:w-6.5 sm:h-6.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <path
                                         d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z">
@@ -319,7 +354,7 @@
                                 </svg>
                             @else
                                 <!-- Default Truck Icon -->
-                                <svg class="w-5 h-5 sm:w-6.5 sm:h-6.5" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
                                     <rect x="1" y="3" width="15" height="13"></rect>
                                     <polygon points="16 8 20 8 23 11 23 16 16 8"></polygon>
@@ -329,10 +364,11 @@
                             @endif
                         </div>
                         <div>
-                            <div class="text-base sm:text-xl md:text-2xl font-bold text-white tracking-normal font-sans">
+                            <div
+                                class="text-xl sm:text-2xl md:text-3xl font-bold text-white font-barlow-condensed uppercase tracking-tight leading-none">
                                 {{ $stat['value'] ?? '' }}
                             </div>
-                            <div class="text-[11px] sm:text-xs text-slate-400 font-normal mt-0.5 leading-tight">
+                            <div class="text-xs sm:text-sm text-slate-300 font-sans font-normal mt-1 leading-tight">
                                 {{ $stat['label'] ?? '' }}
                             </div>
                         </div>
@@ -400,7 +436,7 @@
                     </a>
                     <a href="{{ $site->cta_url ?? '/kontak' }}"
                         class="flex-1 sm:flex-initial sm:min-w-[190px] inline-flex items-center justify-center px-6 sm:px-8 py-2.5 sm:py-3 bg-[#0067b1] hover:bg-[#00528e] text-white border-2 border-[#0067b1] hover:border-[#00528e] font-bold text-xs sm:text-sm uppercase font-barlow-condensed tracking-wider transition-all duration-200 shadow-md text-center">
-                        Minta Penawaran Harga
+                        Hubungi Kami
                     </a>
                 </div>
             </div>
@@ -415,12 +451,10 @@
         <div class="absolute inset-0 z-0">
             <img src="{{ asset('images/about-shacman-fleet-bg.png') }}" alt="Armada Truk SHACMAN PT SHINDO"
                 class="w-full h-full object-cover object-[center_35%] select-none pointer-events-none">
-            <!-- Cinematic Dark Gradient Overlay (Meniru Style Gambar 1: Gelap & Kontras Tinggi di Sisi Teks) -->
+            <!-- Cinematic Dark Gradient Overlay -->
             <div class="absolute inset-0 bg-gradient-to-t from-[#070e1e] via-[#070e1e]/85 to-black/60 lg:hidden"></div>
             <div
-                class="absolute inset-0 hidden lg:block bg-gradient-to-r from-black/35 via-[#070e1e]/75 to-[#070e1e]/98">
-            </div>
-            <div class="absolute inset-0 bg-radial from-transparent via-transparent to-black/50 pointer-events-none">
+                class="absolute inset-0 hidden lg:block bg-gradient-to-r from-black/40 via-[#070e1e]/80 to-[#070e1e]/98">
             </div>
         </div>
 
@@ -430,27 +464,27 @@
                 <!-- Spacer di Kiri (Untuk membiarkan background deretan armada truk tetap terlihat gagah) -->
                 <div class="hidden lg:block lg:col-span-5 xl:col-span-6"></div>
 
-                <!-- Kolom Teks di Kanan (Style Gambar 1 dengan Copywriting Gambar 2) -->
+                <!-- Kolom Teks di Kanan -->
                 <div class="lg:col-span-7 xl:col-span-6 flex flex-col items-start justify-center reveal-on-scroll">
 
                     <!-- Badge 'TENTANG KAMI' -->
                     <span
-                        class="inline-flex items-center px-4 py-1.5 bg-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider shadow-md mb-2.5">
+                        class="inline-flex items-center px-3.5 py-1.5 bg-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider mb-2.5">
                         {{ $settings->about_badge ?? 'TENTANG KAMI' }}
                     </span>
 
                     <!-- Big Bold Heading: SHACMAN – TRUK HEAVY-DUTY PILIHAN UTAMA INDONESIA -->
                     <h2
                         class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase leading-[0.95] text-white font-barlow-condensed tracking-tight">
-                        {{ $settings->about_title ?? 'SHACMAN – TRUK HEAVY-DUTY PILIHAN UTAMA INDONESIA' }}
+                        {{ $settings->about_title ?? 'SHACMAN – TRUK PILIHAN UTAMA INDONESIA' }}
                     </h2>
 
-                    <!-- Paragraf Deskripsi dari Gambar 2 -->
+                    <!-- Paragraf Deskripsi -->
                     <p class="mt-3 text-slate-200 text-sm sm:text-base leading-relaxed font-normal">
                         {{ $settings->about_description_1 ?? 'Sebagai authorized dealer resmi, kami berkomitmen menjaga produktivitas operasional Anda dengan Advance features yang mendukung kinerja tinggi dan stabil. Kami melayani pengadaan unit baru, penyediaan suku cadang asli bergaransi, hingga perawatan berkala oleh teknisi bersertifikat langsung di site Anda.' }}
                     </p>
 
-                    <!-- Checklist Fitur / Poin Keunggulan dari Gambar 2 -->
+                    <!-- Checklist Fitur / Poin Keunggulan -->
                     @php
                         $aboutPoints = !empty($settings->about_features) ? $settings->about_features : [
                             ['title' => 'Mitra Penjualan Resmi Bersertifikasi SHACMAN Global'],
@@ -458,13 +492,13 @@
                             ['title' => 'Jaminan Ketersediaan Suku Cadang Orisinal'],
                         ];
                     @endphp
-                    <div class="space-y-2 mt-4 pt-4 border-t border-white/15 w-full">
+                    <div class="space-y-2.5 mt-4 pt-4 border-t border-white/20 w-full">
                         @foreach($aboutPoints as $point)
                             <div class="flex items-start space-x-3">
                                 <span
-                                    class="w-6 h-6 rounded-full bg-[#0067b1]/30 border border-[#0067b1] flex items-center justify-center text-[#38bdf8] flex-shrink-0 mt-0.5">
-                                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                                        stroke-width="2.5">
+                                    class="w-5 h-5 bg-[#0067b1] flex items-center justify-center text-white flex-shrink-0 mt-0.5 shadow-xs">
+                                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                                        stroke-width="3">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
                                     </svg>
                                 </span>
@@ -475,14 +509,14 @@
                         @endforeach
                     </div>
 
-                    <!-- Tombol Aksi dari Gambar 2: Hubungi Kami -->
-                    <div class="mt-5 flex flex-wrap items-center gap-3 sm:gap-4">
+                    <!-- Tombol Aksi: Hubungi Kami & Profil Perusahaan -->
+                    <div class="mt-6 flex flex-wrap items-center gap-3 sm:gap-4">
                         <a href="{{ url('/kontak') }}"
-                            class="inline-flex items-center justify-center px-7 py-3 bg-[#0067b1] hover:bg-[#00528e] text-white font-bold text-xs sm:text-sm uppercase font-sans tracking-wider shadow-lg transition-all duration-200 hover:scale-105">
+                            class="inline-flex items-center justify-center px-7 py-3 bg-[#0067b1] hover:bg-[#00528e] text-white font-bold text-xs sm:text-sm uppercase font-sans tracking-wider shadow-md transition-colors">
                             Hubungi Kami
                         </a>
                         <a href="{{ url('/tentang-kami') }}"
-                            class="inline-flex items-center justify-center px-6 py-3 bg-white/10 hover:bg-white/20 text-white border border-white/20 hover:border-white/40 font-bold text-xs sm:text-sm uppercase font-sans tracking-wider backdrop-blur-xs transition-all duration-200">
+                            class="inline-flex items-center justify-center px-6 py-3 border-2 border-white/80 hover:border-white hover:bg-white hover:text-[#00163c] text-white font-bold text-xs sm:text-sm uppercase font-sans tracking-wider transition-colors">
                             Profil Perusahaan
                         </a>
                     </div>
@@ -590,7 +624,7 @@
                         <div
                             class="bg-white p-5 sm:p-6 hover:shadow-xl transition-all duration-300 shadow-md group flex flex-col items-center text-center reveal-on-scroll {{ $idx === 0 ? 'reveal-delay-100' : ($idx === 1 ? 'reveal-delay-200' : ($idx === 2 ? 'reveal-delay-300' : 'reveal-delay-400')) }}">
                             <div
-                                class="w-12 h-12 rounded-full bg-[#0067b1]/10 text-[#0067b1] flex items-center justify-center mb-3.5 group-hover:bg-[#0067b1] group-hover:text-white transition-colors flex-shrink-0">
+                                class="w-12 h-12 border border-slate-200 bg-slate-50 text-[#0067b1] flex items-center justify-center mb-3.5 group-hover:bg-[#0067b1] group-hover:border-[#0067b1] group-hover:text-white transition-all duration-300 flex-shrink-0">
                                 @if(($adv['icon'] ?? '') === 'cpu' || str_contains(strtolower($adv['title'] ?? ''), 'torsi') || str_contains(strtolower($adv['title'] ?? ''), 'mesin'))
                                     <!-- Microchip / Processor Engine Control Icon (Sesuai Gambar) -->
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -649,156 +683,164 @@
         </section>
     @endif
 
-    <!-- ================= SECTION 5: LAYANAN AFTERSALES (FULL WIDTH) ================= -->
-    <section id="layanan" class="w-full bg-[#070e1e] border-t border-b border-slate-800">
-        <!-- Section Header dari CMS -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 sm:pt-14 pb-6 sm:pb-8 text-center reveal-on-scroll">
+    <!-- ================= SECTION 5: LAYANAN AFTERSALES ================= -->
+    <section id="layanan" class="w-full bg-white py-14 sm:py-20 lg:py-24 border-t border-slate-200">
+        <!-- Section Header -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14 text-center reveal-on-scroll">
             @if(!empty($settings->services_badge))
                 <span
-                    class="inline-flex items-center px-3 py-1 bg-white/5 border border-white/10 text-amber-400 text-xs font-sans font-bold uppercase tracking-wider mb-2.5">
+                    class="inline-flex items-center px-3.5 py-1 bg-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider mb-2.5 shadow-xs">
                     {{ $settings->services_badge }}
                 </span>
             @endif
             <h2
-                class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase font-barlow-condensed leading-none tracking-tight text-white">
+                class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase font-barlow-condensed leading-none tracking-tight text-[#00163c]">
                 {{ $settings->services_title ?? 'DUKUNGAN PENUH UNTUK BISNIS ANDA' }}
             </h2>
             @if(!empty($settings->services_subtitle))
-                <p class="mt-2 text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal">
+                <p class="mt-2.5 text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal">
                     {{ $settings->services_subtitle }}
                 </p>
             @endif
         </div>
 
-        <!-- 6 Kolom Full-Width Edge-to-Edge Gambar & Konten Layanan Asli -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-full">
+        <!-- Kolom Card Layanan (Style Minimalist Editorial Sesuai Gambar Referensi) -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
 
-            <!-- Column 1: Penjualan Unit Baru -->
-            <div
-                class="relative min-h-[260px] sm:min-h-[290px] lg:min-h-[320px] flex flex-col items-center justify-center text-center p-6 sm:p-8 overflow-hidden group border-b md:border-r border-white/10 reveal-on-scroll reveal-delay-100">
-                <img src="{{ asset('images/service-banner-facility.jpg') }}" alt="Penjualan Unit Baru SHACMAN"
-                    class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 select-none">
-                <div class="absolute inset-0 bg-black/65 group-hover:bg-black/55 transition-colors duration-300"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30"></div>
-                <div class="relative z-10 max-w-sm mx-auto flex flex-col items-center justify-center text-center">
-                    <span class="text-amber-400 font-sans text-xs font-bold uppercase tracking-wider mb-1.5">01.
-                        PENJUALAN</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-white font-sans tracking-tight leading-tight">
-                        <a href="{{ url('/layanan') }}" class="hover:text-amber-400 transition-colors">
-                            Penjualan Unit Baru
-                        </a>
-                    </h3>
-                    <p class="mt-2 text-slate-200 text-xs sm:text-sm leading-relaxed max-w-xs font-normal">
-                        Pengadaan unit baru SHACMAN bergaransi resmi untuk kebutuhan tambang, konstruksi, dan logistik.
-                    </p>
+                <!-- Service 1: Penjualan Unit Baru -->
+                <div class="flex flex-col group reveal-on-scroll reveal-delay-100">
+                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
+                        <img src="{{ asset('images/service-banner-facility.jpg') }}" alt="Penjualan Unit Baru SHACMAN"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                        <div
+                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
+                        </div>
+                    </div>
+                    <div class="pt-4 flex flex-col">
+                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">01</span>
+                        <h3
+                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                            <a href="{{ url('/layanan') }}">Penjualan Unit Baru</a>
+                        </h3>
+                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                            Pengadaan unit baru SHACMAN bergaransi resmi untuk kebutuhan armada tambang, konstruksi, dan
+                            logistik skala besar.
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Column 2: Program Kontak Servis -->
-            <div
-                class="relative min-h-[260px] sm:min-h-[290px] lg:min-h-[320px] flex flex-col items-center justify-center text-center p-6 sm:p-8 overflow-hidden group border-b lg:border-r border-white/10 reveal-on-scroll reveal-delay-200">
-                <img src="{{ asset('images/service-banner-contract.jpg') }}" alt="Program Kontak Servis"
-                    class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 select-none">
-                <div class="absolute inset-0 bg-black/65 group-hover:bg-black/55 transition-colors duration-300"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30"></div>
-                <div class="relative z-10 max-w-sm mx-auto flex flex-col items-center justify-center text-center">
-                    <span class="text-amber-400 font-sans text-xs font-bold uppercase tracking-wider mb-1.5">02. KONTAK
-                        SERVIS</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-white font-sans tracking-tight leading-tight">
-                        <a href="{{ url('/layanan') }}" class="hover:text-amber-400 transition-colors">
-                            Program Kontak Servis
-                        </a>
-                    </h3>
-                    <p class="mt-2 text-slate-200 text-xs sm:text-sm leading-relaxed max-w-xs font-normal">
-                        Konsultasi teknis langsung, penjadwalan servis berkala, dan penanganan cepat kendala unit.
-                    </p>
+                <!-- Service 2: Program Kontak Servis -->
+                <div class="flex flex-col group reveal-on-scroll reveal-delay-200">
+                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
+                        <img src="{{ asset('images/service-banner-contract.jpg') }}" alt="Program Kontak Servis"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                        <div
+                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
+                        </div>
+                    </div>
+                    <div class="pt-4 flex flex-col">
+                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">02</span>
+                        <h3
+                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                            <a href="{{ url('/layanan') }}">Program Kontak Servis</a>
+                        </h3>
+                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                            Konsultasi teknis langsung, penjadwalan servis berkala, dan penanganan cepat kendala unit
+                            dengan standar pabrikan.
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Column 3: Garansi Terjamin -->
-            <div
-                class="relative min-h-[260px] sm:min-h-[290px] lg:min-h-[320px] flex flex-col items-center justify-center text-center p-6 sm:p-8 overflow-hidden group border-b md:border-r lg:border-r-0 border-white/10 reveal-on-scroll reveal-delay-300">
-                <img src="{{ asset('images/service-banner-warranty.jpg') }}" alt="Garansi Terjamin SHACMAN"
-                    class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 select-none">
-                <div class="absolute inset-0 bg-black/65 group-hover:bg-black/55 transition-colors duration-300"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30"></div>
-                <div class="relative z-10 max-w-sm mx-auto flex flex-col items-center justify-center text-center">
-                    <span class="text-amber-400 font-sans text-xs font-bold uppercase tracking-wider mb-1.5">03. GARANSI
-                        RESMI</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-white font-sans tracking-tight leading-tight">
-                        <a href="{{ url('/layanan') }}" class="hover:text-amber-400 transition-colors">
-                            Garansi Terjamin
-                        </a>
-                    </h3>
-                    <p class="mt-2 text-slate-200 text-xs sm:text-sm leading-relaxed max-w-xs font-normal">
-                        Perlindungan garansi resmi pabrikan untuk mesin Weichai, transmisi FAST, dan gardan Hande.
-                    </p>
+                <!-- Service 3: Garansi Terjamin -->
+                <div class="flex flex-col group reveal-on-scroll reveal-delay-300">
+                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
+                        <img src="{{ asset('images/service-banner-warranty.jpg') }}" alt="Garansi Terjamin SHACMAN"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                        <div
+                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
+                        </div>
+                    </div>
+                    <div class="pt-4 flex flex-col">
+                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">03</span>
+                        <h3
+                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                            <a href="{{ url('/layanan') }}">Garansi Terjamin</a>
+                        </h3>
+                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                            Perlindungan garansi resmi pabrikan untuk powertrain utama: mesin Weichai, transmisi FAST,
+                            dan gardan Hande.
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Column 4: Suku Cadang Asli -->
-            <div
-                class="relative min-h-[260px] sm:min-h-[290px] lg:min-h-[320px] flex flex-col items-center justify-center text-center p-6 sm:p-8 overflow-hidden group border-b md:border-b-0 md:border-r border-white/10 reveal-on-scroll reveal-delay-100">
-                <img src="{{ asset('images/service-banner-parts.jpg') }}" alt="Suku Cadang Asli SHACMAN"
-                    class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 select-none">
-                <div class="absolute inset-0 bg-black/65 group-hover:bg-black/55 transition-colors duration-300"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30"></div>
-                <div class="relative z-10 max-w-sm mx-auto flex flex-col items-center justify-center text-center">
-                    <span class="text-amber-400 font-sans text-xs font-bold uppercase tracking-wider mb-1.5">04. SPARE
-                        PARTS</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-white font-sans tracking-tight leading-tight">
-                        <a href="{{ url('/layanan') }}" class="hover:text-amber-400 transition-colors">
-                            Suku Cadang Asli
-                        </a>
-                    </h3>
-                    <p class="mt-2 text-slate-200 text-xs sm:text-sm leading-relaxed max-w-xs font-normal">
-                        Ketersediaan suku cadang orisinal lengkap dan cepat untuk meminimalkan masa perbaikan.
-                    </p>
+                <!-- Service 4: Suku Cadang Asli -->
+                <div class="flex flex-col group reveal-on-scroll reveal-delay-100">
+                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
+                        <img src="{{ asset('images/service-banner-parts.jpg') }}" alt="Suku Cadang Asli SHACMAN"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                        <div
+                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
+                        </div>
+                    </div>
+                    <div class="pt-4 flex flex-col">
+                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">04</span>
+                        <h3
+                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                            <a href="{{ url('/layanan') }}">Suku Cadang Asli</a>
+                        </h3>
+                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                            Ketersediaan suku cadang orisinal lengkap dan distribusi cepat ke konsesi tambang untuk
+                            meminimalkan masa downtime armada.
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Column 5: Servis & Perawatan Rutin -->
-            <div
-                class="relative min-h-[260px] sm:min-h-[290px] lg:min-h-[320px] flex flex-col items-center justify-center text-center p-6 sm:p-8 overflow-hidden group border-b md:border-b-0 lg:border-r border-white/10 reveal-on-scroll reveal-delay-200">
-                <img src="{{ asset('images/service-banner-mechanic.jpg') }}" alt="Servis & Perawatan Rutin"
-                    class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 select-none">
-                <div class="absolute inset-0 bg-black/65 group-hover:bg-black/55 transition-colors duration-300"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30"></div>
-                <div class="relative z-10 max-w-sm mx-auto flex flex-col items-center justify-center text-center">
-                    <span class="text-amber-400 font-sans text-xs font-bold uppercase tracking-wider mb-1.5">05.
-                        PERAWATAN</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-white font-sans tracking-tight leading-tight">
-                        <a href="{{ url('/layanan') }}" class="hover:text-amber-400 transition-colors">
-                            Servis & Perawatan Rutin
-                        </a>
-                    </h3>
-                    <p class="mt-2 text-slate-200 text-xs sm:text-sm leading-relaxed max-w-xs font-normal">
-                        Pemeliharaan berkala terjadwal oleh mekanik bersertifikasi demi menjaga performa puncak armada.
-                    </p>
+                <!-- Service 5: Servis & Perawatan Rutin -->
+                <div class="flex flex-col group reveal-on-scroll reveal-delay-200">
+                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
+                        <img src="{{ asset('images/service-banner-mechanic.jpg') }}" alt="Servis & Perawatan Rutin"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                        <div
+                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
+                        </div>
+                    </div>
+                    <div class="pt-4 flex flex-col">
+                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">05</span>
+                        <h3
+                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                            <a href="{{ url('/layanan') }}">Servis & Perawatan Rutin</a>
+                        </h3>
+                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                            Pemeliharaan berkala terjadwal oleh mekanik terlatih bersertifikasi demi menjaga efisiensi
+                            konsumsi BBM dan keawetan mesin.
+                        </p>
+                    </div>
                 </div>
-            </div>
 
-            <!-- Column 6: Dukungan Layanan 24/7 -->
-            <div
-                class="relative min-h-[260px] sm:min-h-[290px] lg:min-h-[320px] flex flex-col items-center justify-center text-center p-6 sm:p-8 overflow-hidden group reveal-on-scroll reveal-delay-300">
-                <img src="{{ asset('images/service-banner-support.jpg') }}" alt="Dukungan Layanan 24/7"
-                    class="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105 select-none">
-                <div class="absolute inset-0 bg-black/65 group-hover:bg-black/55 transition-colors duration-300"></div>
-                <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/30"></div>
-                <div class="relative z-10 max-w-sm mx-auto flex flex-col items-center justify-center text-center">
-                    <span class="text-amber-400 font-sans text-xs font-bold uppercase tracking-wider mb-1.5">06. ON-SITE
-                        24/7</span>
-                    <h3 class="text-xl sm:text-2xl font-bold text-white font-sans tracking-tight leading-tight">
-                        <a href="{{ url('/layanan') }}" class="hover:text-amber-400 transition-colors">
-                            Dukungan Layanan 24/7
-                        </a>
-                    </h3>
-                    <p class="mt-2 text-slate-200 text-xs sm:text-sm leading-relaxed max-w-xs font-normal">
-                        Tim mekanik storing darurat siaga 24 jam siap meluncur langsung ke site tambang dan proyek.
-                    </p>
+                <!-- Service 6: Dukungan Layanan 24/7 -->
+                <div class="flex flex-col group reveal-on-scroll reveal-delay-300">
+                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
+                        <img src="{{ asset('images/service-banner-support.jpg') }}" alt="Dukungan Layanan 24/7"
+                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                        <div
+                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
+                        </div>
+                    </div>
+                    <div class="pt-4 flex flex-col">
+                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">06</span>
+                        <h3
+                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                            <a href="{{ url('/layanan') }}">Dukungan Layanan 24/7</a>
+                        </h3>
+                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                            Tim teknisi storing darurat siaga 24 jam dengan armada mobile service siap meluncur langsung
+                            ke site kerja Anda.
+                        </p>
+                    </div>
                 </div>
-            </div>
 
+            </div>
         </div>
     </section>
 
@@ -809,7 +851,7 @@
                 <div>
                     @if(!empty($settings->blog_badge))
                         <span
-                            class="inline-flex items-center px-3 py-1 bg-[#070e1e] text-amber-400 text-xs font-sans font-bold uppercase tracking-wider mb-2">
+                            class="inline-flex items-center px-3 py-1 bg-[#070e1e] text-blue-300 text-xs font-sans font-bold uppercase tracking-wider mb-2">
                             {{ $settings->blog_badge }}
                         </span>
                     @endif
@@ -866,44 +908,91 @@
         </div>
     </section>
 
-    <!-- ================= CTA BANNER SECTION ================= -->
-    <section
-        class="relative w-full overflow-hidden bg-[#070e1e] py-14 sm:py-20 lg:py-24 text-center border-t border-slate-800">
-        <!-- Background Image with 5 Shacman Trucks Twilight Headlights -->
-        <img src="{{ asset('images/series/pro_detail08_1.jpg') }}" alt="Armada Truk Shacman Operasional"
-            class="absolute inset-0 w-full h-full object-cover object-center select-none pointer-events-none">
-        <div class="absolute inset-0 bg-[#00163c]/75 sm:bg-[#00163c]/65 backdrop-brightness-90"></div>
+    <!-- ================= SECTION: HUBUNGI KAMI ================= -->
+    <section id="penawaran-resmi"
+        class="relative w-full overflow-hidden bg-[#070e1e] py-12 sm:py-16 lg:py-20 border-t border-slate-800">
+        <!-- Subtle Industrial Accent Lines -->
+        <div class="absolute inset-0 bg-gradient-to-b from-[#070e1e] via-[#00163c]/50 to-[#070e1e] pointer-events-none">
+        </div>
 
-        <div
-            class="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 z-10 flex flex-col items-center justify-center reveal-scale">
-            <!-- Big Bold CTA Title dari CMS -->
-            <h2
-                class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase font-barlow-condensed text-white leading-none tracking-tight drop-shadow-md">
-                {{ $settings->cta_banner_title ?? 'SIAP MEMILIKI ARMADA TRUK SHACMAN ANDA?' }}
-            </h2>
-            <p
-                class="mt-3 text-sm sm:text-base text-slate-100 max-w-2xl mx-auto font-normal leading-relaxed drop-shadow">
-                {{ $settings->cta_banner_subtitle ?? 'Hubungi tim kami sekarang untuk konsultasi konfigurasi unit, kebutuhan suku cadang, serta penawaran harga resmi.' }}
-            </p>
+        <div class="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 z-10">
+            <div class="reveal-scale">
+                <div
+                    class="bg-white border-t-4 border-[#0067b1] border-x border-b border-slate-200 p-6 sm:p-8 lg:p-10 shadow-2xl">
+                    <div class="border-b border-slate-200 pb-4 mb-6 text-center">
+                        <h2
+                            class="text-2xl sm:text-3xl lg:text-4xl font-bold uppercase font-barlow-condensed not-italic text-[#00163c] leading-none">
+                            HUBUNGI KAMI
+                        </h2>
+                        <p class="mt-2 text-slate-600 text-xs sm:text-sm leading-relaxed max-w-xl mx-auto">
+                            Konsultasikan kebutuhan armada truk dan spesifikasi unit bersama tim kami.
+                        </p>
+                    </div>
 
-            <!-- CTA Actions dari CMS -->
-            <div
-                class="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 mt-6 sm:mt-8 w-full sm:w-auto">
-                <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $settings->whatsapp_number ?? '628123456789') }}"
-                    target="_blank" rel="noopener noreferrer"
-                    class="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#0067b1] hover:bg-[#005a9c] text-white font-bold text-xs sm:text-sm uppercase font-barlow-condensed tracking-wider px-8 py-3.5 shadow-lg transition-all">
-                    <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                        <path
-                            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
-                    </svg>
-                    <span>{{ $settings->whatsapp_text ?? 'Hubungi via WhatsApp' }}</span>
-                </a>
-                <a href="{{ $settings->brochure_url ?? url('/kontak') }}"
-                    class="w-full sm:w-auto inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm uppercase font-barlow-condensed tracking-wider px-8 py-3.5 border border-white/60 hover:border-white transition-all backdrop-blur-xs">
-                    {{ $settings->brochure_text ?? 'Dapatkan Brosur Unit' }}
-                </a>
+                    <form id="homepage-quote-form" class="space-y-4">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-sans font-bold uppercase text-slate-700 mb-1">Nama
+                                    Lengkap *</label>
+                                <input type="text" id="quote-name" required placeholder="Nama"
+                                    class="w-full px-3.5 py-2.5 border border-slate-300 text-sm focus:outline-none focus:border-[#0067b1] focus:ring-1 focus:ring-[#0067b1] bg-slate-50 focus:bg-white text-slate-900 transition-colors">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs font-sans font-bold uppercase text-slate-700 mb-1">Perusahaan /
+                                    Proyek</label>
+                                <input type="text" id="quote-company" placeholder="Perusahaan / Proyek"
+                                    class="w-full px-3.5 py-2.5 border border-slate-300 text-sm focus:outline-none focus:border-[#0067b1] focus:ring-1 focus:ring-[#0067b1] bg-slate-50 focus:bg-white text-slate-900 transition-colors">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-sans font-bold uppercase text-slate-700 mb-1">No.
+                                    WhatsApp / Telepon *</label>
+                                <input type="tel" id="quote-phone" required placeholder="Nomor WhatsApp / Telepon"
+                                    class="w-full px-3.5 py-2.5 border border-slate-300 text-sm focus:outline-none focus:border-[#0067b1] focus:ring-1 focus:ring-[#0067b1] bg-slate-50 focus:bg-white text-slate-900 transition-colors">
+                            </div>
+                            <div>
+                                <label
+                                    class="block text-xs font-sans font-bold uppercase text-slate-700 mb-1">Email</label>
+                                <input type="email" id="quote-email" placeholder="Email"
+                                    class="w-full px-3.5 py-2.5 border border-slate-300 text-sm focus:outline-none focus:border-[#0067b1] focus:ring-1 focus:ring-[#0067b1] bg-slate-50 focus:bg-white text-slate-900 transition-colors">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-sans font-bold uppercase text-slate-700 mb-1">Kebutuhan
+                                Armada / Catatan</label>
+                            <textarea id="quote-notes" rows="3" placeholder="Kebutuhan"
+                                class="w-full px-3.5 py-2.5 border border-slate-300 text-sm focus:outline-none focus:border-[#0067b1] focus:ring-1 focus:ring-[#0067b1] bg-slate-50 focus:bg-white text-slate-900 transition-colors"></textarea>
+                        </div>
+
+                        <div class="pt-2">
+                            <button type="submit" id="quote-submit-btn"
+                                class="w-full inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0067b1] hover:bg-[#00528e] text-white font-bold text-sm uppercase font-barlow-condensed not-italic tracking-wider shadow-md transition-all duration-200 cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed">
+                                <span id="quote-btn-text">Hubungi Kami</span>
+                                <svg id="quote-btn-spinner" class="hidden w-4 h-4 animate-spin text-white" fill="none"
+                                    viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
+                                </svg>
+                            </button>
+                            <p class="mt-2.5 text-xs text-slate-500 text-center font-sans">
+                                Data Anda otomatis tersimpan & terhubung langsung ke WhatsApp tim sales kami.
+                            </p>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
+    </section>
+
+    <!-- ================= CINEMATIC ARMADA SHOWCASE BANNER ================= -->
+    <section class="relative w-full overflow-hidden bg-[#070e1e] border-t border-slate-800">
+        <img src="{{ asset('images/series/pro_detail08_1.jpg') }}" alt="Armada Truk SHACMAN PT SHINDO"
+            class="w-full h-auto block select-none pointer-events-none">
     </section>
 
     <!-- ================= FOOTER ================= -->
@@ -964,7 +1053,14 @@
                 <div class="lg:col-span-2">
                     <h4 class="text-base font-bold text-white mb-4 sm:mb-5">Navigasi</h4>
                     <ul class="space-y-2.5 sm:space-y-3 text-sm text-slate-400">
-                        @foreach($site->nav_items ?? [] as $nav)
+                        @foreach($site->nav_items ?? [
+                                ['url' => '/', 'label' => 'Beranda'],
+                                ['url' => '/produk', 'label' => 'Produk'],
+                                ['url' => '/layanan', 'label' => 'Layanan'],
+                                ['url' => '/tentang-kami', 'label' => 'Tentang Kami'],
+                                ['url' => '/blog', 'label' => 'Blog'],
+                                ['url' => '/kontak', 'label' => 'Kontak'],
+                            ] as $nav)
                             <li>
                                 <a href="{{ $nav['url'] ?? '#' }}" class="hover:text-white transition-colors">
                                     {{ $nav['label'] ?? '' }}
@@ -1030,7 +1126,7 @@
                             <div>
                                 <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">SITE MEKANIK
                                 </p>
-                                <p class="text-sm font-semibold text-[#f59e0b]">{{ $site->mechanic_hours }}</p>
+                                <p class="text-sm font-semibold text-white">{{ $site->mechanic_hours }}</p>
                             </div>
                         @endif
                     </div>
@@ -1134,7 +1230,7 @@
             // Truck Series Tab Interactive Switcher
             const seriesData = {
                 @foreach($truckSeries as $item)
-                                '{{ $item->key ?? $item->name }}': {
+                                                            '{{ $item->key ?? $item->name }}': {
                         text: '{{ $item->name ?? '' }}',
                         image: "{{ $item->image_url }}",
                         alt: 'SHACMAN {{ $item->name ?? '' }} Heavy Duty Truck',
@@ -1188,6 +1284,84 @@
                 }, 180);
             });
         });
+
+        // Homepage Contact Form Submission
+        const quoteForm = document.getElementById('homepage-quote-form');
+        if (quoteForm) {
+            quoteForm.addEventListener('submit', async function (e) {
+                e.preventDefault();
+                const btn = document.getElementById('quote-submit-btn');
+                const btnText = document.getElementById('quote-btn-text');
+                const spinner = document.getElementById('quote-btn-spinner');
+
+                const name = document.getElementById('quote-name').value.trim();
+                const phone = document.getElementById('quote-phone').value.trim();
+                const email = (document.getElementById('quote-email')?.value || '').trim();
+                const company = (document.getElementById('quote-company')?.value || '').trim();
+                const notes = (document.getElementById('quote-notes')?.value || '').trim();
+
+                if (!name || !phone) {
+                    alert('Mohon isi nama lengkap dan nomor WhatsApp / telepon aktif Anda.');
+                    return;
+                }
+
+                if (btn) {
+                    btn.disabled = true;
+                    if (btnText) btnText.textContent = 'Menghubungkan...';
+                    if (spinner) spinner.classList.remove('hidden');
+                }
+
+                try {
+                    const response = await fetch('{{ route('leads.store') }}', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                        },
+                        body: JSON.stringify({
+                            name,
+                            phone,
+                            email,
+                            company,
+                            notes,
+                            source: 'homepage'
+                        })
+                    });
+
+                    const data = await response.json();
+
+                    if (response.ok && data.success && data.whatsapp_url) {
+                        window.location.href = data.whatsapp_url;
+                    } else {
+                        alert(data.message || 'Terjadi kendala saat menyimpan formulir. Silakan coba kembali.');
+                        if (btn) {
+                            btn.disabled = false;
+                            if (btnText) btnText.textContent = 'Hubungi Kami';
+                            if (spinner) spinner.classList.add('hidden');
+                        }
+                    }
+                } catch (err) {
+                    console.error('Lead submission error:', err);
+                    let waNumber = '{{ preg_replace('/[^0-9]/', '', $site->office_phone ?? '6281234567890') }}';
+                    if (waNumber.startsWith('0')) {
+                        waNumber = '62' + waNumber.substring(1);
+                    }
+                    const fallbackText = `*Permintaan Kontak / Konsultasi - PT SHINDO*\n\n` +
+                        `*Nama:* ${name}\n` +
+                        `*No. WhatsApp / HP:* ${phone}\n` +
+                        (company ? `*Perusahaan / Proyek:* ${company}\n` : '') +
+                        (email ? `*Email:* ${email}\n` : '') +
+                        (notes ? `*Kebutuhan Armada / Catatan:*\n${notes}` : '');
+                    window.location.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(fallbackText)}`;
+                    if (btn) {
+                        btn.disabled = false;
+                        if (btnText) btnText.textContent = 'Hubungi Kami';
+                        if (spinner) spinner.classList.add('hidden');
+                    }
+                }
+            });
+        }
         });
     </script>
 

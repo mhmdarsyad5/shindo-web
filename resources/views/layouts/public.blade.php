@@ -36,7 +36,7 @@
 </head>
 
 <body
-    class="bg-white text-neutral-900 antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-amber-400 selection:text-neutral-900">
+    class="bg-white text-neutral-900 antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-[#0067b1] selection:text-white">
 
     <!-- ================= HEADER WRAPPER ================= -->
     <header id="main-header" class="w-full flex-shrink-0 sticky top-0 z-50 shadow-md transition-transform duration-300 ease-in-out">
@@ -74,7 +74,7 @@
                                 </a>
 
                                 <!-- Dropdown Submenu: Pas di Bawah Kotak Navbar, Sharp Non-rounded, Animasi Halus -->
-                                <div class="dh-dropdown-menu w-56 shadow-2xl z-50">
+                                <div class="dh-dropdown-menu w-64 shadow-2xl z-50">
                                     <div class="bg-white border border-slate-200 py-1.5">
                                         <a href="{{ route('produk.series', 'x3000') }}" class="dh-dropdown-item">
                                             <span>SHACMAN X3000 Series</span>
@@ -85,6 +85,18 @@
                                         <a href="{{ route('produk.series', 'f3000') }}" class="dh-dropdown-item">
                                             <span>SHACMAN F3000 Series</span>
                                         </a>
+
+                                        <!-- Tombol Katalog Produk: Dibedain & Ditaro di Bawah -->
+                                        <div class="pt-1.5 mt-1 border-t border-slate-200 px-2 pb-0.5">
+                                            <a href="{{ url('/produk') }}"
+                                                class="flex items-center justify-between px-3 py-2 bg-slate-50 hover:bg-[#0067b1] text-slate-800 hover:text-white border border-slate-200 hover:border-[#0067b1] transition-all duration-200 group/btn">
+                                                <span class="text-xs font-bold font-sans uppercase tracking-wider">Katalog Produk</span>
+                                                <svg class="w-3.5 h-3.5 text-[#0067b1] group-hover/btn:text-white transform group-hover/btn:translate-x-0.5 transition-all"
+                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                                </svg>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -108,7 +120,7 @@
                 <!-- Mobile Menu Button -->
                 <div class="flex md:hidden items-center">
                     <button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
-                        class="text-white p-2 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-amber-400"
+                        class="text-white p-2 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white"
                         aria-label="Toggle Navigation">
                         <svg id="hamburger-icon" class="h-6 w-6 block" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor">
@@ -138,30 +150,37 @@
                     <!-- Mobile Accordion for Dump Truck -->
                     <div class="space-y-1">
                         <button type="button" id="mobile-dumptruck-toggle"
-                            class="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-white hover:bg-white/10 hover:text-amber-300">
+                            class="w-full flex items-center justify-between px-3 py-2 text-base font-medium text-white hover:bg-white/10">
                             <span>Produk</span>
                             <svg id="mobile-dumptruck-arrow" class="w-4 h-4 transition-transform duration-200" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
                             </svg>
                         </button>
-                        <div id="mobile-dumptruck-submenu" class="hidden pl-4 pr-2 py-1 space-y-1 bg-[#004880]/50">
+                        <div id="mobile-dumptruck-submenu" class="hidden pl-4 pr-2 py-1.5 space-y-1 bg-[#004880]/50">
                             <a href="{{ route('produk.series', 'x3000') }}"
-                                class="block px-3 py-1.5 text-sm text-slate-100 hover:text-amber-300">
+                                class="block px-3 py-1.5 text-sm text-slate-100 hover:text-white">
                                 SHACMAN X3000 Series
                             </a>
                             <a href="{{ route('produk.series', 'h3000') }}"
-                                class="block px-3 py-1.5 text-sm text-slate-100 hover:text-amber-300">
+                                class="block px-3 py-1.5 text-sm text-slate-100 hover:text-white">
                                 SHACMAN H3000 Series
                             </a>
                             <a href="{{ route('produk.series', 'f3000') }}"
-                                class="block px-3 py-1.5 text-sm text-slate-100 hover:text-amber-300">
+                                class="block px-3 py-1.5 text-sm text-slate-100 hover:text-white">
                                 SHACMAN F3000 Series
                             </a>
+                            <div class="pt-2 mt-1 border-t border-white/15 px-1 pb-1">
+                                <a href="{{ url('/produk') }}"
+                                    class="flex items-center justify-between px-3 py-2 bg-white/10 hover:bg-white text-white hover:text-[#00163c] text-xs font-bold font-sans uppercase tracking-wider transition-colors">
+                                    <span>Katalog Produk</span>
+                                    <span>→</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 @else
                     <a href="{{ $nav['url'] ?? '#' }}"
-                        class="block px-3 py-2 text-base {{ $isActive ? 'font-semibold text-[#f59e0b] bg-white/10' : 'font-medium text-white hover:bg-white/10 hover:text-amber-300' }}">
+                        class="block px-3 py-2 text-base {{ $isActive ? 'font-semibold text-white bg-white/15' : 'font-medium text-white hover:bg-white/10' }}">
                         {{ $nav['label'] ?? '' }}
                     </a>
                 @endif
@@ -216,16 +235,24 @@
                     </div>
                 </div>
 
-                <!-- Column 2: Jaringan Layanan Links -->
+                <!-- Column 2: Navigasi -->
                 <div class="lg:col-span-2">
                     <h4 class="text-base font-bold text-white mb-4 sm:mb-5">Navigasi</h4>
-                    <ul class="space-y-2.5 text-sm">
-                        <li><a href="{{ url('/') }}" class="hover:text-white transition-colors">Beranda</a></li>
-                        <li><a href="{{ url('/produk') }}" class="hover:text-white transition-colors">Produk & Spesifikasi</a></li>
-                        <li><a href="{{ url('/layanan') }}" class="hover:text-white transition-colors">Aftersales Service</a></li>
-                        <li><a href="{{ url('/tentang-kami') }}" class="hover:text-white transition-colors">Tentang Kami</a></li>
-                        <li><a href="{{ url('/blog') }}" class="hover:text-white transition-colors">Berita & Artikel</a></li>
-                        <li><a href="{{ url('/kontak') }}" class="hover:text-white transition-colors">Kontak & Quotation</a></li>
+                    <ul class="space-y-2.5 text-sm text-slate-400">
+                        @foreach($site->nav_items ?? [
+                            ['url' => '/', 'label' => 'Beranda'],
+                            ['url' => '/produk', 'label' => 'Produk'],
+                            ['url' => '/layanan', 'label' => 'Layanan'],
+                            ['url' => '/tentang-kami', 'label' => 'Tentang Kami'],
+                            ['url' => '/blog', 'label' => 'Blog'],
+                            ['url' => '/kontak', 'label' => 'Kontak'],
+                        ] as $nav)
+                            <li>
+                                <a href="{{ $nav['url'] ?? '#' }}" class="hover:text-white transition-colors">
+                                    {{ $nav['label'] ?? '' }}
+                                </a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
 
@@ -274,7 +301,7 @@
                         @if(!empty($site->mechanic_hours))
                             <div>
                                 <p class="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-1">SITE MEKANIK</p>
-                                <p class="text-sm font-semibold text-[#f59e0b]">{{ $site->mechanic_hours }}</p>
+                                <p class="text-sm font-semibold text-white">{{ $site->mechanic_hours }}</p>
                             </div>
                         @endif
                     </div>

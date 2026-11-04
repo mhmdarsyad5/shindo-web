@@ -11,6 +11,7 @@ return [
         'truck_render' => 'images/series/x3000_a0425a64606f4e29bd476e2f55bc347e.png',
         'closer_look_image' => 'images/series/x3000_749f98148c4a427a81ce4fb54959d33a.jpg',
         'vr_360_url' => 'http://360.shacman.com/index.php/Index/index/cat_id/158.html',
+        'manual_url' => 'https://shacman.com/upload/file/2025/03/28/62664cf7a6a3429d9ea7c4bceeee4551.pdf',
 
         // Section 03: Reliable Results
         'section3' => [
@@ -166,6 +167,7 @@ return [
         'truck_render' => 'images/series/h3000_95c8a697cf074b16b16dae04dc1c5a36.png',
         'closer_look_image' => 'images/series/h3000_2e27230c92934beaac3e883092eaf2b7.jpg',
         'vr_360_url' => 'http://360.shacman.com/index.php/Index/index/cat_id/159.html',
+        'manual_url' => 'https://shacman.com/upload/file/2025/03/28/62664cf7a6a3429d9ea7c4bceeee4551.pdf',
 
         // Section 03: Dependable Drivetrain
         'section3' => [
@@ -291,6 +293,7 @@ return [
         'truck_render' => 'images/series/f3000_16bc3ec59f7949b582fcfcd5979208f7.png',
         'closer_look_image' => null, // F3000 on shacman.com does not have pro_detail02
         'vr_360_url' => 'http://360.shacman.com/',
+        'manual_url' => 'https://shacman.com/upload/file/2025/03/28/62664cf7a6a3429d9ea7c4bceeee4551.pdf',
 
         // Section 03: Tough as steel
         'section3' => [

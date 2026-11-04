@@ -170,10 +170,99 @@
     padding: 40px 0 20px;
 }
 .pro_detail01 .content .info .text {
-    margin-bottom: 30px;
+    margin-bottom: 24px;
     font-size: 14px;
     line-height: 26px;
     color: #475569;
+}
+.pro_detail01 .content .info .btn_group {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 14px;
+}
+.btn_quote {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0 24px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 13px;
+    color: #fff !important;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Barlow Condensed', 'Barlow', sans-serif;
+    letter-spacing: 0.04em;
+    background: #0067b1;
+    border: 1px solid #0067b1;
+    text-decoration: none !important;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 103, 177, 0.25);
+    white-space: nowrap;
+}
+.btn_quote:hover {
+    background: #004d85;
+    border-color: #004d85;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(0, 103, 177, 0.35);
+    transform: translateY(-1px);
+}
+.btn_quote svg {
+    display: inline-block !important;
+    width: 15px;
+    height: 15px;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+.btn_quote:hover svg {
+    transform: translateX(3px);
+}
+.btn_manual {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px;
+    height: 48px;
+    line-height: 48px;
+    font-size: 13px;
+    color: #fff !important;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-family: 'Barlow Condensed', 'Barlow', sans-serif;
+    letter-spacing: 0.04em;
+    background: #00163c;
+    border: 1px solid #00163c;
+    text-decoration: none !important;
+    transition: all 0.25s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 22, 60, 0.2);
+    white-space: nowrap;
+}
+.btn_manual:hover {
+    background: #002868;
+    border-color: #002868;
+    color: #fff !important;
+    box-shadow: 0 4px 12px rgba(0, 22, 60, 0.3);
+    transform: translateY(-1px);
+}
+.btn_manual img {
+    display: inline-block !important;
+    width: 16px !important;
+    height: 14px !important;
+    max-width: 16px !important;
+    max-height: 14px !important;
+    object-fit: contain !important;
+    vertical-align: middle !important;
+    flex-shrink: 0 !important;
+    margin: 0 !important;
+    transition: transform 0.2s ease;
+}
+.btn_manual:hover img {
+    transform: translateY(2px);
 }
 .pro_detail01 .content .info .more {
     display: inline-flex;
@@ -669,6 +758,16 @@
 
 @media (max-width: 640px) {
     .fz32 { font-size: 26px; line-height: 32px; }
+    .pro_detail01 .content .info .btn_group {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+    .btn_quote,
+    .btn_manual {
+        width: 100%;
+        justify-content: center;
+    }
     .pro_detail_521 .content .right ul { grid-template-columns: 1fr; }
     .pro_detail08 { height: 380px; }
     .pro_detail08 .content .info .box .tit { font-size: 26px; line-height: 32px; }
@@ -722,9 +821,24 @@
                                 <div class="text fz14">
                                     <p>{{ $seriesData['intro'] }}</p>
                                 </div>
-                                <a href="https://wa.me/{{ $waPhone }}?text={{ $quoteMsg }}" target="_blank" rel="noopener noreferrer" class="more">
-                                    <span>Minta Penawaran Resmi <img src="{{ asset('images/series/pro_detail01_3.png') }}" alt="→"></span>
-                                </a>
+                                <div class="btn_group">
+                                    <a href="https://wa.me/{{ $waPhone }}?text={{ $quoteMsg }}" target="_blank" rel="noopener noreferrer" class="btn_quote">
+                                        <span>Hubungi Kami</span>
+                                        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                                        </svg>
+                                    </a>
+
+                                    @php
+                                        $universalManual = 'https://shacman.com/upload/file/2025/03/28/62664cf7a6a3429d9ea7c4bceeee4551.pdf';
+                                        $rawManualUrl = $seriesData['manual_url'] ?? $universalManual;
+                                        $manualTarget = str_starts_with($rawManualUrl, 'http') ? $rawManualUrl : asset($rawManualUrl);
+                                    @endphp
+                                    <a href="{{ $manualTarget }}" target="_blank" rel="noopener noreferrer" class="btn_manual">
+                                        <span>Download Product Manual</span>
+                                        <img src="{{ asset('images/series/pro_detail01_3.png') }}" alt="Download">
+                                    </a>
+                                </div>
                             </div>
                         </div>
                         @if(!empty($seriesData['truck_render']) && file_exists(public_path($seriesData['truck_render'])))

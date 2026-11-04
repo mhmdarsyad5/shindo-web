@@ -85,7 +85,7 @@ select:focus[data-flux-control] {
     bottom: 18px;
     height: 2px;
     border-radius: 1px;
-    background: #f59e0b;
+    background: #0067b1;
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
@@ -93,7 +93,7 @@ select:focus[data-flux-control] {
 
 .dh-nav-link:hover,
 .group:hover > .dh-nav-link {
-    color: #fde68a;
+    color: #93c5fd;
 }
 
 .dh-nav-link:hover::after,
@@ -103,7 +103,7 @@ select:focus[data-flux-control] {
 }
 
 .dh-nav-link.is-active {
-    color: #fbbf24;
+    color: #ffffff;
     font-weight: 700;
 }
 

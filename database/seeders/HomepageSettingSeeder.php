@@ -74,25 +74,26 @@ class HomepageSettingSeeder extends Seeder
 
         // Tentang Kami
         $setting->about_badge = 'TENTANG KAMI';
-        $setting->about_title = 'KOMITMEN KAMI UNTUK EFISIENSI & PERFORMA TINGGI';
-        $setting->about_description_1 = 'Sebagai agen penyalur resmi SHACMAN di Indonesia, kami berdedikasi menyediakan lini truk kelas dunia yang dirancang khusus untuk menaklukkan medan operasional paling menantang.';
+        $setting->about_title = 'SHACMAN – TRUK HEAVY-DUTY PILIHAN UTAMA INDONESIA';
+        $setting->about_description_1 = 'Sebagai authorized dealer resmi, kami berkomitmen menjaga produktivitas operasional Anda dengan Advance features yang mendukung kinerja tinggi dan stabil. Kami melayani pengadaan unit baru, penyediaan suku cadang asli bergaransi, hingga perawatan berkala oleh teknisi bersertifikat langsung di site Anda.';
         $setting->about_description_2 = 'Kami tidak hanya menyediakan unit truk berkualitas tinggi, tetapi juga menghadirkan ekosistem layanan purna jual menyeluruh — mulai dari ketersediaan suku cadang asli hingga pemeliharaan berkala oleh teknisi bersertifikasi.';
         $setting->about_image = 'homepage/about-truck.png';
         $setting->about_features = [
             [
-                'title' => 'Garansi & Servis ATPM',
-                'description' => 'Didukung mekanik bersertifikasi dan peralatan diagnosa terkini langsung dari prinsipal.',
+                'title' => 'Mitra Penjualan Resmi Bersertifikasi SHACMAN Global',
             ],
             [
-                'title' => 'Distribusi Suku Cadang Cepat',
-                'description' => 'Jaminan pasokan spare part cepat dan orisinal untuk menjaga kelangsungan operasional armada Anda.',
+                'title' => 'Layanan Purna Jual SHASS (Shacman After Sales Service) 24 Jam',
+            ],
+            [
+                'title' => 'Jaminan Ketersediaan Suku Cadang Orisinal',
             ],
         ];
 
         // Produk Unggulan
         $setting->products_badge = 'PRODUK UNGGULAN KAMI';
-        $setting->products_title = 'LINI TERBAIK DUMP TRUCK SHACMAN';
-        $setting->products_subtitle = 'Dirancang khusus untuk efisiensi ritase maksimal, daya tahan beban ekstrem, serta kenyamanan berkendara di setiap medan operasional.';
+        $setting->products_title = 'PILIHAN ARMADA SHACMAN';
+        $setting->products_subtitle = 'Solusi armada dan alat angkut berat tangguh untuk setiap kebutuhan bisnis Anda.';
         $setting->product_cards = [
             [
                 'name' => 'SHACMAN X3000',
@@ -195,8 +196,8 @@ class HomepageSettingSeeder extends Seeder
         ];
 
         // CTA Banner
-        $setting->cta_banner_title = 'SIAP MEMILIKI DUMP TRUCK SHACMAN ANDA?';
-        $setting->cta_banner_subtitle = 'Hubungi tim kami sekarang untuk simulasi ritase muatan, kebutuhan suku cadang, serta dapatkan penawaran harga terbaik untuk Anda.';
+        $setting->cta_banner_title = 'SIAP MEMILIKI ARMADA TRUK SHACMAN ANDA?';
+        $setting->cta_banner_subtitle = 'Hubungi tim kami sekarang untuk konsultasi konfigurasi unit, kebutuhan suku cadang, serta penawaran harga resmi.';
         $setting->cta_banner_bg_image = 'homepage/cta-mining-clean.jpg';
         $setting->whatsapp_number = '628123456789';
         $setting->whatsapp_text = 'Hubungi via WhatsApp';
@@ -210,7 +211,7 @@ class HomepageSettingSeeder extends Seeder
         $setting->instagram_url = 'https://instagram.com';
         $setting->linkedin_url = 'https://linkedin.com';
         $setting->youtube_url = 'https://youtube.com';
-        $setting->office_address = 'THC 59 Kamal Jakut';
+        $setting->office_address = 'Town House Cordoba No. 59, RT.6/RW.2, Kamal Muara, Penjaringan, Jakarta Utara, DKI Jakarta 14470';
         $setting->office_phone = '(021) 555-8321';
         $setting->office_email = 'sales@shindo.id';
         $setting->office_hours = 'Senin - Jumat, 09:00 - 17:00';
