@@ -416,13 +416,13 @@
 
                 <!-- Teks Belakang Truk (Barlow Watermark - Ramping & Proporsional) -->
                 <div id="truck-bg-text"
-                    class="absolute inset-0 flex items-center justify-center font-barlow-condensed font-medium italic text-[#cbd5e1]/40 text-[7rem] xs:text-[9rem] sm:text-[13rem] md:text-[17rem] lg:text-[21rem] xl:text-[24rem] tracking-wide leading-none select-none pointer-events-none z-0 transition-all duration-500 transform whitespace-nowrap">
+                    class="absolute inset-0 flex items-center justify-center font-barlow-condensed font-medium italic text-[#cbd5e1]/40 text-[8.5rem] xs:text-[11rem] sm:text-[15.5rem] md:text-[20rem] lg:text-[25rem] xl:text-[28rem] tracking-wide leading-none select-none pointer-events-none z-0 transition-all duration-500 transform whitespace-nowrap">
                     {{ $firstSeries->name ?? 'X3000' }}
                 </div>
 
                 <!-- Gambar Truk di Depan Teks Belakang -->
                 <div
-                    class="relative z-10 w-full max-w-[320px] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl flex items-center justify-center px-2 sm:px-4">
+                    class="relative z-10 w-full max-w-[320px] sm:max-w-2xl md:max-w-3xl lg:max-w-4xl xl:max-w-5xl flex items-center justify-center px-2 sm:px-4 translate-y-2.5 sm:translate-y-4 md:translate-y-5">
                     <img id="truck-center-image" src="{{ $firstSeries?->image_url }}"
                         alt="SHACMAN {{ $firstSeries->name ?? '' }} Heavy Duty Truck"
                         class="w-full h-auto max-h-[280px] sm:max-h-[380px] lg:max-h-[440px] object-contain transition-all duration-500 ease-out transform drop-shadow-2xl">

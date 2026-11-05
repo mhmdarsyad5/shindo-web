@@ -32,7 +32,7 @@
 }
 
 .pro_detail01 .container {
-    padding-top: 0;
+    padding-top: 45px;
 }
 
 /* Breadcrumbs (xc_crumbs) */
@@ -738,6 +738,7 @@
 /* ================= RESPONSIVE QUERIES ================= */
 @media (max-width: 1024px) {
     .pro_detail .container { padding: 50px 0; }
+    .pro_detail01 .container { padding-top: 30px; }
     .pro_detail .infor.has_con { flex-direction: column; gap: 15px; }
     .pro_detail .infor.has_con .tit,
     .pro_detail .infor.has_con .con { width: 100%; }
@@ -784,15 +785,15 @@
         $quoteMsg = urlencode("Halo PT Shindo Tractors Adiperkasa, saya tertarik meminta informasi spesifikasi teknis dan penawaran harga resmi untuk unit SHACMAN " . ($seriesData['key'] ?? '') . " Series.");
     @endphp
 
-    <!-- ================= BREADCRUMBS (Exact Shacman .xc_crumbs) ================= -->
-    <div class="xc_crumbs">
-        <div class="wrap">
-            <div class="crumbs">
-                <a href="{{ url('/') }}">Beranda</a>
-                <em></em>
-                <a href="{{ url('/produk') }}">Produk</a>
-                <em></em>
-                <span>{{ $seriesData['key'] }}</span>
+    <!-- ================= BREADCRUMBS ================= -->
+    <div class="w-full bg-white border-b border-slate-200">
+        <div class="max-w-[1400px] mx-auto px-5 py-3.5 sm:py-4">
+            <div class="flex items-center space-x-2 text-xs font-sans uppercase tracking-wider text-slate-500">
+                <a href="{{ url('/') }}" class="hover:text-[#0067b1] transition-colors">Home</a>
+                <span class="text-slate-300">/</span>
+                <a href="{{ url('/produk') }}" class="hover:text-[#0067b1] transition-colors">Produk</a>
+                <span class="text-slate-300">/</span>
+                <span class="text-[#00163c] font-bold">{{ $seriesData['key'] }}</span>
             </div>
         </div>
     </div>

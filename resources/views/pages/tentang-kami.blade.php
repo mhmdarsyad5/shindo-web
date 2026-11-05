@@ -67,6 +67,17 @@
 @endpush
 
 @section('content')
+    <!-- ================= BREADCRUMBS (SERIES PRODUK STYLE) ================= -->
+    <div class="w-full bg-white border-b border-slate-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4">
+            <div class="flex items-center space-x-2 text-xs font-sans uppercase tracking-wider text-slate-500">
+                <a href="{{ url('/') }}" class="hover:text-[#0067b1] transition-colors">Home</a>
+                <span class="text-slate-300">/</span>
+                <span class="text-[#00163c] font-bold">Tentang Kami</span>
+            </div>
+        </div>
+    </div>
+
     <!-- ================= 1. HERO SECTION (DENGAN GAMBAR HERO YANG SUDAH ADA) ================= -->
     <section class="relative w-full bg-[#f4f6f9] text-slate-900 border-b border-slate-200 overflow-hidden">
         <!-- Background Hero Armada Truk SHACMAN -->
@@ -78,14 +89,7 @@
             <div class="absolute inset-0 bg-gradient-to-r from-[#f4f6f9] via-[#f4f6f9]/90 to-transparent"></div>
         </div>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-12 sm:pt-10 sm:pb-16 lg:pt-12 lg:pb-20 relative z-10">
-            <!-- Breadcrumbs -->
-            <div class="flex items-center space-x-2 text-xs font-sans uppercase tracking-wider text-slate-500 mb-6 sm:mb-8">
-                <a href="{{ url('/') }}" class="hover:text-[#0067b1] transition-colors">Home</a>
-                <span class="text-slate-400">/</span>
-                <span class="text-[#0067b1] font-bold">Tentang Kami</span>
-            </div>
-
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-14 lg:py-16 relative z-10">
             <!-- Asymmetrical Split Grid: Headline + Hero Truck Visual -->
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
                 <!-- Left: Authoritative Brand Information -->
