@@ -16,7 +16,7 @@ class SiteSetting extends Model
         'site_name' => 'SHINDO - Official SHACMAN Distributor',
         'cta_text' => 'Hubungi Kami',
         'cta_url' => '/kontak',
-        'nav_items' => '[{"url":"\/","label":"Beranda"},{"url":"\/produk","label":"Produk"},{"url":"\/layanan","label":"Layanan"},{"url":"\/tentang-kami","label":"Tentang Kami"},{"url":"\/blog","label":"Blog"},{"url":"\/kontak","label":"Kontak"}]',
+        'nav_items' => '[{"url":"\/","label":"Beranda"},{"url":"\/produk","label":"Produk"},{"url":"\/layanan","label":"Layanan"},{"url":"\/spareparts","label":"Spareparts"},{"url":"\/tentang-kami","label":"Tentang Kami"},{"url":"\/blog","label":"Blog"},{"url":"\/kontak","label":"Kontak"}]',
     ];
 
     protected $casts = [

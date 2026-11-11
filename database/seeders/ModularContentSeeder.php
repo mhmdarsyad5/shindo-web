@@ -26,6 +26,7 @@ class ModularContentSeeder extends Seeder
                     ['label' => 'Beranda', 'url' => '/'],
                     ['label' => 'Produk', 'url' => '/produk'],
                     ['label' => 'Layanan', 'url' => '/layanan'],
+                    ['label' => 'Spareparts', 'url' => '/spareparts'],
                     ['label' => 'Tentang Kami', 'url' => '/tentang-kami'],
                     ['label' => 'Blog', 'url' => '/blog'],
                     ['label' => 'Kontak', 'url' => '/kontak'],

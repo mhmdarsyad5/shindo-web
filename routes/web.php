@@ -51,6 +51,14 @@ Route::get('/produk/{seriesKey}', function (string $seriesKey) {
     return view('pages.series-detail', compact('seriesKeyLower', 'seriesData', 'seriesModel', 'products', 'site', 'allSeries'));
 })->name('produk.series');
 
+Route::get('/spareparts', function () {
+    $site = SiteSetting::first() ?? new SiteSetting;
+    $settings = HomepageSetting::current();
+    $sparepartsConfig = config('spareparts');
+
+    return view('pages.spareparts', compact('site', 'settings', 'sparepartsConfig'));
+})->name('spareparts');
+
 Route::get('/layanan', function () {
     $services = Service::where('is_active', true)->orderBy('order_column')->get();
     $site = SiteSetting::first() ?? new SiteSetting;

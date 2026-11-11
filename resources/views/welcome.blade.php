@@ -1067,6 +1067,7 @@
                                 ['url' => '/', 'label' => 'Beranda'],
                                 ['url' => '/produk', 'label' => 'Produk'],
                                 ['url' => '/layanan', 'label' => 'Layanan'],
+                                ['url' => '/spareparts', 'label' => 'Spareparts'],
                                 ['url' => '/tentang-kami', 'label' => 'Tentang Kami'],
                                 ['url' => '/blog', 'label' => 'Blog'],
                                 ['url' => '/kontak', 'label' => 'Kontak'],

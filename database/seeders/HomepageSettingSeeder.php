@@ -21,6 +21,7 @@ class HomepageSettingSeeder extends Seeder
             ['label' => 'Beranda', 'url' => '/', 'is_active' => true],
             ['label' => 'Produk', 'url' => '/produk', 'is_active' => false],
             ['label' => 'Layanan', 'url' => '/layanan', 'is_active' => false],
+            ['label' => 'Spareparts', 'url' => '/spareparts', 'is_active' => false],
             ['label' => 'Tentang Kami', 'url' => '/tentang-kami', 'is_active' => false],
             ['label' => 'Blog', 'url' => '/blog', 'is_active' => false],
             ['label' => 'Kontak', 'url' => '/kontak', 'is_active' => false],

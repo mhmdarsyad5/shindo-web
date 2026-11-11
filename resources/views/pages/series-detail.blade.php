@@ -5,7 +5,7 @@
 
 @push('styles')
 <style>
-/* ================= SHACMAN OFFICIAL STYLES (PLEK KETIPLEK) ================= */
+/* ================= SHACMAN OFFICIAL STYLES ================= */
 
 .channel_content.pro_detail {
     background-color: #ffffff;
