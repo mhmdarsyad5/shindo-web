@@ -22,16 +22,132 @@ Route::get('/', function () {
 })->name('home');
 
 Route::get('/produk', function () {
-    $truckSeries = TruckSeries::where('is_active', true)->orderBy('order_column')->get();
     $products = Product::with('truckSeries')->where('is_active', true)->orderBy('order_column')->get();
+    $seriesIdsWithProducts = $products->pluck('truck_series_id')->filter()->unique();
+    $truckSeries = TruckSeries::where('is_active', true)
+        ->whereIn('id', $seriesIdsWithProducts)
+        ->orderBy('order_column')
+        ->get();
     $site = SiteSetting::first() ?? new SiteSetting;
 
     return view('pages.produk', compact('truckSeries', 'products', 'site'));
 })->name('produk');
 
+Route::get('/produk/unit/{slug}', function (string $slug) {
+    $product = Product::with('truckSeries')
+        ->where('slug', $slug)
+        ->where('is_active', true)
+        ->firstOrFail();
+
+    $seriesKey = strtolower($product->truckSeries?->key ?? $product->truckSeries?->name ?? '');
+    if (empty($seriesKey) || ! in_array($seriesKey, ['h3000s', 'x5000', 'x3000', 'h3000', 'f3000'])) {
+        $nameLower = strtolower($product->name);
+        if (str_contains($nameLower, 'h3000s')) {
+            $seriesKey = 'h3000s';
+        } elseif (str_contains($nameLower, 'x5000')) {
+            $seriesKey = 'x5000';
+        } elseif (str_contains($nameLower, 'h3000')) {
+            $seriesKey = 'h3000';
+        } elseif (str_contains($nameLower, 'f3000')) {
+            $seriesKey = 'f3000';
+        } else {
+            $seriesKey = 'x3000';
+        }
+    }
+
+    $seriesDataKey = match ($seriesKey) {
+        'h3000s' => 'h3000',
+        'x5000' => 'x3000',
+        default => $seriesKey,
+    };
+
+    $seriesData = config("series_data.{$seriesDataKey}", []);
+    $productSpecs = config("product_specs.{$seriesKey}") ?? config('product_specs.h3000s');
+
+    $gallery = $product->gallery_urls;
+    if (count($gallery) <= 1) {
+        $candidatePaths = array_filter([
+            $seriesData['truck_render'] ?? null,
+            $seriesData['hero_image'] ?? null,
+            $seriesData['closer_look_image'] ?? null,
+            $seriesData['section3']['cards'][0]['image'] ?? null,
+            $seriesData['section3']['cards'][1]['image'] ?? null,
+        ]);
+        foreach ($candidatePaths as $relPath) {
+            if (file_exists(public_path($relPath))) {
+                $url = asset($relPath);
+                if (! in_array($url, $gallery, true)) {
+                    $gallery[] = $url;
+                }
+            }
+            if (count($gallery) >= 5) {
+                break;
+            }
+        }
+    }
+
+    if (! empty($product->specifications) && is_array($product->specifications)) {
+        $specRows = $product->specifications;
+    } else {
+        $typeLower = strtolower($product->type ?? '');
+        $isTractorHead = str_contains($typeLower, 'tractor') || str_contains($typeLower, 'head');
+        $isMixer = str_contains($typeLower, 'tmc') || str_contains($typeLower, 'mixer');
+        $isWaterTank = str_contains($typeLower, 'water tank') || str_contains($typeLower, 'tank');
+        $isLowbed = str_contains($typeLower, 'lowbed');
+
+        $specRows = collect($productSpecs['specs'] ?? [])
+            ->map(function (array $row) use ($product, $isTractorHead, $isMixer, $isWaterTank, $isLowbed): array {
+                if ($row['item'] === 'Drive Type' && ! empty($product->drive)) {
+                    $row['value'] = $product->drive;
+                } elseif ($row['item'] === 'Engine Model' && ! empty($product->engine)) {
+                    $row['value'] = $product->engine;
+                } elseif ($row['item'] === 'Dump Body Size') {
+                    if ($isLowbed) {
+                        $row = ['item' => 'Trailer / Deck Type', 'value' => 'Heavy-Duty Lowbed Semi-Trailer Hauler'];
+                    } elseif ($isTractorHead) {
+                        $row = ['item' => 'Coupling / Fifth Wheel', 'value' => 'JOST 50# / 90# Heavy-Duty Fifth Wheel'];
+                    } elseif ($isMixer) {
+                        $row = ['item' => 'Mixer Drum Volume', 'value' => '10 m³ – 12 m³ Heavy-Duty Mixing Drum (PTO)'];
+                    } elseif ($isWaterTank) {
+                        $row = ['item' => 'Tank Capacity', 'value' => '15.000L – 20.000L Carbon Steel + Sprinkler System'];
+                    }
+                }
+
+                return $row;
+            })
+            ->values()
+            ->all();
+    }
+
+    $relatedProducts = Product::with('truckSeries')
+        ->where('is_active', true)
+        ->where('id', '!=', $product->id)
+        ->orderBy('order_column')
+        ->limit(3)
+        ->get();
+
+    $site = SiteSetting::first() ?? new SiteSetting;
+
+    return view('pages.product-detail', compact(
+        'product',
+        'seriesKey',
+        'seriesData',
+        'productSpecs',
+        'specRows',
+        'gallery',
+        'relatedProducts',
+        'site'
+    ));
+})->name('produk.detail');
+
 Route::get('/produk/{seriesKey}', function (string $seriesKey) {
     $seriesKeyLower = strtolower($seriesKey);
-    $seriesData = config("series_data.{$seriesKeyLower}");
+    $seriesDataKey = match ($seriesKeyLower) {
+        'h3000s' => 'h3000',
+        'x5000' => 'x3000',
+        default => $seriesKeyLower,
+    };
+    $seriesData = config("series_data.{$seriesDataKey}");
 
     $seriesModel = TruckSeries::where('key', strtoupper($seriesKey))
         ->orWhere('name', strtoupper($seriesKey))
@@ -85,9 +201,14 @@ Route::get('/blog', function () {
 
 Route::get('/blog/{slug}', function (string $slug) {
     $post = Post::where('slug', $slug)->where('is_published', true)->firstOrFail();
+    $relatedPosts = Post::where('is_published', true)
+        ->where('id', '!=', $post->id)
+        ->orderByDesc('published_at')
+        ->limit(4)
+        ->get();
     $site = SiteSetting::first() ?? new SiteSetting;
 
-    return view('pages.blog-detail', compact('post', 'site'));
+    return view('pages.blog-detail', compact('post', 'relatedPosts', 'site'));
 })->name('blog.detail');
 
 Route::get('/kontak', function () {

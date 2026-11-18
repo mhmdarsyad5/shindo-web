@@ -14,6 +14,8 @@ class Product extends Model
     protected $guarded = [];
 
     protected $casts = [
+        'gallery_images' => 'array',
+        'specifications' => 'array',
         'is_featured' => 'boolean',
         'is_active' => 'boolean',
         'order_column' => 'integer',
@@ -48,5 +50,26 @@ class Product extends Model
     public function getImageUrlAttribute(): string
     {
         return $this->resolveImageUrl($this->image, 'images/shacman-x3000.png');
+    }
+
+    /**
+     * Resolve all gallery image URLs for the product detail page.
+     *
+     * @return array<int, string>
+     */
+    public function getGalleryUrlsAttribute(): array
+    {
+        $urls = [$this->image_url];
+
+        foreach ($this->gallery_images ?? [] as $path) {
+            if (is_string($path) && $path !== '') {
+                $resolved = $this->resolveImageUrl($path);
+                if ($resolved !== '' && ! in_array($resolved, $urls, true)) {
+                    $urls[] = $resolved;
+                }
+            }
+        }
+
+        return $urls;
     }
 }

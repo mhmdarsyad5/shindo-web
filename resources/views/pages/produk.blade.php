@@ -142,6 +142,7 @@
                         @forelse($products as $product)
                             @php
                                 $seriesKey = strtolower($product->truckSeries?->name ?? 'other');
+                                $typeKey = strtolower($product->type ?? '');
                                 $driveKey = strtolower($product->drive ?? '');
                                 $cleanDrive = $product->drive ? explode(' ', $product->drive)[0] : '6X4';
                                 $seriesName = $product->truckSeries?->name ?? 'SHACMAN';
@@ -152,22 +153,28 @@
                                 }
                             @endphp
                             <div class="product-item relative bg-white border border-slate-200 hover:border-[#0067b1] shadow-xs hover:shadow-xl transition-all duration-300 p-5 sm:p-6 flex flex-col justify-between group overflow-hidden"
-                                data-series="{{ $seriesKey }}" data-drive="{{ $driveKey }}">
+                                data-series="{{ $seriesKey }}" data-type="{{ $typeKey }}" data-drive="{{ $driveKey }}">
 
                                 <div>
                                     <!-- Visual Stage -->
-                                    <div class="w-full aspect-[4/3] flex items-center justify-center p-3 sm:p-4 mb-4 bg-slate-50/70 border border-slate-100 overflow-hidden">
+                                    <a href="{{ route('produk.detail', $product->slug) }}"
+                                        class="block w-full aspect-[4/3] flex items-center justify-center p-3 sm:p-4 mb-4 bg-slate-50/70 border border-slate-100 overflow-hidden">
                                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
                                             class="w-full h-full object-contain group-hover:scale-108 transition-transform duration-300 drop-shadow-md select-none pointer-events-none">
-                                    </div>
+                                    </a>
 
                                     <!-- Model Info -->
                                     <div class="text-left min-w-0">
+                                        @if(!empty($product->type))
+                                            <span class="block text-[11px] font-bold uppercase tracking-wider text-[#0067b1] mb-1">
+                                                {{ $product->type }}
+                                            </span>
+                                        @endif
                                         <h3 class="text-lg sm:text-xl font-bold font-barlow-condensed uppercase not-italic text-slate-900 group-hover:text-[#0067b1] transition-colors leading-tight line-clamp-2">
-                                            {{ $product->name }}
+                                            <a href="{{ route('produk.detail', $product->slug) }}">{{ $product->name }}</a>
                                         </h3>
-                                        <p class="text-xs sm:text-sm font-medium text-slate-500 font-sans mt-2">
-                                            Model {{ $cleanDrive }} @if(!empty($product->engine)) • {{ $product->engine }} @endif
+                                        <p class="text-xs sm:text-sm font-medium text-slate-500 font-sans mt-1.5">
+                                            Chassis {{ strtoupper($cleanDrive) }} @if(!empty($product->engine)) • {{ $product->engine }} @endif
                                         </p>
                                     </div>
                                 </div>
@@ -180,7 +187,7 @@
                                         Hubungi Kami
                                     </a>
 
-                                    <a href="{{ url('/kontak?unit=' . urlencode($product->name)) }}"
+                                    <a href="{{ route('produk.detail', $product->slug) }}"
                                         class="flex items-center justify-center py-2.5 sm:py-3 px-3 bg-white hover:bg-slate-50 text-[#0067b1] hover:text-[#004880] border border-slate-300 hover:border-[#0067b1] font-bold text-xs sm:text-sm uppercase font-barlow-condensed not-italic tracking-wider transition-colors text-center shadow-xs">
                                         Detail Unit
                                     </a>
@@ -259,8 +266,7 @@
             const mobileBadge = document.getElementById('mobile-filter-badge');
 
             function applyFilters() {
-                const selectedSeriesRadio = document.querySelector('.filter-series-radio:checked');
-                const selectedSeries = selectedSeriesRadio ? selectedSeriesRadio.value.toLowerCase() : 'all';
+                const selectedSeries = (document.querySelector('.filter-series-radio:checked')?.value || 'all').toLowerCase();
 
                 let visibleCount = 0;
 
@@ -285,19 +291,15 @@
                 }
 
                 if (mobileBadge) {
-                    if (selectedSeries === 'all') {
-                        mobileBadge.textContent = 'Semua Unit';
-                    } else {
-                        mobileBadge.textContent = `${visibleCount} Unit`;
-                    }
+                    mobileBadge.textContent = selectedSeries === 'all' ? 'Semua Unit' : `${visibleCount} Unit`;
                 }
             }
 
             seriesRadios.forEach(rb => rb.addEventListener('change', applyFilters));
 
             function resetFilters() {
-                const allRadio = document.querySelector('.filter-series-radio[value="all"]');
-                if (allRadio) allRadio.checked = true;
+                const allSeries = document.querySelector('.filter-series-radio[value="all"]');
+                if (allSeries) allSeries.checked = true;
                 applyFilters();
             }
 

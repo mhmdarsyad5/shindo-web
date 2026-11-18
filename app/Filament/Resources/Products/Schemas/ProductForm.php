@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Products\Schemas;
 
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -88,6 +89,37 @@ class ProductForm
                                 ->default(true)
                                 ->inline(false),
                         ]),
+                    ]),
+
+                Section::make('Galeri & Spesifikasi Detail Unit')
+                    ->collapsed()
+                    ->schema([
+                        FileUpload::make('gallery_images')
+                            ->label('Galeri Foto Tambahan')
+                            ->image()
+                            ->multiple()
+                            ->reorderable()
+                            ->disk('public')
+                            ->directory('products/gallery')
+                            ->openable()
+                            ->downloadable()
+                            ->columnSpanFull(),
+                        Repeater::make('specifications')
+                            ->label('Spesifikasi Teknis Khusus Unit (Opsional)')
+                            ->schema([
+                                TextInput::make('item')
+                                    ->label('Item')
+                                    ->placeholder('GVM (Gross Vehicle Weight)')
+                                    ->required(),
+                                TextInput::make('value')
+                                    ->label('Spesifikasi')
+                                    ->placeholder('25.000 – 31.000 kg')
+                                    ->required(),
+                            ])
+                            ->columns(2)
+                            ->defaultItems(0)
+                            ->helperText('Kosongkan jika ingin memakai spesifikasi standar seri.')
+                            ->columnSpanFull(),
                     ]),
             ]);
     }

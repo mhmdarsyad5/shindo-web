@@ -17,7 +17,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,600;1,700;1,800;1,900&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,600;1,700;1,800;1,900&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
         rel="stylesheet">
 
     <!-- Styles / Scripts via Vite -->
@@ -123,18 +123,18 @@
 </head>
 
 <body
-    class="bg-white text-neutral-900 antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-[#0067b1] selection:text-white">
+    class="bg-white text-neutral-900 antialiased min-h-screen flex flex-col overflow-x-clip selection:bg-[#0067b1] selection:text-white">
+
+    @include('partials.top-bar')
 
     <!-- ================= HEADER WRAPPER ================= -->
     <header id="main-header"
-        class="w-full flex-shrink-0 sticky top-0 z-50 shadow-md transition-transform duration-300 ease-in-out">
-        @include('partials.top-bar')
-
+        class="w-full flex-shrink-0 sticky top-0 z-50 bg-[#0067b1] shadow-md">
         <div class="w-full bg-[#0067b1] border-b border-[#005a9c]/60">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-[68px] sm:h-[74px]">
                     <!-- Logo Shacman Authorized Dealer Shindo -->
-                    <a href="{{ url('/') }}" class="flex items-center group py-2"
+                    <a href="{{ url('/') }}" class="flex items-center group py-2 flex-shrink-0"
                         aria-label="SHACMAN Authorized Dealer SHINDO">
                         <img src="{{ $site->navbar_logo_url }}"
                             alt="{{ $site->site_name ?? 'SHACMAN Authorized Dealer SHINDO' }}"
@@ -142,7 +142,7 @@
                     </a>
 
                     <!-- Desktop Navigation Menu -->
-                    <nav class="hidden md:flex items-center space-x-1 lg:space-x-1.5 text-sm font-medium">
+                    <nav class="hidden lg:flex items-center space-x-0.5 xl:space-x-1.5 text-sm font-medium">
                         @foreach($site->nav_items ?? [] as $nav)
                             @php
                                 $isProduk = ($nav['label'] ?? '') === 'Produk' || ($nav['label'] ?? '') === 'Dump Truck' || str_contains($nav['url'] ?? '', 'produk');
@@ -157,7 +157,7 @@
                                 <!-- Dropdown Produk dengan 3 Series (Duta Hino Style) -->
                                 <div class="relative group flex items-center h-[68px] sm:h-[74px]">
                                     <a href="{{ url('/produk') }}"
-                                        class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-sm transition-colors {{ $isProdukActive ? 'bg-[#004880] text-white font-medium' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
+                                        class="inline-flex items-center gap-1.5 px-2.5 xl:px-3.5 py-1.5 text-sm whitespace-nowrap transition-colors {{ $isProdukActive ? 'bg-[#004880] text-white font-medium' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
                                         <span>Produk</span>
                                         <svg class="w-3.5 h-3.5 transition-transform duration-250 ease-out group-hover:rotate-180"
                                             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -194,7 +194,7 @@
                                 </div>
                             @else
                                 <a href="{{ $nav['url'] ?? '#' }}"
-                                    class="inline-flex items-center px-3.5 py-1.5 text-sm transition-colors {{ $isActive ? 'bg-[#004880] text-white font-medium' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
+                                    class="inline-flex items-center px-2.5 xl:px-3.5 py-1.5 text-sm whitespace-nowrap transition-colors {{ $isActive ? 'bg-[#004880] text-white font-medium' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
                                     <span>{{ $nav['label'] ?? '' }}</span>
                                 </a>
                             @endif
@@ -202,15 +202,15 @@
                     </nav>
 
                     <!-- Desktop CTA Button -->
-                    <div class="hidden md:flex items-center">
+                    <div class="hidden lg:flex items-center flex-shrink-0">
                         <a href="{{ $site->cta_url ?? '/kontak' }}"
-                            class="bg-[#004880] hover:bg-[#003d6d] text-white text-xs sm:text-sm font-medium px-5 sm:px-6 py-2 sm:py-2.5 border border-[#005a9c]/50 shadow-sm">
+                            class="bg-[#004880] hover:bg-[#003d6d] text-white text-xs sm:text-sm font-medium whitespace-nowrap px-4 xl:px-6 py-2 xl:py-2.5 border border-[#005a9c]/50 shadow-sm">
                             {{ $site->cta_text ?? 'Hubungi Kami' }}
                         </a>
                     </div>
 
                     <!-- Mobile Menu Button -->
-                    <div class="flex md:hidden items-center">
+                    <div class="flex lg:hidden items-center">
                         <button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
                             class="text-white p-2 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white"
                             aria-label="Toggle Navigation">
@@ -231,7 +231,7 @@
 
             <!-- Mobile Dropdown Menu -->
             <div id="mobile-menu"
-                class="hidden md:hidden bg-[#005a9c] border-t border-[#004b87] px-4 pt-3 pb-5 space-y-2">
+                class="hidden lg:hidden bg-[#005a9c] border-t border-[#004b87] px-4 pt-3 pb-5 space-y-2">
                 @foreach($site->nav_items ?? [] as $nav)
                     @php
                         $isProduk = ($nav['label'] ?? '') === 'Produk' || ($nav['label'] ?? '') === 'Dump Truck' || str_contains($nav['url'] ?? '', 'produk');
@@ -294,39 +294,16 @@
 
     <!-- ================= HERO SECTION ================= -->
     <section
-        class="relative w-full overflow-hidden flex flex-col justify-start h-[330px] sm:h-[440px] md:h-[520px] lg:h-[calc(100vh-74px-165px)] lg:min-h-[620px] xl:min-h-[700px] 2xl:min-h-[790px]">
-        <!-- Gambar Hero-->
+        class="relative w-full overflow-hidden bg-[#00163c] h-[300px] sm:h-[440px] md:h-[520px] lg:h-[calc(100vh-74px-165px)] lg:min-h-[560px] xl:min-h-[640px] 2xl:min-h-[760px]">
+        <h1 class="sr-only">{{ $settings->hero_tagline ?? 'SHACMAN – Tangguh di Segala Medan' }}</h1>
         <img src="{{ $settings->hero_background_image_url }}" alt="SHACMAN Heavy Duty Trucks di Segala Medan"
-            class="absolute inset-0 w-full h-full object-cover select-none pointer-events-none"
-            style="object-position: 50% 12%;">
-
-        <!-- Subtle Contrast Lighting -->
-        <div class="absolute inset-0 bg-gradient-to-b from-white/25 via-transparent to-black/30 pointer-events-none">
-        </div>
-
-        <!-- Konten Hero: Logo & Slogan -->
-        <div
-            class="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-3 sm:pt-6 md:pt-8 flex flex-col items-center justify-start pointer-events-auto z-10 reveal-scale">
-            <!-- SHACMAN Logo with Emblem (Enlarged) -->
-            <img src="{{ $settings->hero_logo_url }}" alt="SHACMAN"
-                class="h-11 sm:h-16 md:h-24 lg:h-32 xl:h-36 w-auto object-contain transition-transform duration-300 hover:scale-105">
-
-            <!-- Tagline with Accent Lines (Full Size) -->
-            <div class="flex items-center justify-center sm:gap-3 md:gap-4 mt-2 sm:mt-3 md:mt-4 select-none">
-                <span class="w-6 sm:w-12 md:w-16 lg:w-20 h-[2px] sm:h-[3px] bg-neutral-950 flex-shrink-0"></span>
-                <h1
-                    class="text-xs sm:text-lg md:text-2xl lg:text-3xl font-bold uppercase text-neutral-950 leading-none">
-                    {{ $settings->hero_tagline ?? 'TANGGUH DI SEGALA MEDAN' }}
-                </h1>
-                <span class="w-6 sm:w-12 md:w-16 lg:w-20 h-[2px] sm:h-[3px] bg-neutral-950 flex-shrink-0"></span>
-            </div>
-        </div>
+            class="w-full h-full object-cover object-[49%_35%] block select-none pointer-events-none">
     </section>
 
     <!-- ================= STATS BANNER SECTION ================= -->
-    <section class="w-full bg-[#00163c] border-y border-slate-800/80 py-5 sm:py-7 lg:py-8 flex-shrink-0 z-20">
+    <section class="w-full bg-[#00163c] border-b border-slate-800/80 py-5 sm:py-7 lg:py-8 flex-shrink-0 z-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 items-center">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 lg:gap-8 items-center">
 
                 @foreach($settings->stats ?? [] as $idx => $stat)
                     <div
@@ -375,7 +352,7 @@
                         </div>
                         <div>
                             <div
-                                class="text-xl sm:text-2xl md:text-3xl font-bold text-white font-barlow-condensed uppercase tracking-tight leading-none">
+                                class="text-xl sm:text-2xl lg:text-2xl xl:text-3xl font-semibold italic text-white font-barlow-condensed uppercase tracking-wide leading-none whitespace-nowrap">
                                 {{ $stat['value'] ?? '' }}
                             </div>
                             <div class="text-xs sm:text-sm text-slate-300 font-sans font-normal mt-1 leading-tight">
@@ -555,28 +532,22 @@
 
             <!-- 3 Kolom Card Produk Visual Kotak 1:1 -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
-                @foreach($products as $idx => $product)
+                @foreach($truckSeries as $idx => $series)
                     @php
-                        $seriesKey = strtolower($product->truckSeries?->key ?? $product->truckSeries?->name ?? '');
-                        if (empty($seriesKey) || !in_array($seriesKey, ['x3000', 'h3000', 'f3000'])) {
-                            if (str_contains(strtolower($product->name), 'h3000')) {
-                                $seriesKey = 'h3000';
-                            } elseif (str_contains(strtolower($product->name), 'f3000')) {
-                                $seriesKey = 'f3000';
-                            } else {
-                                $seriesKey = 'x3000';
-                            }
-                        }
+                        $seriesKey = strtolower($series->key ?? $series->name ?? 'x3000');
                         $cutoutRelPath = config("series_data.{$seriesKey}.truck_render") ?? "images/series/{$seriesKey}_cutout.png";
-                        $cutoutUrl = file_exists(public_path($cutoutRelPath)) ? asset($cutoutRelPath) : $product->image_url;
+                        $cutoutUrl = file_exists(public_path($cutoutRelPath)) ? asset($cutoutRelPath) : $series->image_url;
                         $cardUrl = route('produk.series', $seriesKey);
+                        $seriesLabel = str_starts_with(strtolower($series->name), 'shacman')
+                            ? $series->name
+                            : 'SHACMAN ' . $series->name;
                     @endphp
                     <a href="{{ $cardUrl }}"
                         class="product-item relative bg-white border border-slate-200/90 hover:border-[#0067b1] shadow-xs hover:shadow-xl transition-all duration-300 aspect-square flex flex-col justify-between p-4 sm:p-6 group overflow-hidden reveal-on-scroll {{ $idx === 0 ? 'reveal-delay-100' : ($idx === 1 ? 'reveal-delay-200' : 'reveal-delay-300') }}">
 
                         <!-- Visual Stage: Gambar Truk Cutout Proporsional -->
                         <div class="w-full flex-1 flex items-center justify-center overflow-hidden py-2 px-1">
-                            <img src="{{ $cutoutUrl }}" alt="{{ $product->name }}"
+                            <img src="{{ $cutoutUrl }}" alt="{{ $seriesLabel }}"
                                 class="max-h-full max-w-full object-contain transform group-hover:scale-105 transition-transform duration-500 drop-shadow-md select-none pointer-events-none">
                         </div>
 
@@ -584,14 +555,14 @@
                         <div class="pt-3 border-t border-slate-100 flex flex-col items-center text-center">
                             <h3
                                 class="text-xl sm:text-2xl lg:text-3xl font-bold font-barlow-condensed uppercase text-slate-900 group-hover:text-[#0067b1] transition-colors leading-tight">
-                                {{ str_ends_with(strtolower($product->name), 'series') ? $product->name : $product->name . ' Series' }}
+                                {{ str_ends_with(strtolower($seriesLabel), 'series') ? $seriesLabel : $seriesLabel . ' Series' }}
                             </h3>
 
-                            <!-- Tombol LIHAT PRODUK (Hanya Muncul Saat Hover — Skema Duta Hino) -->
+                            <!-- Tombol LIHAT PRODUK (Visible di Mobile/Tablet, Hover Reveal di Desktop) -->
                             <div
-                                class="overflow-hidden transition-all duration-300 max-h-0 group-hover:max-h-14 opacity-0 group-hover:opacity-100 mt-0 group-hover:mt-3">
+                                class="overflow-hidden transition-all duration-300 max-h-14 opacity-100 mt-3 lg:max-h-0 lg:opacity-0 lg:mt-0 lg:group-hover:max-h-14 lg:group-hover:opacity-100 lg:group-hover:mt-3">
                                 <span
-                                    class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-[#0067b1] group-hover:bg-[#00528e] text-white text-xs font-bold font-sans uppercase tracking-wider shadow-sm transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+                                    class="inline-flex items-center justify-center gap-2 px-6 py-2 bg-[#0067b1] group-hover:bg-[#00528e] text-white text-xs font-bold font-sans uppercase tracking-wider shadow-sm transform translate-y-0 lg:translate-y-2 lg:group-hover:translate-y-0 transition-transform duration-300">
                                     <span>Lihat Produk</span>
                                     <svg class="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform duration-200"
                                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
@@ -1205,37 +1176,6 @@
                         dumpTruckArrow.classList.toggle('rotate-180');
                     }
                 });
-            }
-
-            // Hide Navbar on Scroll Down, Reveal on Scroll Up
-            const header = document.getElementById('main-header');
-            if (header) {
-                let lastScrollTop = 0;
-                const delta = 8;
-
-                window.addEventListener('scroll', function () {
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-                    // Don't hide if mobile menu is currently open
-                    if (menu && !menu.classList.contains('hidden')) {
-                        return;
-                    }
-
-                    // Ignore tiny scroll movements
-                    if (Math.abs(lastScrollTop - scrollTop) <= delta) {
-                        return;
-                    }
-
-                    // Scroll Down past header -> Hide
-                    if (scrollTop > lastScrollTop && scrollTop > 80) {
-                        header.classList.add('-translate-y-full');
-                    } else {
-                        // Scroll Up or at top -> Show
-                        header.classList.remove('-translate-y-full');
-                    }
-
-                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-                }, { passive: true });
             }
 
             // Truck Series Tab Interactive Switcher

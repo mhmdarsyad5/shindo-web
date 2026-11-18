@@ -40,17 +40,17 @@
 </head>
 
 <body
-    class="bg-white text-neutral-900 antialiased min-h-screen flex flex-col overflow-x-hidden selection:bg-[#0067b1] selection:text-white">
+    class="bg-white text-neutral-900 antialiased min-h-screen flex flex-col overflow-x-clip selection:bg-[#0067b1] selection:text-white">
+
+    @include('partials.top-bar')
 
     <!-- ================= HEADER WRAPPER ================= -->
-    <header id="main-header" class="w-full flex-shrink-0 sticky top-0 z-50 shadow-md transition-transform duration-300 ease-in-out">
-        @include('partials.top-bar')
-
+    <header id="main-header" class="w-full flex-shrink-0 sticky top-0 z-50 bg-[#0067b1] shadow-md">
         <div class="w-full bg-[#0067b1] border-b border-[#005a9c]/60">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex items-center justify-between h-[68px] sm:h-[74px]">
                 <!-- Logo Shacman Authorized Dealer Shindo -->
-                <a href="{{ url('/') }}" class="flex items-center group py-2"
+                <a href="{{ url('/') }}" class="flex items-center group py-2 flex-shrink-0"
                     aria-label="SHACMAN Authorized Dealer SHINDO">
                     <img src="{{ $site->navbar_logo_url }}"
                         alt="{{ $site->site_name ?? 'SHACMAN Authorized Dealer SHINDO' }}"
@@ -58,7 +58,7 @@
                 </a>
 
                 <!-- Desktop Navigation Menu -->
-                <nav class="hidden md:flex items-center space-x-1 lg:space-x-1.5 text-sm font-medium">
+                <nav class="hidden lg:flex items-center space-x-0.5 xl:space-x-1.5 text-sm font-medium">
                     @foreach($site->nav_items ?? [] as $nav)
                         @php
                             $isProduk = ($nav['label'] ?? '') === 'Produk' || ($nav['label'] ?? '') === 'Dump Truck' || str_contains($nav['url'] ?? '', 'produk');
@@ -73,7 +73,7 @@
                             <!-- Dropdown Produk dengan 3 Series (Duta Hino Style) -->
                             <div class="relative group flex items-center h-[68px] sm:h-[74px]">
                                 <a href="{{ url('/produk') }}"
-                                    class="inline-flex items-center gap-1.5 px-3.5 py-1.5 text-sm transition-colors {{ $isProdukActive ? 'bg-[#004880] text-white font-medium' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
+                                    class="inline-flex items-center gap-1.5 px-2.5 xl:px-3.5 py-1.5 text-sm whitespace-nowrap transition-colors {{ $isProdukActive ? 'bg-[#004880] text-white font-medium' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
                                     <span>Produk</span>
                                     <svg class="w-3.5 h-3.5 transition-transform duration-250 ease-out group-hover:rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
@@ -109,7 +109,7 @@
                             </div>
                         @else
                             <a href="{{ $nav['url'] ?? '#' }}"
-                                class="inline-flex items-center px-3.5 py-1.5 text-sm transition-colors {{ $isActive ? 'bg-[#004880] text-white font-medium' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
+                                class="inline-flex items-center px-2.5 xl:px-3.5 py-1.5 text-sm whitespace-nowrap transition-colors {{ $isActive ? 'bg-[#004880] text-white font-medium' : 'text-white/85 hover:text-white hover:bg-white/10 font-medium' }}">
                                 <span>{{ $nav['label'] ?? '' }}</span>
                             </a>
                         @endif
@@ -117,15 +117,15 @@
                 </nav>
 
                 <!-- Desktop CTA Button -->
-                <div class="hidden md:flex items-center">
+                <div class="hidden lg:flex items-center flex-shrink-0">
                     <a href="{{ $site->cta_url ?? '/kontak' }}"
-                        class="bg-[#004880] hover:bg-[#003d6d] text-white text-xs sm:text-sm font-medium px-5 sm:px-6 py-2 sm:py-2.5 border border-[#005a9c]/50 shadow-sm transition-all duration-200 hover:scale-[1.02]">
+                        class="bg-[#004880] hover:bg-[#003d6d] text-white text-xs sm:text-sm font-medium whitespace-nowrap px-4 xl:px-6 py-2 xl:py-2.5 border border-[#005a9c]/50 shadow-sm transition-all duration-200 hover:scale-[1.02]">
                         {{ $site->cta_text ?? 'Hubungi Kami' }}
                     </a>
                 </div>
 
                 <!-- Mobile Menu Button -->
-                <div class="flex md:hidden items-center">
+                <div class="flex lg:hidden items-center">
                     <button id="mobile-menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu"
                         class="text-white p-2 hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white"
                         aria-label="Toggle Navigation">
@@ -145,7 +145,7 @@
         </div>
 
         <!-- Mobile Dropdown Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-[#005a9c] border-t border-[#004b87] px-4 pt-3 pb-5 space-y-2">
+        <div id="mobile-menu" class="hidden lg:hidden bg-[#005a9c] border-t border-[#004b87] px-4 pt-3 pb-5 space-y-2">
             @foreach($site->nav_items ?? [] as $nav)
                 @php
                     $isDumpTruck = ($nav['label'] ?? '') === 'Dump Truck' || ($nav['label'] ?? '') === 'Produk' || str_contains($nav['url'] ?? '', 'produk');
@@ -361,36 +361,6 @@
                 });
             }
 
-            // Hide Navbar on Scroll Down, Reveal on Scroll Up
-            const header = document.getElementById('main-header');
-            if (header) {
-                let lastScrollTop = 0;
-                const delta = 8;
-
-                window.addEventListener('scroll', function () {
-                    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-                    // Don't hide if mobile menu is currently open
-                    if (menu && !menu.classList.contains('hidden')) {
-                        return;
-                    }
-
-                    // Ignore tiny scroll movements
-                    if (Math.abs(lastScrollTop - scrollTop) <= delta) {
-                        return;
-                    }
-
-                    // Scroll Down past header -> Hide
-                    if (scrollTop > lastScrollTop && scrollTop > 80) {
-                        header.classList.add('-translate-y-full');
-                    } else {
-                        // Scroll Up or at top -> Show
-                        header.classList.remove('-translate-y-full');
-                    }
-
-                    lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-                }, { passive: true });
-            }
         });
     </script>
     @stack('scripts')
