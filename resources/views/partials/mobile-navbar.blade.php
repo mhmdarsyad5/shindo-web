@@ -14,10 +14,11 @@
     }
 @endphp
 
-<!-- ================= MOBILE & TABLET FLOATING LIQUID PILL NAVBAR ================= -->
+<!-- ================= MOBILE & TABLET FLOATING LIQUID PILL NAVBAR (SMART SLIDE UP/DOWN) ================= -->
 <nav id="mobile-pill-navbar"
     aria-label="Navigasi Cepat Mobile"
-    class="fixed bottom-3.5 sm:bottom-5 left-1/2 -translate-x-1/2 z-40 lg:hidden w-[calc(100%-1.75rem)] max-w-sm sm:max-w-md select-none touch-pan-y">
+    class="fixed bottom-3.5 sm:bottom-5 left-1/2 z-40 lg:hidden w-[calc(100%-1.75rem)] max-w-sm sm:max-w-md select-none touch-pan-y will-change-transform"
+    style="transform: translate3d(-50%, 0, 0); transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.25s ease;">
     
     <!-- Track Container (Strict 5-Columns Grid for Pixel-Perfect Symmetry) -->
     <div id="mobile-pill-track"
@@ -116,7 +117,7 @@
     <!-- Backdrop -->
     <div id="mobile-nav-backdrop" class="absolute inset-0 bg-black/75 pointer-events-none transition-opacity duration-300 opacity-0"></div>
 
-    <!-- Sheet Panel with iOS Spring Physics -->
+    <!-- Sheet Panel with iOS Spring Physics (Masuk Naik, Keluar Turun) -->
     <div id="mobile-nav-sheet"
         role="dialog"
         aria-modal="true"
@@ -247,10 +248,11 @@
     </div>
 </div>
 
-<!-- Script Controller: High-Precision Icon-Centered Liquid Sliding Tab Bar -->
+<!-- Script Controller: Liquid Gestures, Synced Drawer Slide & Smart Scroll Hide/Show -->
 <script>
     (function () {
         function initLiquidMobileNavbar() {
+            const navbar = document.getElementById('mobile-pill-navbar');
             const track = document.getElementById('mobile-pill-track');
             const capsule = document.getElementById('liquid-pill-capsule');
             const navItems = Array.from(document.querySelectorAll('.liquid-nav-item'));
@@ -261,7 +263,7 @@
             const sheet = document.getElementById('mobile-nav-sheet');
             const topHeaderMenuBtn = document.getElementById('mobile-menu-btn');
 
-            if (!track || !capsule || navItems.length === 0) return;
+            if (!navbar || !track || !capsule || navItems.length === 0) return;
 
             let activeItem = navItems.find(el => el.classList.contains('is-active')) || navItems[0];
             let isDraggingNavbar = false;
@@ -269,6 +271,24 @@
             let startTouchY = 0;
             let lastTouchX = 0;
             let touchVelocityX = 0;
+            let isNavbarHidden = false;
+
+            // ================= SMART NAVBAR SHOW / HIDE CONTROLS =================
+            function hideNavbar() {
+                if (isNavbarHidden) return;
+                isNavbarHidden = true;
+                navbar.style.transform = 'translate3d(-50%, 140%, 0)';
+                navbar.style.opacity = '0';
+                navbar.style.pointerEvents = 'none';
+            }
+
+            function showNavbar() {
+                if (!isNavbarHidden) return;
+                isNavbarHidden = false;
+                navbar.style.transform = 'translate3d(-50%, 0, 0)';
+                navbar.style.opacity = '1';
+                navbar.style.pointerEvents = 'auto';
+            }
 
             /**
              * Mathematically calculates exact pixel coordinate to center capsule over targetItem's icon.
@@ -281,16 +301,9 @@
                 const icon = targetItem.querySelector('.nav-icon');
                 const iconRect = icon ? icon.getBoundingClientRect() : itemRect;
 
-                // Center of the icon in viewport coordinates
                 const iconCenterX = iconRect.left + (iconRect.width / 2);
-
-                // Origin (left: 0) of the capsule inside the positioned track container
                 const trackInnerLeft = trackRect.left + track.clientLeft;
-
-                // Match item's exact column width
                 const capsuleWidth = itemRect.width;
-
-                // Position so capsule center === icon center
                 const capsuleLeft = (iconCenterX - trackInnerLeft) - (capsuleWidth / 2);
 
                 return {
@@ -333,13 +346,12 @@
                 });
             }
 
-            // Sync initial state (no animation on initial page load)
+            // Sync initial state
             function syncInitialPosition() {
                 placeCapsule(activeItem, false, 1, 1);
                 setHighlightedItem(activeItem);
             }
 
-            // Execute immediately, in next frame, and on window resize
             syncInitialPosition();
             requestAnimationFrame(syncInitialPosition);
             window.addEventListener('resize', syncInitialPosition, { passive: true });
@@ -397,7 +409,6 @@
                 const liquidStretchX = 1 + speed;
                 const liquidSquashY = Math.max(0.88, 1 - (speed * 0.5));
 
-                // Position capsule smoothly tracking finger
                 const trackRect = track.getBoundingClientRect();
                 const trackInnerLeft = trackRect.left + track.clientLeft;
                 const fingerXInTrack = touch.clientX - trackInnerLeft;
@@ -431,7 +442,6 @@
                 });
 
                 if (targetItem) {
-                    // Precision snap to target tab icon with spring physics
                     placeCapsule(targetItem, true, 1, 1);
                     setHighlightedItem(targetItem);
 
@@ -480,7 +490,7 @@
                 });
             });
 
-            // ================= BOTTOM SHEET LOGIC =================
+            // ================= BOTTOM SHEET LOGIC (MASUK NAIK, KELUAR TURUN) =================
             let isSheetOpen = false;
             let sheetStartY = 0;
             let sheetCurrentY = 0;
@@ -489,6 +499,11 @@
             function openSheet() {
                 isSheetOpen = true;
                 if (!container || !backdrop || !sheet) return;
+
+                // 1. Navbar turun ke bawah keluar layar
+                hideNavbar();
+
+                // 2. Sheet masuk NAIK dari bawah layar
                 container.classList.remove('pointer-events-none', 'opacity-0');
                 container.classList.add('pointer-events-auto', 'opacity-100');
                 backdrop.classList.remove('pointer-events-none', 'opacity-0');
@@ -505,6 +520,8 @@
             function closeSheet() {
                 isSheetOpen = false;
                 if (!container || !backdrop || !sheet) return;
+
+                // 1. Sheet keluar TURUN ke bawah layar
                 sheet.style.transform = '';
                 sheet.classList.remove('translate-y-0');
                 sheet.classList.add('translate-y-full');
@@ -516,6 +533,9 @@
 
                 if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = '';
+
+                // 2. Navbar NAIK balik ke posisinya semula dengan fluid spring
+                setTimeout(showNavbar, 120);
 
                 // Restore capsule back to active page item
                 placeCapsule(activeItem, true, 1, 1);
@@ -579,6 +599,45 @@
                     }
                 }, { passive: true });
             }
+
+            // ================= SMART SCROLL HIDE / SHOW CONTROLS =================
+            let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
+            let scrollTicking = false;
+
+            function handleWindowScroll() {
+                if (isSheetOpen || isDraggingNavbar) return;
+                const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
+
+                // Kalau di bagian paling atas halaman, selalu tampilkan navbar
+                if (currentScrollY <= 24) {
+                    showNavbar();
+                    lastScrollY = currentScrollY;
+                    return;
+                }
+
+                const diff = currentScrollY - lastScrollY;
+
+                // Threshold 10px biar gak jittery / goyang saat micro-scroll
+                if (diff > 10) {
+                    // Scroll ke bawah (baca konten) -> navbar turun ngumpet
+                    hideNavbar();
+                } else if (diff < -10) {
+                    // Scroll ke atas -> navbar naik muncul lagi
+                    showNavbar();
+                }
+
+                lastScrollY = currentScrollY;
+            }
+
+            window.addEventListener('scroll', function () {
+                if (!scrollTicking) {
+                    window.requestAnimationFrame(function () {
+                        handleWindowScroll();
+                        scrollTicking = false;
+                    });
+                    scrollTicking = true;
+                }
+            }, { passive: true });
         }
 
         if (document.readyState === 'loading') {
