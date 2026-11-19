@@ -14,7 +14,7 @@
     }
 @endphp
 
-<!-- ================= MOBILE & TABLET FLOATING LIQUID PILL NAVBAR (APPLE HIG INSPIRED) ================= -->
+<!-- ================= MOBILE & TABLET FLOATING LIQUID PILL NAVBAR ================= -->
 <nav id="mobile-pill-navbar"
     aria-label="Navigasi Cepat Mobile"
     class="fixed bottom-3.5 sm:bottom-5 left-1/2 -translate-x-1/2 z-40 lg:hidden w-[calc(100%-1.75rem)] max-w-sm sm:max-w-md select-none touch-pan-y">
@@ -23,63 +23,71 @@
     <div id="mobile-pill-track"
         class="relative bg-[#00163c] border border-slate-700/90 rounded-full shadow-[0_12px_36px_rgba(0,0,0,0.55)] p-1 grid grid-cols-5 gap-1 items-center overflow-hidden transition-transform duration-200">
 
-        <!-- Liquid Sliding Capsule Highlight (Always Perfectly Centered to Active Icon) -->
+        <!-- Solid Blue Sliding Capsule Highlight (Flat Brand Blue #0067b1, No Gradient) -->
         <div id="liquid-pill-capsule"
-            class="absolute top-1 bottom-1 left-0 rounded-full bg-[#0067b1] shadow-sm pointer-events-none will-change-transform z-0"
+            class="absolute top-1 bottom-1 left-0 rounded-full bg-[#0067b1] pointer-events-none will-change-transform z-0"
             style="opacity: 0; transform-origin: center center;">
-            <!-- Subtle organic liquid sheen -->
-            <div class="absolute inset-0 rounded-full bg-gradient-to-b from-white/20 via-transparent to-black/10"></div>
         </div>
 
-        <!-- 1. Beranda -->
+        <!-- 1. Beranda (Flaticon Style Home Icon) -->
         <a href="{{ url('/') }}"
             data-nav-index="0"
             data-nav-href="{{ url('/') }}"
-            class="liquid-nav-item relative z-10 w-full flex flex-col items-center justify-center py-1.5 px-0.5 min-h-[46px] rounded-full transition-colors duration-200 {{ $isHome ? 'is-active text-white font-semibold' : 'text-slate-300 font-medium' }}">
-            <svg class="nav-icon w-5 h-5 mb-0.5 pointer-events-none transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="{{ $isHome ? '2.5' : '2' }}">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            class="liquid-nav-item relative z-10 w-full flex flex-col items-center justify-center py-1.5 px-0.5 min-h-[46px] rounded-full transition-colors duration-200 font-normal {{ $isHome ? 'is-active text-white' : 'text-slate-300' }}">
+            <svg class="nav-icon w-5 h-5 mb-0.5 pointer-events-none transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2.5 10.5L12 2.5l9.5 8" />
+                <path d="M19 8.5V4.5a.5.5 0 00-.5-.5h-2a.5.5 0 00-.5.5v1.8" />
+                <path d="M4.5 10v10a1 1 0 001 1h13a1 1 0 001-1V10" />
+                <path d="M9.5 21v-6a1.5 1.5 0 011.5-1.5h2a1.5 1.5 0 011.5 1.5v6" />
             </svg>
-            <span class="nav-label text-[10px] sm:text-[11px] leading-tight tracking-tight pointer-events-none truncate max-w-full">Beranda</span>
+            <span class="nav-label text-[10.5px] leading-tight tracking-tight pointer-events-none truncate max-w-full font-normal">Beranda</span>
         </a>
 
-        <!-- 2. Produk -->
+        <!-- 2. Produk (Flaticon Style Commercial Heavy Truck Icon) -->
         <a href="{{ url('/produk') }}"
             data-nav-index="1"
             data-nav-href="{{ url('/produk') }}"
-            class="liquid-nav-item relative z-10 w-full flex flex-col items-center justify-center py-1.5 px-0.5 min-h-[46px] rounded-full transition-colors duration-200 {{ $isProduk ? 'is-active text-white font-semibold' : 'text-slate-300 font-medium' }}">
-            <svg class="nav-icon w-5 h-5 mb-0.5 pointer-events-none transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="{{ $isProduk ? '2.5' : '2' }}">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M1 3h15v13H1V3z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16 8h4l3 3.5V16h-7V8z" />
-                <circle cx="5.5" cy="18.5" r="2.5" />
-                <circle cx="18.5" cy="18.5" r="2.5" />
+            class="liquid-nav-item relative z-10 w-full flex flex-col items-center justify-center py-1.5 px-0.5 min-h-[46px] rounded-full transition-colors duration-200 font-normal {{ $isProduk ? 'is-active text-white' : 'text-slate-300' }}">
+            <svg class="nav-icon w-5 h-5 mb-0.5 pointer-events-none transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 5h11v11H2z" />
+                <path d="M13 8h4.5a1 1 0 01.8.4l2.7 3.6a1 1 0 01.2.6v3.4H13" />
+                <circle cx="6" cy="18" r="2.2" />
+                <circle cx="17.5" cy="18" r="2.2" />
+                <path d="M8.2 18h7.1M2 16v2h1.8M19.7 18H22v-2" />
+                <path d="M15 11h3" />
             </svg>
-            <span class="nav-label text-[10px] sm:text-[11px] leading-tight tracking-tight pointer-events-none truncate max-w-full">Produk</span>
+            <span class="nav-label text-[10.5px] leading-tight tracking-tight pointer-events-none truncate max-w-full font-normal">Produk</span>
         </a>
 
-        <!-- 3. Layanan -->
+        <!-- 3. Layanan (Flaticon Style Service / Mechanic Wrench Icon) -->
         <a href="{{ url('/layanan') }}"
             data-nav-index="2"
             data-nav-href="{{ url('/layanan') }}"
-            class="liquid-nav-item relative z-10 w-full flex flex-col items-center justify-center py-1.5 px-0.5 min-h-[46px] rounded-full transition-colors duration-200 {{ $isLayanan ? 'is-active text-white font-semibold' : 'text-slate-300 font-medium' }}">
-            <svg class="nav-icon w-5 h-5 mb-0.5 pointer-events-none transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="{{ $isLayanan ? '2.5' : '2' }}">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+            class="liquid-nav-item relative z-10 w-full flex flex-col items-center justify-center py-1.5 px-0.5 min-h-[46px] rounded-full transition-colors duration-200 font-normal {{ $isLayanan ? 'is-active text-white' : 'text-slate-300' }}">
+            <svg class="nav-icon w-5 h-5 mb-0.5 pointer-events-none transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19.7 7.7a4.5 4.5 0 00-6.1-6.1l-2.8 2.8a3 3 0 000 4.2l.6.6L3.2 17.4a2 2 0 000 2.8l.6.6a2 2 0 002.8 0l8.2-8.2.6.6a3 3 0 004.2 0l2.8-2.8a4.5 4.5 0 00-2.7-2.7z" />
+                <circle cx="5.5" cy="18.5" r="1" fill="currentColor" />
             </svg>
-            <span class="nav-label text-[10px] sm:text-[11px] leading-tight tracking-tight pointer-events-none truncate max-w-full">Layanan</span>
+            <span class="nav-label text-[10.5px] leading-tight tracking-tight pointer-events-none truncate max-w-full font-normal">Layanan</span>
         </a>
 
-        <!-- 4. Spareparts -->
+        <!-- 4. Spareparts (Flaticon Style Automotive Dual Gears Icon) -->
         <a href="{{ url('/spareparts') }}"
             data-nav-index="3"
             data-nav-href="{{ url('/spareparts') }}"
-            class="liquid-nav-item relative z-10 w-full flex flex-col items-center justify-center py-1.5 px-0.5 min-h-[46px] rounded-full transition-colors duration-200 {{ $isSpareparts ? 'is-active text-white font-semibold' : 'text-slate-300 font-medium' }}">
-            <svg class="nav-icon w-5 h-5 mb-0.5 pointer-events-none transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="{{ $isSpareparts ? '2.5' : '2' }}">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            class="liquid-nav-item relative z-10 w-full flex flex-col items-center justify-center py-1.5 px-0.5 min-h-[46px] rounded-full transition-colors duration-200 font-normal {{ $isSpareparts ? 'is-active text-white' : 'text-slate-300' }}">
+            <svg class="nav-icon w-5 h-5 mb-0.5 pointer-events-none transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="9" r="2.5" />
+                <path d="M9 3.5v1.2M9 13.3v1.2M3.5 9h1.2M13.3 9h1.2M5.1 5.1l.9.9M12 12l.9.9M5.1 12.9l.9-.9M12 6l.9-.9" />
+                <circle cx="9" cy="9" r="4.5" />
+                <circle cx="16.5" cy="16.5" r="1.8" />
+                <path d="M16.5 12.5v.8M16.5 19.7v.8M12.5 16.5h.8M19.7 16.5h.8M13.7 13.7l.6.6M18.7 18.7l.6.6M13.7 19.3l.6-.6M18.7 14.3l.6-.6" />
+                <circle cx="16.5" cy="16.5" r="3.2" />
             </svg>
-            <span class="nav-label text-[10px] sm:text-[11px] leading-tight tracking-tight pointer-events-none truncate max-w-full">Spareparts</span>
+            <span class="nav-label text-[10.5px] leading-tight tracking-tight pointer-events-none truncate max-w-full font-normal">Spareparts</span>
         </a>
 
-        <!-- 5. Menu Drawer Toggle -->
+        <!-- 5. Menu Drawer Toggle (Flaticon Style Modern Category Grid Icon) -->
         <button type="button"
             id="btn-open-mobile-sheet"
             data-nav-index="4"
@@ -87,14 +95,17 @@
             aria-label="Buka Menu Lainnya"
             aria-expanded="false"
             aria-controls="mobile-nav-sheet"
-            class="liquid-nav-item relative z-10 w-full flex flex-col items-center justify-center py-1.5 px-0.5 min-h-[46px] rounded-full transition-colors duration-200 {{ $isOtherActive ? 'is-active text-white font-semibold' : 'text-slate-300 font-medium' }}">
+            class="liquid-nav-item relative z-10 w-full flex flex-col items-center justify-center py-1.5 px-0.5 min-h-[46px] rounded-full transition-colors duration-200 font-normal {{ $isOtherActive ? 'is-active text-white' : 'text-slate-300' }}">
             @if($isOtherActive)
                 <span class="absolute top-1.5 right-2.5 w-2 h-2 rounded-full bg-amber-400"></span>
             @endif
-            <svg class="nav-icon w-5 h-5 mb-0.5 pointer-events-none transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="{{ $isOtherActive ? '2.5' : '2' }}">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            <svg class="nav-icon w-5 h-5 mb-0.5 pointer-events-none transition-transform duration-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="3.5" y="3.5" width="6.5" height="6.5" rx="2" />
+                <rect x="14" y="3.5" width="6.5" height="6.5" rx="2" />
+                <rect x="3.5" y="14" width="6.5" height="6.5" rx="2" />
+                <rect x="14" y="14" width="6.5" height="6.5" rx="2" />
             </svg>
-            <span class="nav-label text-[10px] sm:text-[11px] leading-tight tracking-tight pointer-events-none truncate max-w-full">Menu</span>
+            <span class="nav-label text-[10.5px] leading-tight tracking-tight pointer-events-none truncate max-w-full font-normal">Menu</span>
         </button>
 
     </div>
@@ -137,7 +148,7 @@
             <p class="text-[11px] font-bold font-sans uppercase tracking-wider text-slate-400 px-1">Menu Utama</p>
 
             <a href="{{ url('/tentang-kami') }}"
-                class="ios-spring-tap flex items-center justify-between p-3 rounded-xl transition-colors {{ request()->is('tentang-kami*') ? 'bg-[#0067b1] text-white font-semibold' : 'text-slate-200 hover:bg-white/10 font-medium' }}">
+                class="ios-spring-tap flex items-center justify-between p-3 rounded-xl transition-colors {{ request()->is('tentang-kami*') ? 'bg-[#0067b1] text-white font-medium' : 'text-slate-200 hover:bg-white/10 font-normal' }}">
                 <div class="flex items-center space-x-3">
                     <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -155,7 +166,7 @@
             </a>
 
             <a href="{{ url('/blog') }}"
-                class="ios-spring-tap flex items-center justify-between p-3 rounded-xl transition-colors {{ request()->is('blog*') ? 'bg-[#0067b1] text-white font-semibold' : 'text-slate-200 hover:bg-white/10 font-medium' }}">
+                class="ios-spring-tap flex items-center justify-between p-3 rounded-xl transition-colors {{ request()->is('blog*') ? 'bg-[#0067b1] text-white font-medium' : 'text-slate-200 hover:bg-white/10 font-normal' }}">
                 <div class="flex items-center space-x-3">
                     <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -173,7 +184,7 @@
             </a>
 
             <a href="{{ url('/kontak') }}"
-                class="ios-spring-tap flex items-center justify-between p-3 rounded-xl transition-colors {{ request()->is('kontak*') ? 'bg-[#0067b1] text-white font-semibold' : 'text-slate-200 hover:bg-white/10 font-medium' }}">
+                class="ios-spring-tap flex items-center justify-between p-3 rounded-xl transition-colors {{ request()->is('kontak*') ? 'bg-[#0067b1] text-white font-medium' : 'text-slate-200 hover:bg-white/10 font-normal' }}">
                 <div class="flex items-center space-x-3">
                     <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white">
                         <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -302,22 +313,21 @@
                 capsule.style.opacity = '1';
             }
 
+            // Set highlighted item with NO bold text or bold strokes
             function setHighlightedItem(targetItem) {
                 navItems.forEach(item => {
                     const icon = item.querySelector('.nav-icon');
                     if (item === targetItem) {
-                        item.classList.add('text-white', 'font-semibold');
-                        item.classList.remove('text-slate-300', 'font-medium');
+                        item.classList.add('text-white');
+                        item.classList.remove('text-slate-300');
                         if (icon) {
-                            icon.style.transform = 'scale(1.15)';
-                            icon.setAttribute('stroke-width', '2.5');
+                            icon.style.transform = 'scale(1.1)';
                         }
                     } else {
-                        item.classList.remove('text-white', 'font-semibold');
-                        item.classList.add('text-slate-300', 'font-medium');
+                        item.classList.remove('text-white');
+                        item.classList.add('text-slate-300');
                         if (icon) {
                             icon.style.transform = 'scale(1)';
-                            icon.setAttribute('stroke-width', '2');
                         }
                     }
                 });
