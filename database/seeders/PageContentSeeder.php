@@ -15,11 +15,19 @@ class PageContentSeeder extends Seeder
     public function run(): void
     {
         // 1. ABOUT SETTING
-        $about = AboutSetting::first() ?? new AboutSetting;
-        $about->hero_image = 'about/about-shacman-fleet-bg.png';
-        $about->profile_image = 'about/about-truck.png';
-        $about->branches_map_image = 'about/about-branch-map.jpg';
-        $about->commitment_image = 'about/cta-mining-bg.jpg';
+        $about = AboutSetting::current();
+        if (empty($about->hero_image)) {
+            $about->hero_image = 'about/about-shacman-fleet-bg.png';
+        }
+        if (empty($about->profile_image)) {
+            $about->profile_image = 'about/about-truck.png';
+        }
+        if (empty($about->branches_map_image)) {
+            $about->branches_map_image = 'about/about-branch-map.jpg';
+        }
+        if (empty($about->commitment_image)) {
+            $about->commitment_image = 'about/cta-mining-bg.jpg';
+        }
         $about->save();
 
         // 2. SERVICE SETTING

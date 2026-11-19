@@ -36,9 +36,9 @@ class AboutSetting extends Model
         return $defaultAsset ? asset($defaultAsset) : '';
     }
 
-    public static function current(): self
+    public static function defaultAttributes(): array
     {
-        return static::first() ?? new static([
+        return [
             'hero_badge' => 'TENTANG KAMI',
             'hero_title' => 'PT SHINDO TRACTORS ADIPERKASA',
             'hero_subtitle' => 'Mitra Terpercaya Solusi Transportasi Alat Berat',
@@ -130,6 +130,30 @@ class AboutSetting extends Model
                     'description' => 'Memastikan setiap investasi kendaraan komersial SHACMAN Anda menghasilkan tingkat produktivitas tinggi dengan biaya pemeliharaan terukur.',
                 ],
             ],
-        ]);
+        ];
+    }
+
+    public static function current(): self
+    {
+        $setting = static::first();
+        $defaults = static::defaultAttributes();
+
+        if (! $setting) {
+            return static::create($defaults);
+        }
+
+        $needsSave = false;
+        foreach ($defaults as $key => $value) {
+            if (empty($setting->{$key})) {
+                $setting->{$key} = $value;
+                $needsSave = true;
+            }
+        }
+
+        if ($needsSave) {
+            $setting->save();
+        }
+
+        return $setting;
     }
 }

@@ -34,9 +34,9 @@ class ServiceSetting extends Model
         return $defaultAsset ? asset($defaultAsset) : '';
     }
 
-    public static function current(): self
+    public static function defaultAttributes(): array
     {
-        return static::first() ?? new static([
+        return [
             'hero_badge' => 'LAYANAN AFTERSALES',
             'hero_title' => 'DUKUNGAN PENUH UNTUK BISNIS ANDA',
             'hero_subtitle' => 'Memastikan performa dan ketersediaan armada dump truck SHACMAN di site tambang tetap optimal dengan dukungan mekanik tersertifikasi ATPM dan pasokan suku cadang asli.',
@@ -68,6 +68,30 @@ class ServiceSetting extends Model
             ],
 
             'banner_image' => 'services/pro_detail08_1.jpg',
-        ]);
+        ];
+    }
+
+    public static function current(): self
+    {
+        $setting = static::first();
+        $defaults = static::defaultAttributes();
+
+        if (! $setting) {
+            return static::create($defaults);
+        }
+
+        $needsSave = false;
+        foreach ($defaults as $key => $value) {
+            if (empty($setting->{$key})) {
+                $setting->{$key} = $value;
+                $needsSave = true;
+            }
+        }
+
+        if ($needsSave) {
+            $setting->save();
+        }
+
+        return $setting;
     }
 }

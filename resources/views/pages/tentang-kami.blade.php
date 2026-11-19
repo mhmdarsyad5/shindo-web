@@ -95,6 +95,12 @@
                 <!-- Left: Authoritative Brand Information -->
                 <div class="lg:col-span-7 space-y-6 reveal-on-scroll">
 
+                    @if(!empty($about->hero_badge))
+                        <span class="inline-flex items-center px-3.5 py-1 bg-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider mb-2 shadow-xs">
+                            {{ $about->hero_badge }}
+                        </span>
+                    @endif
+
                     <h1
                         class="text-4xl sm:text-6xl lg:text-7xl font-bold uppercase font-barlow-condensed not-italic text-[#00163c] leading-[0.92] tracking-tight">
                         {{ $about->hero_title }}

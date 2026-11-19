@@ -36,9 +36,9 @@ class SparepartsSetting extends Model
         return $defaultAsset ? asset($defaultAsset) : '';
     }
 
-    public static function current(): self
+    public static function defaultAttributes(): array
     {
-        return static::first() ?? new static([
+        return [
             'hero_badge' => 'SPAREPARTS SUPPORT',
             'hero_title' => 'SUKU CADANG ASLI & TERLENGKAP',
             'hero_subtitle' => 'Jaminan pasokan spare part orisinal langsung dari pabrik utama untuk menjaga keaslian, performa puncak, serta durabilitas armada heavy-duty truk SHACMAN Anda di seluruh Indonesia.',
@@ -95,6 +95,30 @@ class SparepartsSetting extends Model
             'whatsapp_number' => '628111009567',
             'whatsapp_button_text' => 'Konsultasi Spareparts via WhatsApp',
             'whatsapp_message' => 'Halo Tim Spareparts PT SHINDO, saya membutuhkan informasi ketersediaan suku cadang resmi SHACMAN untuk kebutuhan armada kami.',
-        ]);
+        ];
+    }
+
+    public static function current(): self
+    {
+        $setting = static::first();
+        $defaults = static::defaultAttributes();
+
+        if (! $setting) {
+            return static::create($defaults);
+        }
+
+        $needsSave = false;
+        foreach ($defaults as $key => $value) {
+            if (empty($setting->{$key})) {
+                $setting->{$key} = $value;
+                $needsSave = true;
+            }
+        }
+
+        if ($needsSave) {
+            $setting->save();
+        }
+
+        return $setting;
     }
 }

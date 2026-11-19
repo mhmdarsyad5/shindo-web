@@ -8,9 +8,9 @@ class ContactSetting extends Model
 {
     protected $guarded = [];
 
-    public static function current(): self
+    public static function defaultAttributes(): array
     {
-        return static::first() ?? new static([
+        return [
             'hero_badge' => 'KONTAK KAMI',
             'hero_title' => 'HUBUNGI KAMI',
             'hero_subtitle' => 'Konsultasi pengadaan unit, suku cadang asli, atau dukungan teknisi langsung di lokasi proyek Anda.',
@@ -29,6 +29,30 @@ class ContactSetting extends Model
             'form_subtitle' => 'Konsultasikan kebutuhan armada truk dan spesifikasi unit bersama tim kami.',
             'submit_button_text' => 'Hubungi Kami',
             'submit_notice_text' => 'Data Anda otomatis tersimpan & terhubung langsung ke WhatsApp tim kami.',
-        ]);
+        ];
+    }
+
+    public static function current(): self
+    {
+        $setting = static::first();
+        $defaults = static::defaultAttributes();
+
+        if (! $setting) {
+            return static::create($defaults);
+        }
+
+        $needsSave = false;
+        foreach ($defaults as $key => $value) {
+            if (empty($setting->{$key})) {
+                $setting->{$key} = $value;
+                $needsSave = true;
+            }
+        }
+
+        if ($needsSave) {
+            $setting->save();
+        }
+
+        return $setting;
     }
 }
