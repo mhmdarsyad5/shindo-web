@@ -113,7 +113,7 @@
 </nav>
 
 <!-- ================= MOBILE SLIDE-UP DRAWER SHEET ================= -->
-<div id="mobile-nav-sheet-container" class="fixed inset-0 z-50 lg:hidden pointer-events-none">
+<div id="mobile-nav-sheet-container" class="fixed inset-0 z-50 lg:hidden pointer-events-none invisible">
     <!-- Backdrop with Fade Transition -->
     <div id="mobile-nav-backdrop"
         class="absolute inset-0 bg-black/75 pointer-events-none will-change-opacity"
@@ -125,7 +125,7 @@
         aria-modal="true"
         aria-label="Menu Lengkap PT SHINDO"
         class="absolute bottom-0 inset-x-0 bg-[#00163c] border-t border-slate-700/80 rounded-t-3xl p-5 sm:p-6 shadow-2xl max-h-[88vh] overflow-y-auto pointer-events-auto touch-pan-y will-change-transform"
-        style="transform: translate3d(0, 100%, 0);">
+        style="transform: translate3d(0, 120%, 0);">
 
         <!-- Top Drag Handle with tactile affordance -->
         <div class="py-1 cursor-grab active:cursor-grabbing flex justify-center" id="mobile-sheet-drag-area">
@@ -522,18 +522,18 @@
                 // 1. Navbar turun ke bawah keluar layar
                 hideNavbar();
 
-                // 2. Aktifkan container
-                container.classList.remove('pointer-events-none');
-                container.classList.add('pointer-events-auto');
+                // 2. Aktifkan container (hapus invisible agar dapat dirender)
+                container.classList.remove('pointer-events-none', 'invisible');
+                container.classList.add('pointer-events-auto', 'visible');
 
                 backdrop.classList.remove('pointer-events-none');
                 backdrop.classList.add('pointer-events-auto');
 
-                // 3. Pastikan sheet mulai dari bawah layar (100% offscreen)
+                // 3. Pastikan sheet mulai dari bawah layar (120% offscreen)
                 sheet.style.transition = 'none';
-                sheet.style.transform = 'translate3d(0, 100%, 0)';
+                sheet.style.transform = 'translate3d(0, 120%, 0)';
 
-                // Force browser layout reflow agar posisi awal 100% ter-commit
+                // Force browser layout reflow agar posisi awal 120% ter-commit
                 void sheet.offsetHeight;
 
                 // 4. Animasikan meluncur NAIK dari bawah ke atas dengan kurva iOS
@@ -555,9 +555,9 @@
                 placeCapsule(activeItem, false, 1, 1);
                 setHighlightedItem(activeItem);
 
-                // 1. Animasikan sheet meluncur TURUN ke bawah keluar layar
+                // 1. Animasikan sheet meluncur TURUN ke bawah keluar layar (120%)
                 sheet.style.transition = 'transform 0.32s cubic-bezier(0.32, 0.72, 0, 1)';
-                sheet.style.transform = 'translate3d(0, 100%, 0)';
+                sheet.style.transform = 'translate3d(0, 120%, 0)';
 
                 // 2. Fade out backdrop
                 backdrop.style.opacity = '0';
@@ -570,11 +570,11 @@
                 // 3. Navbar naik kembali dengan fluid spring (kapsul sudah diam rapi di Beranda)
                 setTimeout(showNavbar, 100);
 
-                // 4. Nonaktifkan container pointer-events setelah animasi turun selesai
+                // 4. Nonaktifkan container & sembunyikan total (invisible) setelah animasi turun selesai
                 setTimeout(() => {
                     if (!isSheetOpen) {
-                        container.classList.remove('pointer-events-auto');
-                        container.classList.add('pointer-events-none');
+                        container.classList.remove('pointer-events-auto', 'visible');
+                        container.classList.add('pointer-events-none', 'invisible');
                         sheet.style.transition = '';
                     }
                 }, 340);
