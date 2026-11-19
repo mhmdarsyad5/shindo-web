@@ -113,16 +113,19 @@
 </nav>
 
 <!-- ================= MOBILE SLIDE-UP DRAWER SHEET ================= -->
-<div id="mobile-nav-sheet-container" class="fixed inset-0 z-50 lg:hidden pointer-events-none transition-opacity duration-300 opacity-0">
-    <!-- Backdrop -->
-    <div id="mobile-nav-backdrop" class="absolute inset-0 bg-black/75 pointer-events-none transition-opacity duration-300 opacity-0"></div>
+<div id="mobile-nav-sheet-container" class="fixed inset-0 z-50 lg:hidden pointer-events-none">
+    <!-- Backdrop with Fade Transition -->
+    <div id="mobile-nav-backdrop"
+        class="absolute inset-0 bg-black/75 pointer-events-none will-change-opacity"
+        style="opacity: 0; transition: opacity 0.3s ease;"></div>
 
-    <!-- Sheet Panel with iOS Spring Physics (Masuk Naik, Keluar Turun) -->
+    <!-- Sheet Panel with iOS Slide Transition (Masuk NAIK dari Bawah, Keluar TURUN ke Bawah) -->
     <div id="mobile-nav-sheet"
         role="dialog"
         aria-modal="true"
         aria-label="Menu Lengkap PT SHINDO"
-        class="ios-sheet-spring absolute bottom-0 inset-x-0 bg-[#00163c] border-t border-slate-700/80 rounded-t-3xl p-5 sm:p-6 shadow-2xl transform translate-y-full max-h-[88vh] overflow-y-auto pointer-events-auto touch-pan-y">
+        class="absolute bottom-0 inset-x-0 bg-[#00163c] border-t border-slate-700/80 rounded-t-3xl p-5 sm:p-6 shadow-2xl max-h-[88vh] overflow-y-auto pointer-events-auto touch-pan-y will-change-transform"
+        style="transform: translate3d(0, 100%, 0);">
 
         <!-- Top Drag Handle with tactile affordance -->
         <div class="py-1 cursor-grab active:cursor-grabbing flex justify-center" id="mobile-sheet-drag-area">
@@ -248,7 +251,7 @@
     </div>
 </div>
 
-<!-- Script Controller: Liquid Gestures, Synced Drawer Slide & Smart Scroll Hide/Show -->
+<!-- Script Controller: High-Precision Liquid Gestures & True Slide Up/Down Drawer Sheet -->
 <script>
     (function () {
         function initLiquidMobileNavbar() {
@@ -261,9 +264,10 @@
             const container = document.getElementById('mobile-nav-sheet-container');
             const backdrop = document.getElementById('mobile-nav-backdrop');
             const sheet = document.getElementById('mobile-nav-sheet');
+            const dragArea = document.getElementById('mobile-sheet-drag-area') || document.getElementById('mobile-sheet-drag-handle');
             const topHeaderMenuBtn = document.getElementById('mobile-menu-btn');
 
-            if (!navbar || !track || !capsule || navItems.length === 0) return;
+            if (!navbar || !track || !capsule || navItems.length === 0 || !sheet || !container || !backdrop) return;
 
             let activeItem = navItems.find(el => el.classList.contains('is-active')) || navItems[0];
             let isDraggingNavbar = false;
@@ -326,7 +330,6 @@
                 capsule.style.opacity = '1';
             }
 
-            // Set highlighted item with NO bold text or bold strokes
             function setHighlightedItem(targetItem) {
                 navItems.forEach(item => {
                     const icon = item.querySelector('.nav-icon');
@@ -346,7 +349,6 @@
                 });
             }
 
-            // Sync initial state
             function syncInitialPosition() {
                 placeCapsule(activeItem, false, 1, 1);
                 setHighlightedItem(activeItem);
@@ -373,7 +375,6 @@
                 const deltaX = touch.clientX - startTouchX;
                 const deltaY = touch.clientY - startTouchY;
 
-                // Threshold to trigger liquid swipe
                 if (!isDraggingNavbar) {
                     if (Math.abs(deltaX) > 5 && Math.abs(deltaX) > Math.abs(deltaY)) {
                         isDraggingNavbar = true;
@@ -386,7 +387,6 @@
                 touchVelocityX = touch.clientX - lastTouchX;
                 lastTouchX = touch.clientX;
 
-                // Find tab nearest to touch point
                 let nearestItem = null;
                 let minDistance = Infinity;
 
@@ -404,7 +404,6 @@
                     setHighlightedItem(nearestItem);
                 }
 
-                // Dynamic liquid stretch formula based on drag velocity
                 const speed = Math.min(Math.abs(touchVelocityX) * 0.035, 0.28);
                 const liquidStretchX = 1 + speed;
                 const liquidSquashY = Math.max(0.88, 1 - (speed * 0.5));
@@ -490,54 +489,73 @@
                 });
             });
 
-            // ================= BOTTOM SHEET LOGIC (MASUK NAIK, KELUAR TURUN) =================
+            // ================= BOTTOM SHEET LOGIC: MASUK NAIK DARI BAWAH, KELUAR TURUN KE BAWAH =================
             let isSheetOpen = false;
             let sheetStartY = 0;
             let sheetCurrentY = 0;
             let isDraggingSheet = false;
 
             function openSheet() {
+                if (isSheetOpen) return;
                 isSheetOpen = true;
-                if (!container || !backdrop || !sheet) return;
 
                 // 1. Navbar turun ke bawah keluar layar
                 hideNavbar();
 
-                // 2. Sheet masuk NAIK dari bawah layar
-                container.classList.remove('pointer-events-none', 'opacity-0');
-                container.classList.add('pointer-events-auto', 'opacity-100');
-                backdrop.classList.remove('pointer-events-none', 'opacity-0');
-                backdrop.classList.add('pointer-events-auto', 'opacity-100');
-                
-                sheet.style.transform = 'translateY(0)';
-                sheet.classList.remove('translate-y-full');
-                sheet.classList.add('translate-y-0');
+                // 2. Aktifkan container
+                container.classList.remove('pointer-events-none');
+                container.classList.add('pointer-events-auto');
+
+                backdrop.classList.remove('pointer-events-none');
+                backdrop.classList.add('pointer-events-auto');
+
+                // 3. Pastikan sheet mulai dari bawah layar (100% offscreen)
+                sheet.style.transition = 'none';
+                sheet.style.transform = 'translate3d(0, 100%, 0)';
+
+                // Force browser layout reflow agar posisi awal 100% ter-commit
+                void sheet.offsetHeight;
+
+                // 4. Animasikan meluncur NAIK dari bawah ke atas dengan kurva iOS
+                requestAnimationFrame(() => {
+                    sheet.style.transition = 'transform 0.42s cubic-bezier(0.32, 0.72, 0, 1)';
+                    sheet.style.transform = 'translate3d(0, 0, 0)';
+                    backdrop.style.opacity = '1';
+                });
 
                 if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
                 document.body.style.overflow = 'hidden';
             }
 
             function closeSheet() {
+                if (!isSheetOpen) return;
                 isSheetOpen = false;
-                if (!container || !backdrop || !sheet) return;
 
-                // 1. Sheet keluar TURUN ke bawah layar
-                sheet.style.transform = '';
-                sheet.classList.remove('translate-y-0');
-                sheet.classList.add('translate-y-full');
+                // 1. Animasikan sheet meluncur TURUN ke bawah keluar layar
+                sheet.style.transition = 'transform 0.32s cubic-bezier(0.32, 0.72, 0, 1)';
+                sheet.style.transform = 'translate3d(0, 100%, 0)';
 
-                backdrop.classList.remove('opacity-100', 'pointer-events-auto');
-                backdrop.classList.add('opacity-0', 'pointer-events-none');
-                container.classList.remove('opacity-100', 'pointer-events-auto');
-                container.classList.add('opacity-0', 'pointer-events-none');
+                // 2. Fade out backdrop
+                backdrop.style.opacity = '0';
+                backdrop.classList.remove('pointer-events-auto');
+                backdrop.classList.add('pointer-events-none');
 
                 if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = '';
 
-                // 2. Navbar NAIK balik ke posisinya semula dengan fluid spring
-                setTimeout(showNavbar, 120);
+                // 3. Navbar naik kembali dengan fluid spring
+                setTimeout(showNavbar, 100);
 
-                // Restore capsule back to active page item
+                // 4. Nonaktifkan container pointer-events setelah animasi turun selesai
+                setTimeout(() => {
+                    if (!isSheetOpen) {
+                        container.classList.remove('pointer-events-auto');
+                        container.classList.add('pointer-events-none');
+                        sheet.style.transition = '';
+                    }
+                }, 340);
+
+                // Kembalikan kapsul ke tab aktif
                 placeCapsule(activeItem, true, 1, 1);
                 setHighlightedItem(activeItem);
             }
@@ -561,44 +579,41 @@
             });
 
             // Pull down to dismiss inside sheet
-            if (sheet) {
-                sheet.addEventListener('touchstart', function (e) {
-                    if (!isSheetOpen) return;
-                    sheetStartY = e.touches[0].clientY;
-                    isDraggingSheet = false;
-                }, { passive: true });
+            sheet.addEventListener('touchstart', function (e) {
+                if (!isSheetOpen) return;
+                sheetStartY = e.touches[0].clientY;
+                isDraggingSheet = false;
+            }, { passive: true });
 
-                sheet.addEventListener('touchmove', function (e) {
-                    if (!isSheetOpen) return;
-                    sheetCurrentY = e.touches[0].clientY;
-                    const deltaY = sheetCurrentY - sheetStartY;
+            sheet.addEventListener('touchmove', function (e) {
+                if (!isSheetOpen) return;
+                sheetCurrentY = e.touches[0].clientY;
+                const deltaY = sheetCurrentY - sheetStartY;
 
-                    if (deltaY > 0 && sheet.scrollTop <= 0) {
-                        isDraggingSheet = true;
-                        const dampedY = Math.pow(deltaY, 0.82) * 2;
-                        sheet.style.transition = 'none';
-                        sheet.style.transform = `translateY(${dampedY}px)`;
-                        
-                        const progress = Math.max(0, 1 - (dampedY / 320));
-                        backdrop.style.opacity = progress.toFixed(2);
-                    }
-                }, { passive: true });
+                if (deltaY > 0 && sheet.scrollTop <= 0) {
+                    isDraggingSheet = true;
+                    const dampedY = Math.pow(deltaY, 0.82) * 2;
+                    sheet.style.transition = 'none';
+                    sheet.style.transform = `translate3d(0, ${dampedY}px, 0)`;
+                    
+                    const progress = Math.max(0, 1 - (dampedY / 320));
+                    backdrop.style.opacity = progress.toFixed(2);
+                }
+            }, { passive: true });
 
-                sheet.addEventListener('touchend', function () {
-                    if (!isDraggingSheet) return;
-                    isDraggingSheet = false;
-                    const deltaY = sheetCurrentY - sheetStartY;
+            sheet.addEventListener('touchend', function () {
+                if (!isDraggingSheet) return;
+                isDraggingSheet = false;
+                const deltaY = sheetCurrentY - sheetStartY;
 
-                    sheet.style.transition = '';
-                    backdrop.style.opacity = '';
-
-                    if (deltaY > 90) {
-                        closeSheet();
-                    } else {
-                        sheet.style.transform = 'translateY(0)';
-                    }
-                }, { passive: true });
-            }
+                if (deltaY > 90) {
+                    closeSheet();
+                } else {
+                    sheet.style.transition = 'transform 0.35s cubic-bezier(0.32, 0.72, 0, 1)';
+                    sheet.style.transform = 'translate3d(0, 0, 0)';
+                    backdrop.style.opacity = '1';
+                }
+            }, { passive: true });
 
             // ================= SMART SCROLL HIDE / SHOW CONTROLS =================
             let lastScrollY = window.pageYOffset || document.documentElement.scrollTop;
@@ -608,7 +623,6 @@
                 if (isSheetOpen || isDraggingNavbar) return;
                 const currentScrollY = window.pageYOffset || document.documentElement.scrollTop;
 
-                // Kalau di bagian paling atas halaman, selalu tampilkan navbar
                 if (currentScrollY <= 24) {
                     showNavbar();
                     lastScrollY = currentScrollY;
@@ -617,12 +631,9 @@
 
                 const diff = currentScrollY - lastScrollY;
 
-                // Threshold 10px biar gak jittery / goyang saat micro-scroll
                 if (diff > 10) {
-                    // Scroll ke bawah (baca konten) -> navbar turun ngumpet
                     hideNavbar();
                 } else if (diff < -10) {
-                    // Scroll ke atas -> navbar naik muncul lagi
                     showNavbar();
                 }
 
