@@ -441,18 +441,25 @@
                 });
 
                 if (targetItem) {
-                    placeCapsule(targetItem, true, 1, 1);
-                    setHighlightedItem(targetItem);
-
                     if (targetItem.getAttribute('data-is-drawer') === 'true') {
-                        setTimeout(openSheet, 180);
+                        // User dragged to Menu: reset capsule quietly to activeItem and open sheet
+                        setTimeout(() => {
+                            placeCapsule(activeItem, false, 1, 1);
+                            setHighlightedItem(activeItem);
+                            openSheet();
+                        }, 140);
                     } else if (targetItem !== activeItem) {
+                        placeCapsule(targetItem, true, 1, 1);
+                        setHighlightedItem(targetItem);
                         const href = targetItem.getAttribute('data-nav-href');
                         if (href) {
                             setTimeout(() => {
                                 window.location.href = href;
                             }, 200);
                         }
+                    } else {
+                        placeCapsule(activeItem, true, 1, 1);
+                        setHighlightedItem(activeItem);
                     }
                 } else {
                     placeCapsule(activeItem, true, 1, 1);
@@ -471,17 +478,26 @@
                     const isDrawer = item.getAttribute('data-is-drawer') === 'true';
                     const href = item.getAttribute('data-nav-href');
 
-                    placeCapsule(item, true, 1.04, 0.95);
-                    setHighlightedItem(item);
-                    setTimeout(() => {
-                        placeCapsule(item, true, 1, 1);
-                    }, 180);
-
                     if (isDrawer) {
                         e.preventDefault();
+                        // Tactile tap feedback on Menu button without shifting active page capsule
+                        const icon = item.querySelector('.nav-icon');
+                        if (icon) {
+                            icon.style.transform = 'scale(0.88)';
+                            setTimeout(() => { icon.style.transform = 'scale(1)'; }, 140);
+                        }
                         openSheet();
-                    } else if (href && item !== activeItem) {
+                        return;
+                    }
+
+                    if (href && item !== activeItem) {
                         e.preventDefault();
+                        placeCapsule(item, true, 1.04, 0.95);
+                        setHighlightedItem(item);
+                        setTimeout(() => {
+                            placeCapsule(item, true, 1, 1);
+                        }, 180);
+
                         setTimeout(() => {
                             window.location.href = href;
                         }, 200);
@@ -498,6 +514,10 @@
             function openSheet() {
                 if (isSheetOpen) return;
                 isSheetOpen = true;
+
+                // Pastikan kapsul tetap anteng di activeItem (tanpa animasi aneh)
+                placeCapsule(activeItem, false, 1, 1);
+                setHighlightedItem(activeItem);
 
                 // 1. Navbar turun ke bawah keluar layar
                 hideNavbar();
@@ -531,6 +551,10 @@
                 if (!isSheetOpen) return;
                 isSheetOpen = false;
 
+                // Kapsul langsung tenang di tab aktif tanpa horizontal slide (animate = false)
+                placeCapsule(activeItem, false, 1, 1);
+                setHighlightedItem(activeItem);
+
                 // 1. Animasikan sheet meluncur TURUN ke bawah keluar layar
                 sheet.style.transition = 'transform 0.32s cubic-bezier(0.32, 0.72, 0, 1)';
                 sheet.style.transform = 'translate3d(0, 100%, 0)';
@@ -543,7 +567,7 @@
                 if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = '';
 
-                // 3. Navbar naik kembali dengan fluid spring
+                // 3. Navbar naik kembali dengan fluid spring (kapsul sudah diam rapi di Beranda)
                 setTimeout(showNavbar, 100);
 
                 // 4. Nonaktifkan container pointer-events setelah animasi turun selesai
@@ -554,10 +578,6 @@
                         sheet.style.transition = '';
                     }
                 }, 340);
-
-                // Kembalikan kapsul ke tab aktif
-                placeCapsule(activeItem, true, 1, 1);
-                setHighlightedItem(activeItem);
             }
 
             if (closeBtn) closeBtn.addEventListener('click', closeSheet);
