@@ -130,17 +130,17 @@ select:focus[data-flux-control] {
     --ios-spring-snappy: cubic-bezier(0.2, 0, 0.38, 0.9);
 }
 
-/* Tactile Spring Tap on Buttons, Links & Navbar Items */
+/* Tactile Spring Tap on Buttons & Links */
 .ios-spring-tap {
     -webkit-tap-highlight-color: transparent;
-    transition: transform 0.4s var(--ios-spring), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    transition: transform 0.35s var(--ios-spring), background-color 0.2s ease, color 0.2s ease;
     will-change: transform;
     user-select: none;
 }
 
 .ios-spring-tap:active {
-    transform: scale(0.91);
-    transition: transform 0.1s var(--ios-spring-snappy);
+    transform: scale(0.92);
+    transition: transform 0.08s var(--ios-spring-snappy);
 }
 
 /* Card / Surface Spring Hover & Tap */
@@ -165,35 +165,19 @@ select:focus[data-flux-control] {
     will-change: transform;
 }
 
-/* Active Pop Animation */
-@keyframes iosActivePop {
-    0% { transform: scale(0.9); }
-    55% { transform: scale(1.08); }
-    100% { transform: scale(1); }
+/* Liquid Pill Nav Tab Item & Capsule */
+.liquid-nav-item {
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    touch-action: pan-y;
 }
 
-.ios-active-pop {
-    animation: iosActivePop 0.45s var(--ios-spring);
+.liquid-nav-item.is-active svg {
+    transform: scale(1.12);
 }
 
-/* Floating Pill Navbar Entrance Spring */
-@keyframes iosPillFloatIn {
-    0% {
-        transform: translate(-50%, 48px) scale(0.88);
-        opacity: 0;
-    }
-    65% {
-        transform: translate(-50%, -4px) scale(1.02);
-        opacity: 1;
-    }
-    100% {
-        transform: translate(-50%, 0) scale(1);
-        opacity: 1;
-    }
-}
-
-.ios-pill-entrance {
-    animation: iosPillFloatIn 0.65s var(--ios-spring) both;
+.liquid-nav-item svg {
+    transition: transform 0.3s var(--ios-spring), stroke-width 0.2s ease;
 }
 
 /* \[:where(&)\]:size-4 {
