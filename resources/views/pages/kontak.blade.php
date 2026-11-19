@@ -63,12 +63,12 @@
                 <div>
                     <h1
                         class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase font-barlow-condensed not-italic text-[#00163c] leading-none tracking-tight">
-                        HUBUNGI KAMI
+                        {{ $contact->hero_title ?? 'HUBUNGI KAMI' }}
                     </h1>
                 </div>
                 <div class="max-w-xl text-slate-600 text-sm sm:text-base leading-relaxed">
                     <p>
-                        Konsultasi pengadaan unit, suku cadang asli, atau dukungan teknisi langsung di lokasi proyek Anda.
+                        {{ $contact->hero_subtitle ?? 'Konsultasi pengadaan unit, suku cadang asli, atau dukungan teknisi langsung di lokasi proyek Anda.' }}
                     </p>
                 </div>
             </div>
@@ -87,8 +87,8 @@
                         <!-- Alamat Kantor -->
                         <div class="p-4 bg-white border border-slate-200 shadow-xs">
                             <div class="flex items-center justify-between mb-1">
-                                <div class="text-[11px] font-bold uppercase text-slate-400">KANTOR PUSAT</div>
-                                <a href="https://maps.app.goo.gl/jUThKPX3Arf6VNVW8" target="_blank"
+                                <div class="text-[11px] font-bold uppercase text-slate-400">{{ $contact->office_title ?? 'KANTOR PUSAT' }}</div>
+                                <a href="{{ $contact->map_link_url ?? 'https://maps.app.goo.gl/jUThKPX3Arf6VNVW8' }}" target="_blank"
                                     rel="noopener noreferrer"
                                     class="text-[11px] font-bold text-[#0067b1] hover:underline inline-flex items-center gap-1 font-sans">
                                     <span>Buka di Maps</span>
@@ -99,16 +99,16 @@
                                 </a>
                             </div>
                             <p class="text-sm font-semibold text-slate-900 font-sans leading-snug">
-                                {{ $site->office_address ?? 'Town House Cordoba No. 59, RT.6/RW.2, Kamal Muara, Penjaringan, Jakarta Utara, DKI Jakarta 14470' }}
+                                {{ $contact->office_address ?? ($site->office_address ?? 'Town House Cordoba No. 59, RT.6/RW.2, Kamal Muara, Penjaringan, Jakarta Utara, DKI Jakarta 14470') }}
                             </p>
                         </div>
 
                         <!-- Telepon & Hotline -->
                         <div class="p-4 bg-white border border-slate-200 shadow-xs">
                             <div class="text-[11px] font-bold uppercase text-slate-400 mb-1">SALES & PENAWARAN HARGA</div>
-                            <a href="tel:{{ preg_replace('/[^0-9]/', '', $site->office_phone ?? '0215558321') }}"
+                            <a href="tel:{{ preg_replace('/[^0-9]/', '', $contact->office_phone ?? ($site->office_phone ?? '0215558321')) }}"
                                 class="text-base font-bold text-[#0067b1] hover:underline font-sans">
-                                {{ $site->office_phone ?? '(021) 555-8321' }}
+                                {{ $contact->office_phone ?? ($site->office_phone ?? '(021) 555-8321') }}
                             </a>
                             <span class="text-[11px] text-slate-500 mt-1 block">Konsultasi unit baru, karoseri, dan
                                 pembiayaan.</span>
@@ -117,9 +117,9 @@
                         <!-- Email Resmi -->
                         <div class="p-4 bg-white border border-slate-200 shadow-xs">
                             <div class="text-[11px] font-bold uppercase text-slate-400 mb-1">EMAIL PERUSAHAAN</div>
-                            <a href="mailto:{{ $site->office_email ?? 'sales@shindo.id' }}"
+                            <a href="mailto:{{ $contact->office_email ?? ($site->office_email ?? 'sales@shindo.id') }}"
                                 class="text-sm font-bold text-slate-900 hover:text-[#0067b1] font-sans">
-                                {{ $site->office_email ?? 'sales@shindo.id' }}
+                                {{ $contact->office_email ?? ($site->office_email ?? 'sales@shindo.id') }}
                             </a>
                             <span class="text-[11px] text-slate-500 mt-1 block">Kirim permintaan penawaran harga atau
                                 dokumen kerja sama.</span>
@@ -133,10 +133,10 @@
                                 <span class="w-2 h-2 bg-blue-400 animate-pulse"></span>
                             </div>
                             <div class="text-lg font-bold text-white font-sans">
-                                {{ $site->office_phone ?? '(021) 555-8321' }}
+                                {{ $contact->office_phone ?? ($site->office_phone ?? '(021) 555-8321') }}
                             </div>
                             <div class="mt-2 text-[11px] text-slate-300 font-sans leading-tight">
-                                Tim mekanik siaga meluncur ke lokasi proyek Anda.
+                                {{ $contact->mechanic_hours ?? 'Tim mekanik siaga meluncur ke lokasi proyek Anda.' }}
                             </div>
                         </div>
 
@@ -144,7 +144,7 @@
                         <div class="p-3 bg-white border border-slate-200 flex justify-between items-center text-[11px]">
                             <span class="text-slate-600">Jam Operasional:</span>
                             <span
-                                class="font-bold text-slate-900">{{ $site->office_hours ?? 'Senin - Jumat, 09:00 - 17:00 WIB' }}</span>
+                                class="font-bold text-slate-900">{{ $contact->office_hours ?? ($site->office_hours ?? 'Senin - Jumat, 09:00 - 17:00 WIB') }}</span>
                         </div>
                     </div>
                 </div>
@@ -155,10 +155,10 @@
                         <div class="border-b border-slate-200 pb-3.5 mb-5">
                             <h2
                                 class="text-xl sm:text-2xl font-bold uppercase font-barlow-condensed not-italic text-[#00163c]">
-                                HUBUNGI KAMI
+                                {{ $contact->form_title ?? 'HUBUNGI KAMI' }}
                             </h2>
                             <p class="mt-1 text-slate-600 text-xs sm:text-sm">
-                                Konsultasikan kebutuhan armada truk dan spesifikasi unit bersama tim kami.
+                                {{ $contact->form_subtitle ?? 'Konsultasikan kebutuhan armada truk dan spesifikasi unit bersama tim kami.' }}
                             </p>
                         </div>
 
@@ -204,14 +204,14 @@
                             <div class="pt-1">
                                 <button type="submit" id="contact-submit-btn"
                                     class="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-[#0067b1] hover:bg-[#00528e] text-white font-bold text-sm uppercase font-barlow-condensed not-italic tracking-wider shadow-sm transition-colors cursor-pointer disabled:opacity-75 disabled:cursor-not-allowed">
-                                    <span id="contact-btn-text">Hubungi Kami</span>
+                                    <span id="contact-btn-text">{{ $contact->submit_button_text ?? 'Hubungi Kami' }}</span>
                                     <svg id="contact-btn-spinner" class="hidden w-4 h-4 animate-spin text-white" fill="none" viewBox="0 0 24 24">
                                         <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                                     </svg>
                                 </button>
                                 <span class="text-[11px] font-sans text-slate-500 mt-2 block text-center">
-                                    Data Anda otomatis tersimpan & terhubung langsung ke WhatsApp tim sales kami.
+                                    {{ $contact->submit_notice_text ?? 'Data Anda otomatis tersimpan & terhubung langsung ke WhatsApp tim sales kami.' }}
                                 </span>
                             </div>
                         </form>
@@ -222,7 +222,7 @@
             <div
                 class="w-full h-[360px] sm:h-[420px] lg:h-[460px] bg-slate-100 border border-slate-300 shadow-sm overflow-hidden reveal-scale">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.0988078345155!2d106.7397087!3d-6.1107176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6a1d0049700fdb%3A0xe4077963238b9056!2sPT%20Shindo%20Tractors%20Adiperkasa!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                    src="{{ $contact->map_embed_url ?: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.0988078345155!2d106.7397087!3d-6.1107176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6a1d0049700fdb%3A0xe4077963238b9056!2sPT%20Shindo%20Tractors%20Adiperkasa!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid' }}"
                     width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
                     referrerpolicy="no-referrer-when-downgrade" title="Peta Lokasi PT Shindo Tractors Adiperkasa">
                 </iframe>

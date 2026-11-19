@@ -688,138 +688,40 @@
         <!-- Kolom Card Layanan (Style Minimalist Editorial Sesuai Gambar Referensi) -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
+                @php
+                    $defaultServiceImages = [
+                        'images/service-banner-facility.jpg',
+                        'images/service-banner-contract.jpg',
+                        'images/service-banner-warranty.jpg',
+                        'images/service-banner-parts.jpg',
+                        'images/service-banner-mechanic.jpg',
+                        'images/service-banner-support.jpg',
+                    ];
+                @endphp
 
-                <!-- Service 1: Penjualan Unit Baru -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-100">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-facility.jpg') }}" alt="Penjualan Unit Baru SHACMAN"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div
-                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
+                @foreach($services as $idx => $service)
+                    @php
+                        $fallbackImg = $defaultServiceImages[$idx % count($defaultServiceImages)];
+                        $delayClass = ($idx % 3 === 0) ? 'reveal-delay-100' : (($idx % 3 === 1) ? 'reveal-delay-200' : 'reveal-delay-300');
+                    @endphp
+                    <div class="flex flex-col group reveal-on-scroll {{ $delayClass }}">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
+                            <img src="{{ $service->resolveImageUrl($service->image, $fallbackImg) }}" alt="{{ $service->title }}"
+                                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                            <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none"></div>
+                        </div>
+                        <div class="pt-4 flex flex-col">
+                            <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">{{ str_pad($idx + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                            <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                                <a href="{{ url('/layanan') }}">{{ $service->title }}</a>
+                            </h3>
+                            <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                                {{ $service->description }}
+                            </p>
                         </div>
                     </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">01</span>
-                        <h3
-                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            <a href="{{ url('/layanan') }}">Penjualan Unit Baru</a>
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Pengadaan unit baru SHACMAN bergaransi resmi untuk kebutuhan armada tambang, konstruksi, dan
-                            logistik skala besar.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Service 2: Program Kontak Servis -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-200">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-contract.jpg') }}" alt="Program Kontak Servis"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div
-                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
-                        </div>
-                    </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">02</span>
-                        <h3
-                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            <a href="{{ url('/layanan') }}">Program Kontak Servis</a>
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Konsultasi teknis langsung, penjadwalan servis berkala, dan penanganan cepat kendala unit
-                            dengan standar pabrikan.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Service 3: Garansi Terjamin -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-300">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-warranty.jpg') }}" alt="Garansi Terjamin SHACMAN"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div
-                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
-                        </div>
-                    </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">03</span>
-                        <h3
-                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            <a href="{{ url('/layanan') }}">Garansi Terjamin</a>
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Perlindungan garansi resmi pabrikan untuk powertrain utama: mesin Weichai, transmisi FAST,
-                            dan gardan Hande.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Service 4: Suku Cadang Asli -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-100">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-parts.jpg') }}" alt="Suku Cadang Asli SHACMAN"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div
-                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
-                        </div>
-                    </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">04</span>
-                        <h3
-                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            <a href="{{ url('/layanan') }}">Suku Cadang Asli</a>
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Ketersediaan suku cadang orisinal lengkap dan distribusi cepat ke konsesi tambang untuk
-                            meminimalkan masa downtime armada.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Service 5: Servis & Perawatan Rutin -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-200">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-mechanic.jpg') }}" alt="Servis & Perawatan Rutin"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div
-                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
-                        </div>
-                    </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">05</span>
-                        <h3
-                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            <a href="{{ url('/layanan') }}">Servis & Perawatan Rutin</a>
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Pemeliharaan berkala terjadwal oleh mekanik terlatih bersertifikasi demi menjaga efisiensi
-                            konsumsi BBM dan keawetan mesin.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Service 6: Dukungan Layanan 24/7 -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-300">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-support.jpg') }}" alt="Dukungan Layanan 24/7"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div
-                            class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none">
-                        </div>
-                    </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">06</span>
-                        <h3
-                            class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            <a href="{{ url('/layanan') }}">Dukungan Layanan 24/7</a>
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Tim teknisi storing darurat siaga 24 jam dengan armada mobile service siap meluncur langsung
-                            ke site kerja Anda.
-                        </p>
-                    </div>
-                </div>
+                @endforeach
+            </div>
 
             </div>
         </div>
@@ -978,7 +880,7 @@
 
     <!-- ================= FOOTER ================= -->
     <footer id="kontak"
-        class="w-full bg-[#070b19] text-slate-400 pt-10 pb-8 sm:pt-12 sm:pb-10 border-t border-slate-800/80">
+        class="w-full bg-[#070b19] text-slate-400 pt-10 sm:pt-12 pb-24 sm:pb-28 lg:pb-10 border-t border-slate-800/80">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8 reveal-on-scroll">
                 <!-- Column 1: Company Profile & Socials -->
@@ -1316,6 +1218,7 @@
         });
     </script>
 
+    @include('partials.mobile-navbar')
     @include('partials.floating-contact')
 </body>
 

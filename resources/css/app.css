@@ -123,6 +123,79 @@ select:focus[data-flux-control] {
     transform: scale(1.35);
 }
 
+/* ================= iOS FLUID SPRING PHYSICS ================= */
+:root {
+    --ios-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+    --ios-spring-soft: cubic-bezier(0.175, 0.885, 0.32, 1.15);
+    --ios-spring-snappy: cubic-bezier(0.2, 0, 0.38, 0.9);
+}
+
+/* Tactile Spring Tap on Buttons, Links & Navbar Items */
+.ios-spring-tap {
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.4s var(--ios-spring), background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+    will-change: transform;
+    user-select: none;
+}
+
+.ios-spring-tap:active {
+    transform: scale(0.91);
+    transition: transform 0.1s var(--ios-spring-snappy);
+}
+
+/* Card / Surface Spring Hover & Tap */
+.ios-spring-card {
+    -webkit-tap-highlight-color: transparent;
+    transition: transform 0.45s var(--ios-spring), box-shadow 0.3s ease;
+    will-change: transform;
+}
+
+.ios-spring-card:hover {
+    transform: translateY(-4px) scale(1.01);
+}
+
+.ios-spring-card:active {
+    transform: translateY(0) scale(0.97);
+    transition: transform 0.12s var(--ios-spring-snappy);
+}
+
+/* iOS Bottom Sheet Spring Animation */
+.ios-sheet-spring {
+    transition: transform 0.45s var(--ios-spring-soft), opacity 0.25s ease;
+    will-change: transform;
+}
+
+/* Active Pop Animation */
+@keyframes iosActivePop {
+    0% { transform: scale(0.9); }
+    55% { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+
+.ios-active-pop {
+    animation: iosActivePop 0.45s var(--ios-spring);
+}
+
+/* Floating Pill Navbar Entrance Spring */
+@keyframes iosPillFloatIn {
+    0% {
+        transform: translate(-50%, 48px) scale(0.88);
+        opacity: 0;
+    }
+    65% {
+        transform: translate(-50%, -4px) scale(1.02);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(-50%, 0) scale(1);
+        opacity: 1;
+    }
+}
+
+.ios-pill-entrance {
+    animation: iosPillFloatIn 0.65s var(--ios-spring) both;
+}
+
 /* \[:where(&)\]:size-4 {
     @apply size-4;
 } */

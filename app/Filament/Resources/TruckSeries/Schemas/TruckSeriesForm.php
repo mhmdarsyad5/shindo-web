@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\TruckSeries\Schemas;
 
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Support\CmsImageField;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -35,14 +35,12 @@ class TruckSeriesForm
                             ->label('Judul Lengkap')
                             ->placeholder('Truk Heavy Duty Seri X3000')
                             ->columnSpanFull(),
-                        FileUpload::make('image')
-                            ->label('Gambar Truk (PNG Transparan)')
-                            ->image()
-                            ->disk('public')
-                            ->directory('homepage')
-                            ->openable()
-                            ->downloadable()
-                            ->columnSpanFull(),
+                        CmsImageField::make(
+                            name: 'image',
+                            label: 'Gambar Truk (PNG Transparan)',
+                            directory: 'homepage',
+                            defaultFallbackAsset: 'homepage/shacman-x3000.png',
+                        ),
                         Textarea::make('description')
                             ->label('Deskripsi Penjelas')
                             ->rows(4)

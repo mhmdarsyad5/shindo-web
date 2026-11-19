@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use App\Filament\Support\CmsImageField;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -30,14 +30,12 @@ class PostForm
                                 ->placeholder('judul-berita-artikel')
                                 ->required(),
                         ]),
-                        FileUpload::make('image')
-                            ->label('Gambar Utama / Cover')
-                            ->image()
-                            ->disk('public')
-                            ->directory('homepage')
-                            ->openable()
-                            ->downloadable()
-                            ->columnSpanFull(),
+                        CmsImageField::make(
+                            name: 'image',
+                            label: 'Gambar Utama / Cover',
+                            directory: 'homepage',
+                            defaultFallbackAsset: 'homepage/blog-dump-truck.jpg',
+                        ),
                         Textarea::make('excerpt')
                             ->label('Ringkasan Singkat')
                             ->rows(3)

@@ -70,15 +70,15 @@
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal-on-scroll">
                 <div class="max-w-2xl">
                     <span class="inline-flex items-center px-3.5 py-1 bg-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider mb-3 shadow-xs">
-                        {{ $settings->services_badge ?? 'LAYANAN AFTERSALES' }}
+                        {{ $serviceSetting->hero_badge ?? ($settings->services_badge ?? 'LAYANAN AFTERSALES') }}
                     </span>
                     <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase font-barlow-condensed not-italic text-[#00163c] leading-none tracking-tight">
-                        {{ $settings->services_title ?? 'DUKUNGAN PENUH UNTUK BISNIS ANDA' }}
+                        {{ $serviceSetting->hero_title ?? ($settings->services_title ?? 'DUKUNGAN PENUH UNTUK BISNIS ANDA') }}
                     </h1>
                 </div>
                 <div class="max-w-xl text-slate-600 text-sm sm:text-base leading-relaxed">
                     <p>
-                        {{ $settings->services_subtitle ?? 'Memastikan performa dan ketersediaan armada dump truck SHACMAN di site tambang tetap optimal dengan dukungan mekanik tersertifikasi ATPM dan pasokan suku cadang asli.' }}
+                        {{ $serviceSetting->hero_subtitle ?? ($settings->services_subtitle ?? 'Memastikan performa dan ketersediaan armada dump truck SHACMAN di site tambang tetap optimal dengan dukungan mekanik tersertifikasi ATPM dan pasokan suku cadang asli.') }}
                     </p>
                 </div>
             </div>
@@ -89,122 +89,46 @@
     <section class="w-full bg-white py-14 sm:py-20 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
+                @php
+                    $defaultServiceImages = [
+                        'images/service-banner-facility.jpg',
+                        'images/service-banner-contract.jpg',
+                        'images/service-banner-warranty.jpg',
+                        'images/service-banner-parts.jpg',
+                        'images/service-banner-mechanic.jpg',
+                        'images/service-banner-support.jpg',
+                    ];
+                @endphp
 
-                <!-- 01. Penjualan Unit Baru -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-100">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-facility.jpg') }}" alt="Penjualan Unit Baru"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none"></div>
+                @foreach($services as $idx => $service)
+                    @php
+                        $fallbackImg = $defaultServiceImages[$idx % count($defaultServiceImages)];
+                        $delayClass = ($idx % 3 === 0) ? 'reveal-delay-100' : (($idx % 3 === 1) ? 'reveal-delay-200' : 'reveal-delay-300');
+                    @endphp
+                    <div class="flex flex-col group reveal-on-scroll {{ $delayClass }}">
+                        <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
+                            <img src="{{ $service->resolveImageUrl($service->image, $fallbackImg) }}" alt="{{ $service->title }}"
+                                class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
+                            <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none"></div>
+                        </div>
+                        <div class="pt-4 flex flex-col">
+                            <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">{{ str_pad($idx + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                            <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
+                                {{ $service->title }}
+                            </h3>
+                            <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
+                                {{ $service->description }}
+                            </p>
+                        </div>
                     </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">01</span>
-                        <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            Penjualan Unit Baru
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Pengadaan unit baru SHACMAN bergaransi resmi untuk kebutuhan tambang, konstruksi, dan logistik angkutan berat di seluruh Indonesia.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 02. Program Kontak Servis -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-200">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-contract.jpg') }}" alt="Program Kontak Servis"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none"></div>
-                    </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">02</span>
-                        <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            Program Kontak Servis
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Konsultasi teknis langsung, penjadwalan servis berkala, dan penanganan cepat kendala unit dengan skema kemitraan yang fleksibel.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 03. Garansi Terjamin -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-300">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-warranty.jpg') }}" alt="Garansi Terjamin"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none"></div>
-                    </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">03</span>
-                        <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            Garansi Terjamin
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Perlindungan garansi resmi pabrikan untuk mesin Weichai, transmisi FAST, dan gardan Hande demi ketenangan operasional bisnis Anda.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 04. Suku Cadang Asli -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-100">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-parts.jpg') }}" alt="Suku Cadang Asli"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none"></div>
-                    </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">04</span>
-                        <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            Suku Cadang Asli
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Ketersediaan suku cadang orisinal lengkap dan cepat untuk meminimalkan masa tunggu perbaikan dan menjaga keaslian unit Anda.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 05. Servis & Perawatan Rutin -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-200">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-mechanic.jpg') }}" alt="Servis & Perawatan Rutin"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none"></div>
-                    </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">05</span>
-                        <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            Servis & Perawatan Rutin
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Pemeliharaan berkala terjadwal oleh mekanik bersertifikasi demi menjaga performa puncak mesin, transmisi, dan efisiensi bahan bakar armada.
-                        </p>
-                    </div>
-                </div>
-
-                <!-- 06. Dukungan Layanan 24/7 -->
-                <div class="flex flex-col group reveal-on-scroll reveal-delay-300">
-                    <div class="relative w-full aspect-[4/3] overflow-hidden bg-white">
-                        <img src="{{ asset('images/service-banner-support.jpg') }}" alt="Dukungan Layanan 24/7"
-                            class="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105 select-none service-fade-mask">
-                        <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none"></div>
-                    </div>
-                    <div class="pt-4 flex flex-col">
-                        <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">06</span>
-                        <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                            Dukungan Layanan 24/7
-                        </h3>
-                        <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
-                            Tim teknisi storing darurat siaga 24 jam dengan armada mobile service siap meluncur langsung ke site kerja Anda.
-                        </p>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
     </section>
 
     <!-- ================= 3. SECTION KEUNGGULAN OPERASIONAL (PERSIS SEPERTI HOMEPAGE DENGAN BG NAV BLUE #0067b1) ================= -->
     @php
-        $advantages = !empty($settings->advantages_items) ? $settings->advantages_items : [
+        $advantages = !empty($serviceSetting->advantages_items) ? $serviceSetting->advantages_items : (!empty($settings->advantages_items) ? $settings->advantages_items : [
             [
                 'title' => 'Torsi Mesin Weichai Lebih Tangguh',
                 'description' => 'Tenaga maksimal di putaran rendah, dirancang khusus untuk tanjakan terjal dan muatan tambang ekstrem.',
@@ -225,27 +149,24 @@
                 'description' => 'Ketersediaan komponen mesin Weichai, transmisi FAST, dan gardan Hande terjamin di seluruh jaringan dealer.',
                 'icon' => 'cog'
             ]
-        ];
+        ]);
     @endphp
 
     <section id="keunggulan" class="w-full bg-[#0067b1] py-12 sm:py-16 lg:py-20 border-t border-[#005a9c]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-6 sm:mb-10 reveal-on-scroll">
-                @if(!empty($settings->advantages_badge))
-                    <span class="inline-flex items-center px-3.5 py-1 bg-white/15 border border-white/30 text-white text-xs font-sans font-bold uppercase tracking-wider mb-2.5">
-                        {{ $settings->advantages_badge }}
-                    </span>
-                @else
-                    <span class="inline-flex items-center px-3.5 py-1 bg-white/15 border border-white/30 text-white text-xs font-sans font-bold uppercase tracking-wider mb-2.5">
-                        KEUNGGULAN OPERASIONAL
-                    </span>
-                @endif
+                <span class="inline-flex items-center px-3.5 py-1 bg-white/15 border border-white/30 text-white text-xs font-sans font-bold uppercase tracking-wider mb-2.5">
+                    {{ $serviceSetting->advantages_badge ?? ($settings->advantages_badge ?? 'KEUNGGULAN OPERASIONAL') }}
+                </span>
                 <h2 class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase text-white font-barlow-condensed not-italic leading-none tracking-tight drop-shadow-xs">
-                    {{ $settings->advantages_title ?? 'MENGAPA MEMILIH SHACMAN?' }}
+                    {{ $serviceSetting->advantages_title ?? ($settings->advantages_title ?? 'MENGAPA MEMILIH SHACMAN?') }}
                 </h2>
-                @if(!empty($settings->advantages_subtitle))
+                @php
+                    $advSubtitle = $serviceSetting->advantages_subtitle ?? ($settings->advantages_subtitle ?? null);
+                @endphp
+                @if(!empty($advSubtitle))
                     <p class="mt-2.5 text-blue-100 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal">
-                        {{ $settings->advantages_subtitle }}
+                        {{ $advSubtitle }}
                     </p>
                 @endif
             </div>
@@ -300,7 +221,7 @@
 
     <!-- ================= CINEMATIC ARMADA SHOWCASE BANNER ================= -->
     <section class="relative w-full overflow-hidden bg-[#070e1e] border-t border-slate-800">
-        <img src="{{ asset('images/series/pro_detail08_1.jpg') }}" alt="Armada Truk SHACMAN PT SHINDO"
+        <img src="{{ $serviceSetting->resolveImageUrl($serviceSetting->banner_image, 'images/series/pro_detail08_1.jpg') }}" alt="Armada Truk SHACMAN PT SHINDO"
             class="w-full h-auto block select-none pointer-events-none">
     </section>
 @endsection

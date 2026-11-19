@@ -4,7 +4,7 @@
 @section('meta_description', 'Katalog sparepart resmi dump truck SHACMAN: Cabin Parts, Electrical Parts, Engine Parts, Chassis Parts, Others Parts, serta layanan mekanik on-site 24/7 di seluruh Indonesia.')
 
 @php
-    $waRaw = $site->whatsapp ?: '628111009567';
+    $waRaw = !empty($spareparts->whatsapp_number) ? $spareparts->whatsapp_number : ($site->whatsapp ?: '628111009567');
     $waNumber = preg_replace('/[^0-9]/', '', (string) $waRaw);
     if (str_starts_with($waNumber, '0')) {
         $waNumber = '62' . substr($waNumber, 1);
@@ -22,7 +22,7 @@
         $groupedItems[$item['category']][] = $item;
     }
 
-    $mechanicPillars = [
+    $mechanicPillars = !empty($spareparts->mechanic_points) ? $spareparts->mechanic_points : [
         'Solusi Cepat, Andal & Profesional',
         'Dukungan Mekanik Terbaik',
         'Siaga 24/7',
@@ -75,15 +75,15 @@
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal-on-scroll">
                 <div class="max-w-2xl">
                     <span class="inline-flex items-center px-3.5 py-1 bg-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider mb-3 shadow-xs">
-                        SPAREPARTS SUPPORT
+                        {{ $spareparts->hero_badge ?: 'SPAREPARTS SUPPORT' }}
                     </span>
                     <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase font-barlow-condensed not-italic text-[#00163c] leading-none tracking-tight">
-                        SUKU CADANG RESMI &amp; MEKANIK 24 JAM
+                        {{ $spareparts->hero_title ?: 'SUKU CADANG RESMI & MEKANIK 24 JAM' }}
                     </h1>
                 </div>
                 <div class="max-w-xl text-slate-600 text-sm sm:text-base leading-relaxed">
                     <p>
-                        Pasokan lengkap suku cadang original SHACMAN untuk menjaga produktivitas operasional tambang, konstruksi, dan logistik tanpa hambatan downtime.
+                        {{ $spareparts->hero_subtitle ?: 'Pasokan lengkap suku cadang original SHACMAN untuk menjaga produktivitas operasional tambang, konstruksi, dan logistik tanpa hambatan downtime.' }}
                     </p>
                 </div>
             </div>
@@ -160,13 +160,13 @@
                 <div class="lg:col-span-6 space-y-6 reveal-on-scroll">
                     <div>
                         <span class="inline-flex items-center px-3.5 py-1 bg-white/15 border border-white/30 text-white text-xs font-sans font-bold uppercase tracking-wider mb-3">
-                            FIELD SERVICE UNIT
+                            {{ $spareparts->mechanic_badge ?: 'FIELD SERVICE UNIT' }}
                         </span>
                         <h2 class="text-3xl sm:text-5xl lg:text-[54px] font-bold uppercase text-white font-barlow-condensed not-italic leading-none tracking-tight drop-shadow-xs">
-                            LAYANAN MEKANIK 24 JAM
+                            {{ $spareparts->mechanic_title ?: 'LAYANAN MEKANIK 24 JAM' }}
                         </h2>
                         <p class="mt-3 text-blue-100 text-sm sm:text-base leading-relaxed max-w-xl">
-                            Dukungan tim teknisi bersertifikasi langsung di lokasi proyek dan pertambangan untuk menjaga kesiapan operasional armada SHACMAN Anda setiap saat.
+                            {{ $spareparts->mechanic_subtitle ?: 'Dukungan tim teknisi bersertifikasi langsung di lokasi proyek dan pertambangan untuk menjaga kesiapan operasional armada SHACMAN Anda setiap saat.' }}
                         </p>
                     </div>
 
@@ -189,14 +189,14 @@
 
                     {{-- Direct Action Button --}}
                     <div class="pt-1">
-                        <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode('Halo Shindo, saya membutuhkan bantuan layanan mekanik 24 jam.') }}"
+                        <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode($spareparts->whatsapp_message ?: 'Halo Shindo, saya membutuhkan bantuan layanan mekanik 24 jam.') }}"
                            target="_blank"
                            rel="noopener noreferrer"
                            class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#00163c] hover:bg-[#070e1e] text-white text-xs sm:text-sm font-sans font-bold uppercase tracking-wider transition-colors shadow-md">
                             <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                             </svg>
-                            Hubungi Kami
+                            {{ $spareparts->whatsapp_button_text ?: 'Hubungi Kami' }}
                         </a>
                     </div>
                 </div>

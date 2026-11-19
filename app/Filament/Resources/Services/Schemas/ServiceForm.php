@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Services\Schemas;
 
+use App\Filament\Support\CmsImageField;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -44,6 +45,14 @@ class ServiceForm
                             ->label('Deskripsi Layanan (Opsional)')
                             ->rows(3)
                             ->columnSpanFull(),
+
+                        CmsImageField::make(
+                            name: 'image',
+                            label: 'Foto Banner Layanan',
+                            directory: 'services',
+                            defaultFallbackAsset: 'images/service-banner-facility.jpg',
+                            helperText: 'Rasio foto landscape disarankan 4:3 (contoh: 800x600 px). Format: JPG, PNG, atau WebP.',
+                        ),
                         Grid::make(2)->schema([
                             TextInput::make('order_column')
                                 ->label('Urutan Tampilan')

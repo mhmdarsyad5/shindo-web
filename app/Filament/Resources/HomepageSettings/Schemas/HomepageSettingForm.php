@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\HomepageSettings\Schemas;
 
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Support\CmsImageField;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -45,23 +45,19 @@ class HomepageSettingForm
 
                                 Section::make('Gambar & Logo Hero')
                                     ->schema([
-                                        FileUpload::make('hero_background_image')
-                                            ->label('Gambar Utama Truk Hero')
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('homepage')
-                                            ->openable()
-                                            ->downloadable()
-                                            ->columnSpanFull(),
+                                        CmsImageField::make(
+                                            name: 'hero_background_image',
+                                            label: 'Gambar Utama Truk Hero',
+                                            directory: 'homepage',
+                                            defaultFallbackAsset: 'homepage/hero-trucks.jpg',
+                                        ),
 
-                                        FileUpload::make('hero_logo')
-                                            ->label('Logo SHACMAN di Hero')
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('homepage')
-                                            ->openable()
-                                            ->downloadable()
-                                            ->columnSpanFull(),
+                                        CmsImageField::make(
+                                            name: 'hero_logo',
+                                            label: 'Logo SHACMAN di Hero',
+                                            directory: 'homepage',
+                                            defaultFallbackAsset: 'homepage/shacman-logo.png',
+                                        ),
 
                                         TextInput::make('hero_logo_tagline')
                                             ->label('Tagline di Bawah Logo Hero')
@@ -151,14 +147,12 @@ class HomepageSettingForm
 
                                 Section::make('Foto Unit Truk & Fitur')
                                     ->schema([
-                                        FileUpload::make('about_image')
-                                            ->label('Foto Samping Unit Truk')
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('homepage')
-                                            ->openable()
-                                            ->downloadable()
-                                            ->columnSpanFull(),
+                                        CmsImageField::make(
+                                            name: 'about_image',
+                                            label: 'Foto Samping Unit Truk',
+                                            directory: 'homepage',
+                                            defaultFallbackAsset: 'homepage/about-truck.png',
+                                        ),
 
                                         Repeater::make('about_features')
                                             ->label('Poin Keunggulan Layanan')
@@ -306,14 +300,12 @@ class HomepageSettingForm
                                             ->rows(2)
                                             ->columnSpanFull(),
 
-                                        FileUpload::make('cta_banner_bg_image')
-                                            ->label('Foto Background Banner (Pertambangan / Quarry)')
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('homepage')
-                                            ->openable()
-                                            ->downloadable()
-                                            ->columnSpanFull(),
+                                        CmsImageField::make(
+                                            name: 'cta_banner_bg_image',
+                                            label: 'Foto Background Banner (Pertambangan / Quarry)',
+                                            directory: 'homepage',
+                                            defaultFallbackAsset: 'homepage/cta-mining-clean.jpg',
+                                        ),
 
                                         Grid::make(2)->schema([
                                             TextInput::make('whatsapp_number')

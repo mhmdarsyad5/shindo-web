@@ -1,11 +1,15 @@
 <?php
 
 use App\Http\Controllers\LeadController;
+use App\Models\AboutSetting;
+use App\Models\ContactSetting;
 use App\Models\HomepageSetting;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Service;
+use App\Models\ServiceSetting;
 use App\Models\SiteSetting;
+use App\Models\SparepartsSetting;
 use App\Models\TruckSeries;
 use Illuminate\Support\Facades\Route;
 use Livewire\Volt\Volt;
@@ -170,25 +174,28 @@ Route::get('/produk/{seriesKey}', function (string $seriesKey) {
 Route::get('/spareparts', function () {
     $site = SiteSetting::first() ?? new SiteSetting;
     $settings = HomepageSetting::current();
+    $spareparts = SparepartsSetting::current();
     $sparepartsConfig = config('spareparts');
 
-    return view('pages.spareparts', compact('site', 'settings', 'sparepartsConfig'));
+    return view('pages.spareparts', compact('site', 'settings', 'spareparts', 'sparepartsConfig'));
 })->name('spareparts');
 
 Route::get('/layanan', function () {
     $services = Service::where('is_active', true)->orderBy('order_column')->get();
     $site = SiteSetting::first() ?? new SiteSetting;
     $settings = HomepageSetting::current();
+    $serviceSetting = ServiceSetting::current();
     $truckSeries = TruckSeries::where('is_active', true)->orderBy('order_column')->get();
 
-    return view('pages.layanan', compact('services', 'site', 'settings', 'truckSeries'));
+    return view('pages.layanan', compact('services', 'site', 'settings', 'serviceSetting', 'truckSeries'));
 })->name('layanan');
 
 Route::get('/tentang-kami', function () {
     $site = SiteSetting::first() ?? new SiteSetting;
     $settings = HomepageSetting::current();
+    $about = AboutSetting::current();
 
-    return view('pages.tentang-kami', compact('site', 'settings'));
+    return view('pages.tentang-kami', compact('site', 'settings', 'about'));
 })->name('tentang-kami');
 
 Route::get('/blog', function () {
@@ -214,8 +221,9 @@ Route::get('/blog/{slug}', function (string $slug) {
 Route::get('/kontak', function () {
     $site = SiteSetting::first() ?? new SiteSetting;
     $settings = HomepageSetting::current();
+    $contact = ContactSetting::current();
 
-    return view('pages.kontak', compact('site', 'settings'));
+    return view('pages.kontak', compact('site', 'settings', 'contact'));
 })->name('kontak');
 
 Route::post('/leads', [LeadController::class, 'store'])

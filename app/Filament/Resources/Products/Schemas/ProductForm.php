@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Products\Schemas;
 
+use App\Filament\Support\CmsImageField;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
@@ -55,14 +56,12 @@ class ProductForm
                                 ->label('Kapasitas Muatan')
                                 ->placeholder('30 - 45 Ton'),
                         ]),
-                        FileUpload::make('image')
-                            ->label('Foto Unit Truk')
-                            ->image()
-                            ->disk('public')
-                            ->directory('homepage')
-                            ->openable()
-                            ->downloadable()
-                            ->columnSpanFull(),
+                        CmsImageField::make(
+                            name: 'image',
+                            label: 'Foto Unit Truk',
+                            directory: 'products',
+                            defaultFallbackAsset: 'products/h3000s-dump-truck-6x4.webp',
+                        ),
                         Textarea::make('description')
                             ->label('Ringkasan / Keunggulan Unit')
                             ->rows(3)

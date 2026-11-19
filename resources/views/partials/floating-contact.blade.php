@@ -12,14 +12,14 @@
 @endphp
 
 <!-- ================= FLOATING ACTION BUTTONS: BACK TO TOP & WHATSAPP ================= -->
-<aside aria-label="Aksi Cepat Kontak dan Navigasi" class="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-50 flex flex-col items-center gap-3 select-none pointer-events-none">
+<aside aria-label="Aksi Cepat Kontak dan Navigasi" class="fixed bottom-20 sm:bottom-22 lg:bottom-6 right-4 sm:right-6 z-40 flex flex-col items-center gap-2.5 sm:gap-3 select-none pointer-events-none">
     
     <!-- 1. Back to Top Button (Diatas Tombol WhatsApp) -->
     <button id="btn-back-to-top"
         type="button"
         aria-label="Kembali ke atas"
         title="Kembali ke atas"
-        class="w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#00163c]/90 hover:bg-[#0067b1] text-white shadow-xl flex items-center justify-center border border-white/20 transition-all duration-300 transform opacity-0 translate-y-4 pointer-events-none hover:scale-110 active:scale-95 group focus:outline-none focus:ring-2 focus:ring-[#0067b1]">
+        class="ios-spring-tap w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-[#00163c]/90 hover:bg-[#0067b1] text-white shadow-xl flex items-center justify-center border border-white/20 transition-all duration-300 transform opacity-0 translate-y-4 pointer-events-none hover:scale-110 active:scale-95 group focus:outline-none focus:ring-2 focus:ring-[#0067b1]">
         <svg class="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-200 group-hover:-translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
         </svg>
@@ -33,7 +33,7 @@
         rel="noopener noreferrer"
         aria-label="Chat WhatsApp PT SHINDO"
         title="Hubungi Kami via WhatsApp"
-        class="relative w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-xl flex items-center justify-center transition-all duration-300 transform hover:scale-105 active:scale-95 pointer-events-auto group focus:outline-none focus:ring-4 focus:ring-[#25D366]/40">
+        class="ios-spring-tap relative w-13 h-13 sm:w-14 sm:h-14 rounded-full bg-[#25D366] hover:bg-[#20bd5a] text-white shadow-xl flex items-center justify-center transition-all duration-300 transform hover:scale-105 active:scale-95 pointer-events-auto group focus:outline-none focus:ring-4 focus:ring-[#25D366]/40">
 
         <!-- Official WhatsApp SVG Icon -->
         <svg class="relative w-7 h-7 sm:w-8 sm:h-8 fill-current drop-shadow-xs" viewBox="0 0 24 24">

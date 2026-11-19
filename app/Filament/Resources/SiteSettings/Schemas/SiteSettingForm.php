@@ -2,7 +2,7 @@
 
 namespace App\Filament\Resources\SiteSettings\Schemas;
 
-use Filament\Forms\Components\FileUpload;
+use App\Filament\Support\CmsImageField;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -26,15 +26,13 @@ class SiteSettingForm
                             ->schema([
                                 Section::make('Logo & Tombol CTA Navbar')
                                     ->schema([
-                                        FileUpload::make('navbar_logo')
-                                            ->label('Logo Navbar')
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('homepage')
-                                            ->openable()
-                                            ->downloadable()
-                                            ->helperText('Format: PNG transparan atau SVG.')
-                                            ->columnSpanFull(),
+                                        CmsImageField::make(
+                                            name: 'navbar_logo',
+                                            label: 'Logo Navbar',
+                                            directory: 'homepage',
+                                            defaultFallbackAsset: 'homepage/shacman-shindo-white.png',
+                                            helperText: 'Format: PNG transparan atau SVG.',
+                                        ),
 
                                         Grid::make(2)->schema([
                                             TextInput::make('cta_text')
@@ -77,14 +75,13 @@ class SiteSettingForm
                             ->schema([
                                 Section::make('Logo & Bio Perusahaan')
                                     ->schema([
-                                        FileUpload::make('footer_logo')
-                                            ->label('Logo Footer')
-                                            ->image()
-                                            ->disk('public')
-                                            ->directory('homepage')
-                                            ->openable()
-                                            ->downloadable()
-                                            ->columnSpanFull(),
+                                        CmsImageField::make(
+                                            name: 'footer_logo',
+                                            label: 'Logo Footer',
+                                            directory: 'homepage',
+                                            defaultFallbackAsset: 'homepage/shindo-logo-white.png',
+                                            helperText: 'Format: PNG transparan atau SVG.',
+                                        ),
                                         Textarea::make('footer_description')
                                             ->label('Deskripsi Perusahaan di Footer')
                                             ->rows(4)
