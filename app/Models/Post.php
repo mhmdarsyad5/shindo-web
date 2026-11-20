@@ -16,6 +16,7 @@ class Post extends Model
         'is_featured' => 'boolean',
         'is_published' => 'boolean',
         'published_at' => 'datetime',
+        'tags' => 'array',
     ];
 
     public function resolveImageUrl(?string $path, string $defaultAsset = ''): string

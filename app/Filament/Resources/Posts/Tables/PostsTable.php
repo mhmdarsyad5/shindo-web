@@ -25,6 +25,10 @@ class PostsTable
                     ->weight('bold')
                     ->searchable()
                     ->limit(40),
+                TextColumn::make('category')
+                    ->label('Category')
+                    ->badge()
+                    ->placeholder('-'),
                 TextColumn::make('excerpt')
                     ->label('Excerpt')
                     ->limit(50)

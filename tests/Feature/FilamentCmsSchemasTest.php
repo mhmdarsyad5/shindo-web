@@ -81,3 +81,26 @@ test('authenticated admin can access all CMS settings and resource edit pages', 
         $response->assertStatus(200);
     }
 });
+
+test('post supports taxonomy and seo meta tags on frontend', function () {
+    $post = Post::create([
+        'title' => 'Panduan Perawatan Truk Tambang',
+        'slug' => 'panduan-perawatan-truk-tambang',
+        'content' => 'Langkah-langkah servis rutin dump truck.',
+        'excerpt' => 'Ringkasan servis dump truck.',
+        'image' => 'posts/sample.jpg',
+        'category' => 'Maintenance',
+        'tags' => ['Heavy Duty', 'Weichai'],
+        'seo_title' => 'Tips Servis Truk Tambang Terbaik | SHINDO Official',
+        'seo_description' => 'Panduan lengkap perawatan armada dump truck SHACMAN di lokasi tambang.',
+        'seo_keywords' => 'servis truk, perawatan dump truck, spareparts shacman',
+        'is_published' => true,
+        'published_at' => now(),
+    ]);
+
+    $response = $this->get('/blog/'.$post->slug);
+    $response->assertStatus(200);
+    $response->assertSee('Tips Servis Truk Tambang Terbaik | SHINDO Official');
+    $response->assertSee('Panduan lengkap perawatan armada dump truck SHACMAN di lokasi tambang.');
+    $response->assertSee('servis truk, perawatan dump truck, spareparts shacman');
+});

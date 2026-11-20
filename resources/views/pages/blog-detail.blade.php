@@ -1,7 +1,10 @@
 @extends('layouts.public')
 
-@section('title', Str::limit($post->title, 50) . ' | SHINDO')
-@section('meta_description', Str::limit(strip_tags($post->excerpt ?? $post->content), 155))
+@section('title', $post->seo_title ?: (Str::limit($post->title, 50) . ' | SHINDO'))
+@section('meta_description', $post->seo_description ?: Str::limit(strip_tags($post->excerpt ?? $post->content), 155))
+@if(!empty($post->seo_keywords))
+@section('meta_keywords', $post->seo_keywords)
+@endif
 
 @php
     $waRaw = $site->whatsapp ?: '628111009567';
