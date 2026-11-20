@@ -19,13 +19,13 @@ class TruckSeriesResource extends Resource
 {
     protected static ?string $model = TruckSeries::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Katalog & Armada';
+    protected static string|UnitEnum|null $navigationGroup = 'Fleet & Catalog';
 
-    protected static ?string $navigationLabel = 'Seri Truk';
+    protected static ?string $navigationLabel = 'Truck Series';
 
-    protected static ?string $modelLabel = 'Seri Truk';
+    protected static ?string $modelLabel = 'Truck Series';
 
-    protected static ?string $pluralModelLabel = 'Seri Truk';
+    protected static ?string $pluralModelLabel = 'Truck Series';
 
     protected static ?int $navigationSort = 2;
 

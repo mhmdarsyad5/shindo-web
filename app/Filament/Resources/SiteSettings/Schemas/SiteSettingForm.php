@@ -18,46 +18,46 @@ class SiteSettingForm
     {
         return $schema
             ->components([
-                Tabs::make('Pengaturan Global Website')
+                Tabs::make('Global Site Settings')
                     ->tabs([
                         // TAB 1: NAVBAR
-                        Tab::make('Navbar & Menu Atas')
+                        Tab::make('Navigation Bar')
                             ->icon('heroicon-o-bars-3')
                             ->schema([
-                                Section::make('Logo & Tombol CTA Navbar')
+                                Section::make('Navbar Branding & CTA')
                                     ->schema([
                                         CmsImageField::make(
                                             name: 'navbar_logo',
-                                            label: 'Logo Navbar',
+                                            label: 'Navbar Logo',
                                             directory: 'homepage',
                                             defaultFallbackAsset: 'homepage/shacman-shindo-white.png',
-                                            helperText: 'Format: PNG transparan atau SVG.',
+                                            helperText: 'Transparent PNG or SVG.',
                                         ),
 
                                         Grid::make(2)->schema([
                                             TextInput::make('cta_text')
-                                                ->label('Teks Tombol CTA')
-                                                ->default('Hubungi Kami')
+                                                ->label('CTA Button Text')
+                                                ->default('Contact Us')
                                                 ->required(),
                                             TextInput::make('cta_url')
-                                                ->label('Tautan Tombol CTA')
+                                                ->label('CTA Button URL')
                                                 ->default('/kontak')
                                                 ->required(),
                                         ]),
                                     ]),
 
-                                Section::make('Menu Tautan Navigasi')
-                                    ->description('Daftar link yang muncul di navbar.')
+                                Section::make('Navigation Links')
+                                    ->description('Links displayed in the site navbar.')
                                     ->schema([
                                         Repeater::make('nav_items')
-                                            ->label('Menu Link')
+                                            ->label('Links')
                                             ->schema([
                                                 TextInput::make('label')
-                                                    ->label('Label Menu')
-                                                    ->placeholder('Produk')
+                                                    ->label('Label')
+                                                    ->placeholder('Products')
                                                     ->required(),
                                                 TextInput::make('url')
-                                                    ->label('Tautan / URL')
+                                                    ->label('URL')
                                                     ->placeholder('/produk')
                                                     ->required(),
                                             ])
@@ -65,59 +65,59 @@ class SiteSettingForm
                                             ->reorderable()
                                             ->collapsible()
                                             ->cloneable()
-                                            ->addActionLabel('Tambah Menu Link'),
+                                            ->addActionLabel('Add Navigation Link'),
                                     ]),
                             ]),
 
                         // TAB 2: FOOTER
-                        Tab::make('Footer Perusahaan')
+                        Tab::make('Footer')
                             ->icon('heroicon-o-document-text')
                             ->schema([
-                                Section::make('Logo & Bio Perusahaan')
+                                Section::make('Footer Branding & Bio')
                                     ->schema([
                                         CmsImageField::make(
                                             name: 'footer_logo',
-                                            label: 'Logo Footer',
+                                            label: 'Footer Logo',
                                             directory: 'homepage',
                                             defaultFallbackAsset: 'homepage/shindo-logo-white.png',
-                                            helperText: 'Format: PNG transparan atau SVG.',
+                                            helperText: 'Transparent PNG or SVG.',
                                         ),
                                         Textarea::make('footer_description')
-                                            ->label('Deskripsi Perusahaan di Footer')
+                                            ->label('Company Summary')
                                             ->rows(4)
                                             ->columnSpanFull(),
                                     ]),
                             ]),
 
-                        // TAB 3: KONTAK & JAM OPERASIONAL
-                        Tab::make('Kontak & Jam Operasional')
+                        // TAB 3: CONTACT & HOURS
+                        Tab::make('Contact & Hours')
                             ->icon('heroicon-o-phone')
                             ->schema([
-                                Section::make('Informasi Kantor & Kontak')
+                                Section::make('Office & Operating Information')
                                     ->schema([
                                         TextInput::make('office_address')
-                                            ->label('Alamat Kantor')
+                                            ->label('Office Address')
                                             ->columnSpanFull(),
                                         Grid::make(2)->schema([
                                             TextInput::make('office_phone')
-                                                ->label('Nomor Telepon'),
+                                                ->label('Phone Number'),
                                             TextInput::make('office_email')
-                                                ->label('Email Kantor'),
+                                                ->label('Email Address'),
                                         ]),
                                         Grid::make(2)->schema([
                                             TextInput::make('office_hours')
-                                                ->label('Jam Operasional Kantor'),
+                                                ->label('Office Hours'),
                                             TextInput::make('mechanic_hours')
-                                                ->label('Jam Layanan Mekanik Darurat'),
+                                                ->label('Emergency Mechanic Hours'),
                                         ]),
                                     ]),
                             ]),
 
                         // TAB 4: SOSIAL MEDIA
-                        Tab::make('Sosial Media')
+                        Tab::make('Social Media')
                             ->icon('heroicon-o-share')
                             ->schema([
-                                Section::make('Tautan Media Sosial Resmi')
+                                Section::make('Official Channels')
                                     ->schema([
                                         Grid::make(2)->schema([
                                             TextInput::make('facebook_url')
@@ -136,17 +136,17 @@ class SiteSettingForm
                                     ]),
                             ]),
 
-                        // TAB 5: HAK CIPTA & SEO
-                        Tab::make('Hak Cipta & Judul')
+                        // TAB 5: SITE IDENTITY
+                        Tab::make('Site Identity')
                             ->icon('heroicon-o-information-circle')
                             ->schema([
-                                Section::make('Hak Cipta (Copyright)')
+                                Section::make('Site Name & Copyright')
                                     ->schema([
                                         TextInput::make('site_name')
-                                            ->label('Nama Situs Website')
+                                            ->label('Site Name')
                                             ->required(),
                                         TextInput::make('copyright_text')
-                                            ->label('Teks Hak Cipta (Copyright)')
+                                            ->label('Copyright Notice')
                                             ->columnSpanFull(),
                                     ]),
                             ]),

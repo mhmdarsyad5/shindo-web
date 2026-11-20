@@ -19,13 +19,13 @@ class SparepartsSettingResource extends Resource
 {
     protected static ?string $model = SparepartsSetting::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Pengaturan Web';
+    protected static string|UnitEnum|null $navigationGroup = 'Site Settings';
 
-    protected static ?string $navigationLabel = 'Halaman Spareparts';
+    protected static ?string $navigationLabel = 'Spareparts Page';
 
-    protected static ?string $modelLabel = 'Pengaturan Halaman Spareparts';
+    protected static ?string $modelLabel = 'Spareparts Page';
 
-    protected static ?string $pluralModelLabel = 'Pengaturan Halaman Spareparts';
+    protected static ?string $pluralModelLabel = 'Spareparts Pages';
 
     protected static ?int $navigationSort = 4;
 

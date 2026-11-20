@@ -17,23 +17,23 @@ class ServicesTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Foto Banner')
+                    ->label('Banner')
                     ->disk('public')
                     ->height(45)
                     ->width(60)
                     ->defaultImageUrl(fn ($record) => $record->resolveImageUrl($record->image, 'images/service-banner-facility.jpg')),
                 TextColumn::make('title')
-                    ->label('Nama Layanan')
+                    ->label('Service Name')
                     ->weight('bold')
                     ->searchable(),
                 TextColumn::make('icon')
-                    ->label('Ikon')
+                    ->label('Icon')
                     ->badge(),
                 TextColumn::make('order_column')
-                    ->label('Urutan')
+                    ->label('Order')
                     ->sortable(),
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label('Active')
                     ->boolean(),
             ])
             ->defaultSort('order_column', 'asc')

@@ -17,18 +17,18 @@ class SiteSettingsTable
                     ->label('Logo')
                     ->disk('public'),
                 TextColumn::make('site_name')
-                    ->label('Nama Situs')
+                    ->label('Site Name')
                     ->weight('bold'),
                 TextColumn::make('office_phone')
-                    ->label('Telepon'),
+                    ->label('Phone'),
                 TextColumn::make('office_email')
                     ->label('Email'),
                 TextColumn::make('updated_at')
-                    ->label('Terakhir Diperbarui')
+                    ->label('Last Updated')
                     ->dateTime('d M Y, H:i'),
             ])
             ->recordActions([
-                EditAction::make()->label('Kelola Pengaturan'),
+                EditAction::make()->label('Edit Settings'),
             ]);
     }
 }

@@ -18,13 +18,13 @@ class LeadResource extends Resource
 {
     protected static ?string $model = Lead::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Sales & Leads';
+    protected static string|UnitEnum|null $navigationGroup = 'Sales & Inquiries';
 
-    protected static ?string $navigationLabel = 'Data Leads Masuk';
+    protected static ?string $navigationLabel = 'Inquiries';
 
-    protected static ?string $modelLabel = 'Lead';
+    protected static ?string $modelLabel = 'Inquiry';
 
-    protected static ?string $pluralModelLabel = 'Leads Masuk';
+    protected static ?string $pluralModelLabel = 'Inquiries';
 
     protected static ?int $navigationSort = 1;
 

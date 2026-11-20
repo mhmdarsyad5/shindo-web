@@ -19,13 +19,13 @@ class HomepageSettingResource extends Resource
 {
     protected static ?string $model = HomepageSetting::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Pengaturan Web';
+    protected static string|UnitEnum|null $navigationGroup = 'Site Settings';
 
-    protected static ?string $navigationLabel = 'Pengaturan Beranda';
+    protected static ?string $navigationLabel = 'Homepage';
 
-    protected static ?string $modelLabel = 'Pengaturan Beranda';
+    protected static ?string $modelLabel = 'Homepage Setting';
 
-    protected static ?string $pluralModelLabel = 'Pengaturan Beranda';
+    protected static ?string $pluralModelLabel = 'Homepage Settings';
 
     protected static ?int $navigationSort = 1;
 

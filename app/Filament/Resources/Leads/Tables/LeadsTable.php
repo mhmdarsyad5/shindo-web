@@ -19,15 +19,15 @@ class LeadsTable
         return $table
             ->columns([
                 TextColumn::make('created_at')
-                    ->label('Waktu Masuk')
+                    ->label('Received At')
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
                 TextColumn::make('name')
-                    ->label('Nama')
+                    ->label('Name')
                     ->weight('bold')
                     ->searchable(),
                 TextColumn::make('phone')
-                    ->label('No. WhatsApp / Telp')
+                    ->label('Phone / WhatsApp')
                     ->copyable()
                     ->searchable(),
                 TextColumn::make('email')
@@ -36,11 +36,11 @@ class LeadsTable
                     ->searchable()
                     ->placeholder('-'),
                 TextColumn::make('company')
-                    ->label('Perusahaan / Proyek')
+                    ->label('Company')
                     ->searchable()
                     ->placeholder('-'),
                 TextColumn::make('truck_series')
-                    ->label('Kebutuhan Unit')
+                    ->label('Requested Series')
                     ->searchable()
                     ->placeholder('-')
                     ->limit(25),
@@ -48,7 +48,7 @@ class LeadsTable
                     ->label('Qty')
                     ->placeholder('-'),
                 TextColumn::make('location')
-                    ->label('Lokasi')
+                    ->label('Location')
                     ->searchable()
                     ->placeholder('-'),
                 TextColumn::make('status')
@@ -62,20 +62,20 @@ class LeadsTable
                         'danger' => 'closed_lost',
                     ])
                     ->formatStateUsing(fn (string $state): string => match ($state) {
-                        'new' => 'Baru',
-                        'contacted' => 'Sudah Dihubungi',
-                        'in_negotiation' => 'Negosiasi',
-                        'closed_won' => 'Deal',
-                        'closed_lost' => 'Batal',
+                        'new' => 'New',
+                        'contacted' => 'Contacted',
+                        'in_negotiation' => 'In Negotiation',
+                        'closed_won' => 'Won',
+                        'closed_lost' => 'Lost',
                         default => $state,
                     }),
                 TextColumn::make('source')
-                    ->label('Sumber')
+                    ->label('Source')
                     ->badge()
                     ->color('gray')
                     ->formatStateUsing(fn (?string $state): string => match ($state) {
-                        'homepage' => 'Beranda',
-                        'contact_page' => 'Kontak',
+                        'homepage' => 'Homepage',
+                        'contact_page' => 'Contact Page',
                         default => $state ?? 'Web',
                     }),
             ])
@@ -84,22 +84,22 @@ class LeadsTable
                 SelectFilter::make('status')
                     ->label('Status')
                     ->options([
-                        'new' => 'Baru Masuk',
-                        'contacted' => 'Sudah Dihubungi',
-                        'in_negotiation' => 'Negosiasi',
-                        'closed_won' => 'Deal',
-                        'closed_lost' => 'Batal',
+                        'new' => 'New',
+                        'contacted' => 'Contacted',
+                        'in_negotiation' => 'In Negotiation',
+                        'closed_won' => 'Won',
+                        'closed_lost' => 'Lost',
                     ]),
                 SelectFilter::make('source')
-                    ->label('Sumber Form')
+                    ->label('Source')
                     ->options([
-                        'homepage' => 'Beranda',
-                        'contact_page' => 'Halaman Kontak',
+                        'homepage' => 'Homepage',
+                        'contact_page' => 'Contact Page',
                     ]),
             ])
             ->recordActions([
                 Action::make('whatsapp')
-                    ->label('Chat WA')
+                    ->label('WhatsApp')
                     ->icon(Heroicon::OutlinedChatBubbleLeftRight)
                     ->color('success')
                     ->url(function (Lead $record): string {

@@ -13,12 +13,12 @@ class ContactSettingsTable
         return $table
             ->columns([
                 TextColumn::make('hero_title')
-                    ->label('Judul Hero')
+                    ->label('Headline')
                     ->searchable()
                     ->limit(45),
 
                 TextColumn::make('office_phone')
-                    ->label('Telepon')
+                    ->label('Phone')
                     ->badge()
                     ->color('info'),
 
@@ -27,13 +27,13 @@ class ContactSettingsTable
                     ->badge(),
 
                 TextColumn::make('updated_at')
-                    ->label('Terakhir Diperbarui')
+                    ->label('Last Updated')
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
             ])
             ->recordActions([
                 EditAction::make()
-                    ->label('Ubah Konten')
+                    ->label('Edit')
                     ->icon('heroicon-m-pencil-square'),
             ])
             ->toolbarActions([]);

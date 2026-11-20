@@ -17,47 +17,47 @@ class SparepartsSettingForm
     {
         return $schema
             ->components([
-                Tabs::make('Pengaturan Halaman Spareparts')
+                Tabs::make('Spareparts Page Settings')
                     ->tabs([
                         // TAB 1: HERO
                         Tab::make('Hero Banner')
                             ->icon('heroicon-o-sparkles')
                             ->schema([
-                                Section::make('Header Halaman Spareparts')
+                                Section::make('Spare Parts Hero')
                                     ->schema([
                                         TextInput::make('hero_badge')
-                                            ->label('Badge Atas')
-                                            ->placeholder('SUKU CADANG RESMI SHACMAN')
-                                            ->default('SUKU CADANG RESMI SHACMAN'),
+                                            ->label('Badge')
+                                            ->placeholder('GENUINE SHACMAN SPARE PARTS')
+                                            ->default('GENUINE SHACMAN SPARE PARTS'),
 
                                         TextInput::make('hero_title')
-                                            ->label('Judul Utama Hero')
+                                            ->label('Headline')
                                             ->required(),
 
                                         Textarea::make('hero_subtitle')
-                                            ->label('Deskripsi Subjudul')
+                                            ->label('Subtitle')
                                             ->rows(3)
                                             ->columnSpanFull(),
                                     ]),
                             ]),
 
                         // TAB 2: PILAR JAMINAN
-                        Tab::make('Pilar Jaminan')
+                        Tab::make('Guarantee Pillars')
                             ->icon('heroicon-o-shield-check')
                             ->schema([
-                                Section::make('3 Kartu Pilar Jaminan Suku Cadang')
+                                Section::make('Guarantee Cards')
                                     ->schema([
                                         Repeater::make('pillars_items')
-                                            ->label('Kartu Jaminan')
+                                            ->label('Pillars')
                                             ->schema([
                                                 TextInput::make('number')
-                                                    ->label('Nomor (Contoh: 01)')
+                                                    ->label('Number (e.g. 01)')
                                                     ->required(),
                                                 TextInput::make('title')
-                                                    ->label('Judul Jaminan')
+                                                    ->label('Title')
                                                     ->required(),
                                                 Textarea::make('desc')
-                                                    ->label('Deskripsi')
+                                                    ->label('Description')
                                                     ->rows(2)
                                                     ->required(),
                                             ])
@@ -67,44 +67,44 @@ class SparepartsSettingForm
                             ]),
 
                         // TAB 3: GUDANG & PENGIRIMAN
-                        Tab::make('Gudang & Logistik')
+                        Tab::make('Logistics & Warehouse')
                             ->icon('heroicon-o-truck')
                             ->schema([
-                                Section::make('Distribusi Cepat ke Seluruh Indonesia')
+                                Section::make('Rapid Logistics & Distribution')
                                     ->schema([
                                         TextInput::make('warehouse_badge')
                                             ->label('Badge')
-                                            ->default('LOGISTIK & DISTRIBUSI CEPAT'),
+                                            ->default('RAPID LOGISTICS & DISTRIBUTION'),
 
                                         TextInput::make('warehouse_title')
-                                            ->label('Judul Section')
+                                            ->label('Section Title')
                                             ->required(),
 
                                         Textarea::make('warehouse_subtitle')
-                                            ->label('Subjudul')
+                                            ->label('Subtitle')
                                             ->rows(2)
                                             ->columnSpanFull(),
 
                                         Textarea::make('warehouse_description')
-                                            ->label('Paragraf Penjelasan')
+                                            ->label('Overview')
                                             ->rows(3)
                                             ->columnSpanFull(),
 
                                         CmsImageField::make(
                                             name: 'warehouse_image',
-                                            label: 'Foto Fasilitas Gudang / Spareparts',
+                                            label: 'Warehouse Facility Image',
                                             directory: 'spareparts',
                                             defaultFallbackAsset: 'images/service-banner-parts.jpg',
                                         ),
 
                                         Repeater::make('warehouse_points')
-                                            ->label('Poin Keunggulan Distribusi')
+                                            ->label('Distribution Highlights')
                                             ->schema([
                                                 TextInput::make('title')
-                                                    ->label('Poin Judul')
+                                                    ->label('Point Title')
                                                     ->required(),
                                                 Textarea::make('desc')
-                                                    ->label('Deskripsi Poin')
+                                                    ->label('Description')
                                                     ->rows(2)
                                                     ->required(),
                                             ])
@@ -114,26 +114,26 @@ class SparepartsSettingForm
                             ]),
 
                         // TAB 4: MEKANIK & DUKUNGAN
-                        Tab::make('Dukungan Mekanik')
+                        Tab::make('Technical Support')
                             ->icon('heroicon-o-wrench-screwdriver')
                             ->schema([
-                                Section::make('Layanan Pemasangan & Mekanik Siaga')
+                                Section::make('Mechanic & On-site Support')
                                     ->schema([
                                         TextInput::make('mechanic_badge')
                                             ->label('Badge')
-                                            ->default('DUKUNGAN TEKNIS'),
+                                            ->default('TECHNICAL SUPPORT'),
 
                                         TextInput::make('mechanic_title')
-                                            ->label('Judul Section Mekanik')
+                                            ->label('Section Title')
                                             ->required(),
 
                                         Textarea::make('mechanic_subtitle')
-                                            ->label('Subjudul')
+                                            ->label('Subtitle')
                                             ->rows(2)
                                             ->columnSpanFull(),
 
                                         Repeater::make('mechanic_points')
-                                            ->label('Pilar Dukungan Mekanik')
+                                            ->label('Support Pillars')
                                             ->simple(
                                                 TextInput::make('point')->required()
                                             )
@@ -142,31 +142,31 @@ class SparepartsSettingForm
                             ]),
 
                         // TAB 5: CTA WHATSAPP
-                        Tab::make('Tombol & Kontak WA')
+                        Tab::make('WhatsApp Contact')
                             ->icon('heroicon-o-chat-bubble-left-right')
                             ->schema([
-                                Section::make('Banner Konsultasi Spareparts')
+                                Section::make('Consultation Banner')
                                     ->schema([
                                         TextInput::make('cta_title')
-                                            ->label('Judul Banner CTA')
+                                            ->label('Banner Title')
                                             ->required(),
 
                                         Textarea::make('cta_subtitle')
-                                            ->label('Subjudul Banner CTA')
+                                            ->label('Banner Subtitle')
                                             ->rows(2)
                                             ->columnSpanFull(),
 
                                         TextInput::make('whatsapp_number')
-                                            ->label('Nomor WhatsApp Spareparts (contoh: 628111009567)')
+                                            ->label('WhatsApp Number (e.g. 628111009567)')
                                             ->required(),
 
                                         TextInput::make('whatsapp_button_text')
-                                            ->label('Teks Tombol WhatsApp')
-                                            ->default('Konsultasi Spareparts via WhatsApp')
+                                            ->label('WhatsApp Button Label')
+                                            ->default('Consult Spare Parts via WhatsApp')
                                             ->required(),
 
                                         Textarea::make('whatsapp_message')
-                                            ->label('Pesan Awal Otomatis WhatsApp')
+                                            ->label('Default WhatsApp Message')
                                             ->rows(2)
                                             ->columnSpanFull(),
                                     ]),

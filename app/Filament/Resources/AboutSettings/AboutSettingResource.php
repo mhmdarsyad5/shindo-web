@@ -19,13 +19,13 @@ class AboutSettingResource extends Resource
 {
     protected static ?string $model = AboutSetting::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Pengaturan Web';
+    protected static string|UnitEnum|null $navigationGroup = 'Site Settings';
 
-    protected static ?string $navigationLabel = 'Halaman Tentang Kami';
+    protected static ?string $navigationLabel = 'About Us';
 
-    protected static ?string $modelLabel = 'Pengaturan Tentang Kami';
+    protected static ?string $modelLabel = 'About Us Page';
 
-    protected static ?string $pluralModelLabel = 'Pengaturan Tentang Kami';
+    protected static ?string $pluralModelLabel = 'About Us Pages';
 
     protected static ?int $navigationSort = 2;
 

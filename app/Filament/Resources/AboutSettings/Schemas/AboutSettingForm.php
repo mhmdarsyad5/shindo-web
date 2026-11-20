@@ -18,113 +18,113 @@ class AboutSettingForm
     {
         return $schema
             ->components([
-                Tabs::make('Pengaturan Halaman Tentang Kami')
+                Tabs::make('About Us Page Settings')
                     ->tabs([
                         // TAB 1: HERO
                         Tab::make('Hero Banner')
                             ->icon('heroicon-o-sparkles')
                             ->schema([
-                                Section::make('Header & Deskripsi')
+                                Section::make('Hero Header')
                                     ->schema([
                                         TextInput::make('hero_badge')
-                                            ->label('Badge Atas')
-                                            ->placeholder('TENTANG KAMI'),
+                                            ->label('Badge')
+                                            ->placeholder('ABOUT US'),
 
                                         TextInput::make('hero_title')
-                                            ->label('Judul Utama Hero')
+                                            ->label('Headline')
                                             ->required(),
 
                                         TextInput::make('hero_subtitle')
-                                            ->label('Subjudul / Slogan Hero')
+                                            ->label('Subheadline')
                                             ->required(),
 
                                         Textarea::make('hero_description')
-                                            ->label('Paragraf Pengantar Hero')
+                                            ->label('Description')
                                             ->rows(4)
                                             ->columnSpanFull(),
 
                                         CmsImageField::make(
                                             name: 'hero_image',
-                                            label: 'Gambar Banner Hero (Latar Belakang)',
+                                            label: 'Hero Background Image',
                                             directory: 'about',
                                             defaultFallbackAsset: 'images/about-shacman-fleet-bg.png',
                                         ),
                                     ]),
                             ]),
 
-                        // TAB 2: PROFIL DEALER
-                        Tab::make('Profil Distributor')
+                        // TAB 2: DEALER PROFILE
+                        Tab::make('Distributor Profile')
                             ->icon('heroicon-o-truck')
                             ->schema([
-                                Section::make('Informasi Authorized Dealer')
+                                Section::make('Authorized Dealer Information')
                                     ->schema([
                                         TextInput::make('profile_title')
-                                            ->label('Judul Section Profil')
+                                            ->label('Section Title')
                                             ->required(),
 
                                         Textarea::make('profile_description')
-                                            ->label('Deskripsi Dealer')
+                                            ->label('Description')
                                             ->rows(4)
                                             ->columnSpanFull(),
 
                                         CmsImageField::make(
                                             name: 'profile_image',
-                                            label: 'Foto Truk Profil (Showcase)',
+                                            label: 'Showcase Image',
                                             directory: 'about',
                                             defaultFallbackAsset: 'images/about-truck.png',
                                         ),
 
                                         TextInput::make('profile_cta_text')
-                                            ->label('Teks Tombol Katalog')
-                                            ->default('Lihat Katalog Truck'),
+                                            ->label('Button Label')
+                                            ->default('View Truck Catalog'),
 
                                         TextInput::make('profile_cta_url')
-                                            ->label('Link Tombol Katalog')
+                                            ->label('Button URL')
                                             ->default('/produk'),
                                     ]),
                             ]),
 
-                        // TAB 3: VISI & MISI
-                        Tab::make('Visi & Misi')
+                        // TAB 3: VISION & MISSION
+                        Tab::make('Vision & Mission')
                             ->icon('heroicon-o-flag')
                             ->schema([
-                                Section::make('Visi Perusahaan')
+                                Section::make('Company Vision')
                                     ->schema([
                                         TextInput::make('vision_badge')
-                                            ->label('Badge Visi')
-                                            ->default('VISI'),
+                                            ->label('Badge')
+                                            ->default('VISION'),
 
                                         TextInput::make('vision_title')
-                                            ->label('Judul Visi')
+                                            ->label('Title')
                                             ->required(),
 
                                         Textarea::make('vision_text')
-                                            ->label('Uraian Visi Perusahaan')
+                                            ->label('Statement')
                                             ->rows(3)
                                             ->columnSpanFull(),
                                     ]),
 
-                                Section::make('Misi Perusahaan')
+                                Section::make('Company Mission')
                                     ->schema([
                                         TextInput::make('mission_badge')
-                                            ->label('Badge Misi')
-                                            ->default('MISI'),
+                                            ->label('Badge')
+                                            ->default('MISSION'),
 
                                         TextInput::make('mission_title')
-                                            ->label('Judul Misi')
+                                            ->label('Title')
                                             ->required(),
 
                                         Repeater::make('mission_items')
-                                            ->label('Daftar Poin Misi')
+                                            ->label('Mission Points')
                                             ->schema([
                                                 TextInput::make('number')
-                                                    ->label('Nomor Urut')
+                                                    ->label('Number')
                                                     ->required(),
                                                 TextInput::make('title')
-                                                    ->label('Judul Misi')
+                                                    ->label('Title')
                                                     ->required(),
                                                 Textarea::make('description')
-                                                    ->label('Deskripsi')
+                                                    ->label('Description')
                                                     ->rows(2)
                                                     ->required(),
                                             ])
@@ -133,40 +133,40 @@ class AboutSettingForm
                                     ]),
                             ]),
 
-                        // TAB 4: LAYANAN SHASS
-                        Tab::make('Layanan SHASS')
+                        // TAB 4: SHASS AFTERSALES
+                        Tab::make('SHASS Aftersales')
                             ->icon('heroicon-o-wrench-screwdriver')
                             ->schema([
-                                Section::make('Header Section SHASS')
+                                Section::make('SHASS Highlights')
                                     ->schema([
                                         TextInput::make('shass_badge')
                                             ->label('Badge')
-                                            ->default('LAYANAN AFTERSALES'),
+                                            ->default('AFTERSALES SERVICES'),
 
                                         TextInput::make('shass_title')
-                                            ->label('Judul SHASS')
+                                            ->label('Title')
                                             ->required(),
 
                                         Textarea::make('shass_subtitle')
-                                            ->label('Deskripsi Ringkas')
+                                            ->label('Description')
                                             ->rows(3)
                                             ->columnSpanFull(),
 
                                         Repeater::make('shass_items')
-                                            ->label('4 Kartu Keunggulan Layanan SHASS')
+                                            ->label('Service Cards')
                                             ->schema([
                                                 TextInput::make('number')
-                                                    ->label('Nomor (Contoh: 01)')
+                                                    ->label('Number (e.g. 01)')
                                                     ->required(),
                                                 TextInput::make('title')
-                                                    ->label('Judul')
+                                                    ->label('Title')
                                                     ->required(),
                                                 Textarea::make('description')
-                                                    ->label('Deskripsi')
+                                                    ->label('Description')
                                                     ->rows(2)
                                                     ->required(),
                                                 FileUpload::make('image')
-                                                    ->label('Gambar Kartu')
+                                                    ->label('Image')
                                                     ->image()
                                                     ->disk('public')
                                                     ->directory('about'),
@@ -176,62 +176,62 @@ class AboutSettingForm
                                     ]),
                             ]),
 
-                        // TAB 5: CABANG & KOMITMEN
-                        Tab::make('Cabang & Komitmen')
+                        // TAB 5: BRANCHES & COMMITMENT
+                        Tab::make('Branches & Commitment')
                             ->icon('heroicon-o-map-pin')
                             ->schema([
-                                Section::make('Peta Jaringan Cabang')
+                                Section::make('Branch Network')
                                     ->schema([
                                         TextInput::make('branches_badge')
-                                            ->label('Badge Cabang')
-                                            ->default('ALAMAT & LOKASI'),
+                                            ->label('Badge')
+                                            ->default('LOCATIONS'),
 
                                         TextInput::make('branches_title')
-                                            ->label('Judul Jaringan Cabang')
+                                            ->label('Title')
                                             ->required(),
 
                                         Textarea::make('branches_subtitle')
-                                            ->label('Deskripsi Cabang')
+                                            ->label('Description')
                                             ->rows(2)
                                             ->columnSpanFull(),
 
                                         CmsImageField::make(
                                             name: 'branches_map_image',
-                                            label: 'Gambar Peta Cabang Dealer',
+                                            label: 'Branch Map Image',
                                             directory: 'about',
                                             defaultFallbackAsset: 'images/about-branch-map.jpg',
                                         ),
                                     ]),
 
-                                Section::make('Komitmen Jangka Panjang')
+                                Section::make('Long-term Commitment')
                                     ->schema([
                                         TextInput::make('commitment_title')
-                                            ->label('Judul Komitmen')
+                                            ->label('Title')
                                             ->required(),
 
                                         Textarea::make('commitment_subtitle')
-                                            ->label('Deskripsi Komitmen')
+                                            ->label('Description')
                                             ->rows(3)
                                             ->columnSpanFull(),
 
                                         CmsImageField::make(
                                             name: 'commitment_image',
-                                            label: 'Foto Banner Komitmen',
+                                            label: 'Banner Image',
                                             directory: 'about',
                                             defaultFallbackAsset: 'images/cta-mining-bg.jpg',
                                         ),
 
                                         Repeater::make('commitment_items')
-                                            ->label('Poin Komitmen Kemitraan')
+                                            ->label('Commitment Points')
                                             ->schema([
                                                 TextInput::make('number')
-                                                    ->label('Nomor (Contoh: 01)')
+                                                    ->label('Number (e.g. 01)')
                                                     ->required(),
                                                 TextInput::make('title')
-                                                    ->label('Judul')
+                                                    ->label('Title')
                                                     ->required(),
                                                 Textarea::make('description')
-                                                    ->label('Deskripsi')
+                                                    ->label('Description')
                                                     ->rows(2)
                                                     ->required(),
                                             ])

@@ -19,13 +19,13 @@ class ContactSettingResource extends Resource
 {
     protected static ?string $model = ContactSetting::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Pengaturan Web';
+    protected static string|UnitEnum|null $navigationGroup = 'Site Settings';
 
-    protected static ?string $navigationLabel = 'Halaman Kontak';
+    protected static ?string $navigationLabel = 'Contact Page';
 
-    protected static ?string $modelLabel = 'Pengaturan Halaman Kontak';
+    protected static ?string $modelLabel = 'Contact Page';
 
-    protected static ?string $pluralModelLabel = 'Pengaturan Halaman Kontak';
+    protected static ?string $pluralModelLabel = 'Contact Pages';
 
     protected static ?int $navigationSort = 5;
 

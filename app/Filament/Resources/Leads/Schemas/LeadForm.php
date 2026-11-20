@@ -15,61 +15,61 @@ class LeadForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Kontak & Perusahaan')
-                    ->description('Data prospek yang dikirimkan melalui form website.')
+                Section::make('Contact & Company Details')
+                    ->description('Inquiry details submitted via the website form.')
                     ->schema([
                         Grid::make(2)->schema([
                             TextInput::make('name')
-                                ->label('Nama Lengkap')
+                                ->label('Full Name')
                                 ->required(),
                             TextInput::make('phone')
-                                ->label('No. WhatsApp / Telepon')
+                                ->label('Phone / WhatsApp')
                                 ->tel()
                                 ->required(),
                             TextInput::make('email')
-                                ->label('Alamat Email')
+                                ->label('Email Address')
                                 ->email(),
                             TextInput::make('company')
-                                ->label('Perusahaan / Proyek')
-                                ->placeholder('Nama PT / CV / Perusahaan'),
+                                ->label('Company / Project')
+                                ->placeholder('Company name'),
                             TextInput::make('location')
-                                ->label('Lokasi Job Site / Wilayah')
-                                ->placeholder('Contoh: Morowali, Sangatta, dll.'),
+                                ->label('Site Location')
+                                ->placeholder('e.g. Morowali, Sangatta, etc.'),
                         ]),
                     ]),
 
-                Section::make('Detail Kebutuhan Truk')
+                Section::make('Fleet Requirements')
                     ->schema([
                         Grid::make(2)->schema([
                             TextInput::make('truck_series')
-                                ->label('Pilihan Seri Truk / Kebutuhan'),
+                                ->label('Requested Series'),
                             TextInput::make('quantity')
-                                ->label('Estimasi Jumlah Unit'),
+                                ->label('Estimated Units'),
                         ]),
                         Textarea::make('notes')
-                            ->label('Rincian Kebutuhan / Catatan Khusus')
+                            ->label('Notes & Specifications')
                             ->rows(4)
                             ->columnSpanFull(),
                     ]),
 
-                Section::make('Status & Sumber Prospek')
+                Section::make('Status & Attribution')
                     ->schema([
                         Grid::make(2)->schema([
                             Select::make('source')
-                                ->label('Sumber Form')
+                                ->label('Source')
                                 ->options([
-                                    'homepage' => 'Beranda (Homepage)',
-                                    'contact_page' => 'Halaman Kontak',
+                                    'homepage' => 'Homepage',
+                                    'contact_page' => 'Contact Page',
                                 ])
                                 ->disabled(),
                             Select::make('status')
-                                ->label('Status Prospek')
+                                ->label('Status')
                                 ->options([
-                                    'new' => 'Baru Masuk (New)',
-                                    'contacted' => 'Sudah Dihubungi (Contacted)',
-                                    'in_negotiation' => 'Dalam Negosiasi',
-                                    'closed_won' => 'Deal (Won)',
-                                    'closed_lost' => 'Batal / Closed Lost',
+                                    'new' => 'New',
+                                    'contacted' => 'Contacted',
+                                    'in_negotiation' => 'In Negotiation',
+                                    'closed_won' => 'Won',
+                                    'closed_lost' => 'Lost',
                                 ])
                                 ->required()
                                 ->default('new'),

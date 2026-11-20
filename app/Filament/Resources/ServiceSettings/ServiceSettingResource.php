@@ -19,13 +19,13 @@ class ServiceSettingResource extends Resource
 {
     protected static ?string $model = ServiceSetting::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Pengaturan Web';
+    protected static string|UnitEnum|null $navigationGroup = 'Site Settings';
 
-    protected static ?string $navigationLabel = 'Halaman Layanan';
+    protected static ?string $navigationLabel = 'Services Page';
 
-    protected static ?string $modelLabel = 'Pengaturan Halaman Layanan';
+    protected static ?string $modelLabel = 'Services Page';
 
-    protected static ?string $pluralModelLabel = 'Pengaturan Halaman Layanan';
+    protected static ?string $pluralModelLabel = 'Services Pages';
 
     protected static ?int $navigationSort = 3;
 

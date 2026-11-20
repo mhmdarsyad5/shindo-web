@@ -20,13 +20,13 @@ class SiteSettingResource extends Resource
 {
     protected static ?string $model = SiteSetting::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Pengaturan Web';
+    protected static string|UnitEnum|null $navigationGroup = 'Site Settings';
 
-    protected static ?string $navigationLabel = 'Navbar & Footer Global';
+    protected static ?string $navigationLabel = 'Navigation & Footer';
 
-    protected static ?string $modelLabel = 'Pengaturan Global';
+    protected static ?string $modelLabel = 'Global Setting';
 
-    protected static ?string $pluralModelLabel = 'Navbar & Footer Global';
+    protected static ?string $pluralModelLabel = 'Global Settings';
 
     protected static ?int $navigationSort = 6;
 

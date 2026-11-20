@@ -18,47 +18,47 @@ class PostForm
     {
         return $schema
             ->components([
-                Section::make('Konten Artikel / Blog')
+                Section::make('Post Content')
                     ->schema([
                         Grid::make(2)->schema([
                             TextInput::make('title')
-                                ->label('Judul Artikel')
-                                ->placeholder('Judul berita atau artikel...')
+                                ->label('Title')
+                                ->placeholder('Post title...')
                                 ->required(),
                             TextInput::make('slug')
                                 ->label('Slug (URL)')
-                                ->placeholder('judul-berita-artikel')
+                                ->placeholder('post-title-slug')
                                 ->required(),
                         ]),
                         CmsImageField::make(
                             name: 'image',
-                            label: 'Gambar Utama / Cover',
+                            label: 'Cover Image',
                             directory: 'homepage',
                             defaultFallbackAsset: 'homepage/blog-dump-truck.jpg',
                         ),
                         Textarea::make('excerpt')
-                            ->label('Ringkasan Singkat')
+                            ->label('Excerpt')
                             ->rows(3)
-                            ->helperText('Teks singkat yang muncul di kartu artikel beranda.')
+                            ->helperText('Short summary displayed on blog cards.')
                             ->columnSpanFull(),
                         RichEditor::make('content')
-                            ->label('Isi Lengkap Artikel')
+                            ->label('Article Content')
                             ->columnSpanFull(),
                         Grid::make(3)->schema([
                             TextInput::make('url')
-                                ->label('Tautan Kustom (Opsional)')
+                                ->label('Custom URL (Optional)')
                                 ->default('/blog'),
                             Toggle::make('is_featured')
-                                ->label('Tampil di Beranda')
+                                ->label('Featured on Homepage')
                                 ->default(true)
                                 ->inline(false),
                             Toggle::make('is_published')
-                                ->label('Status Publish')
+                                ->label('Published')
                                 ->default(true)
                                 ->inline(false),
                         ]),
                         DateTimePicker::make('published_at')
-                            ->label('Tanggal Publikasi')
+                            ->label('Published Date')
                             ->default(now()),
                     ]),
             ]);

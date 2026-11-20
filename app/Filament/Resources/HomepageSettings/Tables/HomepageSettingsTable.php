@@ -13,22 +13,22 @@ class HomepageSettingsTable
         return $table
             ->columns([
                 TextColumn::make('site_title')
-                    ->label('Judul Website')
+                    ->label('Site Title')
                     ->searchable()
                     ->limit(45),
 
                 TextColumn::make('hero_tagline')
-                    ->label('Tagline Hero')
+                    ->label('Hero Tagline')
                     ->badge()
                     ->color('warning'),
 
                 TextColumn::make('cta_text')
-                    ->label('Tombol CTA')
+                    ->label('CTA Button')
                     ->badge()
                     ->color('info'),
 
                 TextColumn::make('updated_at')
-                    ->label('Terakhir Diperbarui')
+                    ->label('Last Updated')
                     ->dateTime('d M Y, H:i')
                     ->sortable(),
             ])
@@ -37,7 +37,7 @@ class HomepageSettingsTable
             ])
             ->recordActions([
                 EditAction::make()
-                    ->label('Ubah Konten')
+                    ->label('Edit')
                     ->icon('heroicon-m-pencil-square'),
             ])
             ->toolbarActions([]);

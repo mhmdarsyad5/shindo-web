@@ -15,63 +15,63 @@ class ContactSettingForm
     {
         return $schema
             ->components([
-                Tabs::make('Pengaturan Halaman Kontak')
+                Tabs::make('Contact Page Settings')
                     ->tabs([
                         // TAB 1: HERO
                         Tab::make('Hero Header')
                             ->icon('heroicon-o-sparkles')
                             ->schema([
-                                Section::make('Header Halaman Kontak')
+                                Section::make('Hero Header')
                                     ->schema([
                                         TextInput::make('hero_badge')
-                                            ->label('Badge Atas')
-                                            ->default('KONTAK KAMI'),
+                                            ->label('Badge')
+                                            ->default('CONTACT US'),
 
                                         TextInput::make('hero_title')
-                                            ->label('Judul Utama Hero')
+                                            ->label('Headline')
                                             ->required(),
 
                                         Textarea::make('hero_subtitle')
-                                            ->label('Deskripsi Subjudul')
+                                            ->label('Subtitle')
                                             ->rows(3)
                                             ->columnSpanFull(),
                                     ]),
                             ]),
 
-                        // TAB 2: DETAIL KONTAK
-                        Tab::make('Detail Kantor')
+                        // TAB 2: OFFICE DETAILS
+                        Tab::make('Office Details')
                             ->icon('heroicon-o-building-office')
                             ->schema([
-                                Section::make('Informasi Kantor & Kontak')
+                                Section::make('Office & Contact Information')
                                     ->schema([
                                         TextInput::make('office_title')
-                                            ->label('Label Kantor')
-                                            ->default('KANTOR PUSAT')
+                                            ->label('Office Label')
+                                            ->default('HEADQUARTERS')
                                             ->required(),
 
                                         Textarea::make('office_address')
-                                            ->label('Alamat Lengkap Kantor')
+                                            ->label('Office Address')
                                             ->rows(3)
                                             ->columnSpanFull()
                                             ->required(),
 
                                         TextInput::make('office_phone')
-                                            ->label('Nomor Telepon Hotline / Sales')
+                                            ->label('Phone Number / Hotline')
                                             ->required(),
 
                                         TextInput::make('office_email')
-                                            ->label('Email Perusahaan')
+                                            ->label('Email Address')
                                             ->email()
                                             ->required(),
 
                                         TextInput::make('office_hours')
-                                            ->label('Jam Operasional Kantor')
-                                            ->default('Senin - Jumat, 09:00 - 17:00 WIB')
+                                            ->label('Operating Hours')
+                                            ->default('Monday - Friday, 09:00 - 17:00 WIB')
                                             ->required(),
 
                                         TextInput::make('mechanic_hours')
-                                            ->label('Status / Keterangan Mekanik 24/7')
-                                            ->default('Tim mekanik siaga 24/7 meluncur ke lokasi proyek Anda.')
+                                            ->label('24/7 Mechanic Support Notice')
+                                            ->default('24/7 emergency mobile mechanic team on standby.')
                                             ->required(),
                                     ]),
                             ]),
@@ -80,42 +80,42 @@ class ContactSettingForm
                         Tab::make('Google Maps')
                             ->icon('heroicon-o-map')
                             ->schema([
-                                Section::make('Peta Lokasi Interaktif')
+                                Section::make('Interactive Map')
                                     ->schema([
                                         Textarea::make('map_embed_url')
-                                            ->label('URL Iframe Embed Google Maps')
+                                            ->label('Google Maps Embed URL (Iframe src)')
                                             ->rows(3)
                                             ->columnSpanFull(),
 
                                         TextInput::make('map_link_url')
-                                            ->label('Link Langsung ke Google Maps (Tombol Buka di Maps)')
+                                            ->label('Google Maps External Link')
                                             ->columnSpanFull(),
                                     ]),
                             ]),
 
-                        // TAB 4: FORM KONSULTASI
-                        Tab::make('Form Konsultasi')
+                        // TAB 4: INQUIRY FORM
+                        Tab::make('Inquiry Form')
                             ->icon('heroicon-o-pencil-square')
                             ->schema([
-                                Section::make('Header & Tombol Form')
+                                Section::make('Form Settings & Callout')
                                     ->schema([
                                         TextInput::make('form_title')
-                                            ->label('Judul Form')
+                                            ->label('Form Title')
                                             ->required(),
 
                                         Textarea::make('form_subtitle')
-                                            ->label('Deskripsi Form')
+                                            ->label('Form Subtitle')
                                             ->rows(2)
                                             ->columnSpanFull(),
 
                                         TextInput::make('submit_button_text')
-                                            ->label('Teks Tombol Submit')
-                                            ->default('Hubungi Kami')
+                                            ->label('Submit Button Label')
+                                            ->default('Contact Us')
                                             ->required(),
 
                                         TextInput::make('submit_notice_text')
-                                            ->label('Keterangan di Bawah Tombol')
-                                            ->default('Data Anda otomatis tersimpan & terhubung langsung ke WhatsApp tim kami.')
+                                            ->label('Notice Below Button')
+                                            ->default('Your submission is saved and forwarded to our sales team.')
                                             ->columnSpanFull(),
                                     ]),
                             ]),

@@ -14,7 +14,7 @@ class CmsImageField
         string $label,
         string $directory = 'uploads',
         ?string $defaultFallbackAsset = null,
-        ?string $helperText = 'Format: JPG, PNG, atau WebP. Maksimal 5MB.',
+        ?string $helperText = 'JPG, PNG, or WebP. Max 5MB.',
         bool $required = false,
         string|int|array $columnSpan = 'full'
     ): FileUpload {

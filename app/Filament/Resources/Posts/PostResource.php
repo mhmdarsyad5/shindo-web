@@ -19,13 +19,13 @@ class PostResource extends Resource
 {
     protected static ?string $model = Post::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Konten & Informasi';
+    protected static string|UnitEnum|null $navigationGroup = 'Content Management';
 
-    protected static ?string $navigationLabel = 'Artikel & Blog';
+    protected static ?string $navigationLabel = 'Blog Posts';
 
-    protected static ?string $modelLabel = 'Artikel / Blog';
+    protected static ?string $modelLabel = 'Post';
 
-    protected static ?string $pluralModelLabel = 'Artikel & Blog';
+    protected static ?string $pluralModelLabel = 'Blog Posts';
 
     protected static ?int $navigationSort = 1;
 

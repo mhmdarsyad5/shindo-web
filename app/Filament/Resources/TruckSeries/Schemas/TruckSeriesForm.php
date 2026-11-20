@@ -16,45 +16,45 @@ class TruckSeriesForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Seri Truk')
+                Section::make('Truck Series Information')
                     ->schema([
                         Grid::make(3)->schema([
                             TextInput::make('key')
-                                ->label('Kode Seri (Unik)')
+                                ->label('Series Key (Unique)')
                                 ->placeholder('X3000')
                                 ->required(),
                             TextInput::make('name')
-                                ->label('Nama Seri')
+                                ->label('Series Name')
                                 ->placeholder('X3000')
                                 ->required(),
                             TextInput::make('badge')
-                                ->label('Label Badge')
+                                ->label('Badge Label')
                                 ->placeholder('FLAGSHIP HEAVY-DUTY'),
                         ]),
                         TextInput::make('title')
-                            ->label('Judul Lengkap')
-                            ->placeholder('Truk Heavy Duty Seri X3000')
+                            ->label('Full Title')
+                            ->placeholder('X3000 Series Heavy-Duty Truck')
                             ->columnSpanFull(),
                         CmsImageField::make(
                             name: 'image',
-                            label: 'Gambar Truk (PNG Transparan)',
+                            label: 'Series Image (Transparent PNG)',
                             directory: 'homepage',
                             defaultFallbackAsset: 'homepage/shacman-x3000.png',
                         ),
                         Textarea::make('description')
-                            ->label('Deskripsi Penjelas')
+                            ->label('Description')
                             ->rows(4)
                             ->columnSpanFull(),
                         Grid::make(3)->schema([
                             TextInput::make('detail_url')
-                                ->label('Tautan Detail')
+                                ->label('Detail URL')
                                 ->default('/produk'),
                             TextInput::make('order_column')
-                                ->label('Urutan')
+                                ->label('Sort Order')
                                 ->numeric()
                                 ->default(0),
                             Toggle::make('is_active')
-                                ->label('Aktif / Tampilkan')
+                                ->label('Active')
                                 ->default(true)
                                 ->inline(false),
                         ]),

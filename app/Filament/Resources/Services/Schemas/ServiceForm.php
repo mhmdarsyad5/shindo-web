@@ -17,49 +17,49 @@ class ServiceForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Layanan')
+                Section::make('Service Information')
                     ->schema([
                         Grid::make(3)->schema([
                             TextInput::make('title')
-                                ->label('Nama Layanan')
-                                ->placeholder('Penjualan Unit Baru')
+                                ->label('Service Name')
+                                ->placeholder('New Unit Sales')
                                 ->required(),
                             TextInput::make('slug')
                                 ->label('Slug (URL)')
-                                ->placeholder('penjualan-unit-baru')
+                                ->placeholder('new-unit-sales')
                                 ->required(),
                             Select::make('icon')
-                                ->label('Pilihan Ikon')
+                                ->label('Icon')
                                 ->options([
-                                    'unit' => 'Unit Truk Baru',
-                                    'contract' => 'Kontrak Servis',
-                                    'guarantee' => 'Garansi ATPM',
-                                    'parts' => 'Suku Cadang Asli',
-                                    'service' => 'Servis & Perawatan',
-                                    'support' => 'Dukungan 24/7',
+                                    'unit' => 'New Truck Units',
+                                    'contract' => 'Service Contract',
+                                    'guarantee' => 'OEM Warranty',
+                                    'parts' => 'Genuine Spare Parts',
+                                    'service' => 'Maintenance & Repairs',
+                                    'support' => '24/7 Support',
                                 ])
                                 ->default('unit')
                                 ->required(),
                         ]),
                         Textarea::make('description')
-                            ->label('Deskripsi Layanan (Opsional)')
+                            ->label('Description (Optional)')
                             ->rows(3)
                             ->columnSpanFull(),
 
                         CmsImageField::make(
                             name: 'image',
-                            label: 'Foto Banner Layanan',
+                            label: 'Banner Image',
                             directory: 'services',
                             defaultFallbackAsset: 'images/service-banner-facility.jpg',
-                            helperText: 'Rasio foto landscape disarankan 4:3 (contoh: 800x600 px). Format: JPG, PNG, atau WebP.',
+                            helperText: 'Recommended landscape 4:3 ratio (e.g. 800x600 px). JPG, PNG, or WebP.',
                         ),
                         Grid::make(2)->schema([
                             TextInput::make('order_column')
-                                ->label('Urutan Tampilan')
+                                ->label('Sort Order')
                                 ->numeric()
                                 ->default(0),
                             Toggle::make('is_active')
-                                ->label('Aktif')
+                                ->label('Active')
                                 ->default(true)
                                 ->inline(false),
                         ]),

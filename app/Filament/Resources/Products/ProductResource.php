@@ -19,13 +19,13 @@ class ProductResource extends Resource
 {
     protected static ?string $model = Product::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Katalog & Armada';
+    protected static string|UnitEnum|null $navigationGroup = 'Fleet & Catalog';
 
-    protected static ?string $navigationLabel = 'Produk Truk';
+    protected static ?string $navigationLabel = 'Products';
 
-    protected static ?string $modelLabel = 'Produk Truk';
+    protected static ?string $modelLabel = 'Product';
 
-    protected static ?string $pluralModelLabel = 'Produk Truk';
+    protected static ?string $pluralModelLabel = 'Products';
 
     protected static ?int $navigationSort = 1;
 

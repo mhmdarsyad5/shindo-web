@@ -21,32 +21,32 @@ class PostsTable
                     ->label('Cover')
                     ->disk('public'),
                 TextColumn::make('title')
-                    ->label('Judul Artikel')
+                    ->label('Title')
                     ->weight('bold')
                     ->searchable()
                     ->limit(40),
                 TextColumn::make('excerpt')
-                    ->label('Ringkasan')
+                    ->label('Excerpt')
                     ->limit(50)
                     ->toggleable(),
                 IconColumn::make('is_featured')
                     ->label('Homepage')
                     ->boolean(),
                 IconColumn::make('is_published')
-                    ->label('Publish')
+                    ->label('Published')
                     ->boolean(),
                 TextColumn::make('published_at')
-                    ->label('Tgl Publish')
+                    ->label('Published Date')
                     ->dateTime('d M Y')
                     ->sortable(),
             ])
             ->defaultSort('created_at', 'desc')
             ->filters([
                 Filter::make('featured')
-                    ->label('Hanya Artikel Beranda')
+                    ->label('Featured Only')
                     ->query(fn ($query) => $query->where('is_featured', true)),
                 Filter::make('published')
-                    ->label('Hanya Terpublikasi')
+                    ->label('Published Only')
                     ->query(fn ($query) => $query->where('is_published', true)),
             ])
             ->recordActions([

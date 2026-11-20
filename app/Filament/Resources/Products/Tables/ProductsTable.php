@@ -19,42 +19,42 @@ class ProductsTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Foto Unit')
+                    ->label('Image')
                     ->disk('public'),
                 TextColumn::make('name')
-                    ->label('Nama Produk')
+                    ->label('Product Name')
                     ->weight('bold')
                     ->searchable(),
                 TextColumn::make('truckSeries.name')
-                    ->label('Seri')
+                    ->label('Series')
                     ->badge()
                     ->sortable(),
                 TextColumn::make('type')
-                    ->label('Tipe / Varian')
+                    ->label('Type / Variant')
                     ->searchable(),
                 TextColumn::make('badge')
                     ->label('Badge')
                     ->badge()
                     ->color('info'),
                 TextColumn::make('capacity')
-                    ->label('Kapasitas'),
+                    ->label('Capacity'),
                 IconColumn::make('is_featured')
                     ->label('Homepage')
                     ->boolean(),
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label('Active')
                     ->boolean(),
                 TextColumn::make('order_column')
-                    ->label('Urutan')
+                    ->label('Order')
                     ->sortable(),
             ])
             ->defaultSort('order_column', 'asc')
             ->filters([
                 SelectFilter::make('truck_series_id')
-                    ->label('Filter Seri')
+                    ->label('Filter Series')
                     ->relationship('truckSeries', 'name'),
                 Filter::make('featured')
-                    ->label('Hanya Produk Unggulan')
+                    ->label('Featured Only')
                     ->query(fn ($query) => $query->where('is_featured', true)),
             ])
             ->recordActions([

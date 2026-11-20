@@ -17,24 +17,24 @@ class TruckSeriesTable
         return $table
             ->columns([
                 ImageColumn::make('image')
-                    ->label('Foto')
+                    ->label('Image')
                     ->disk('public'),
                 TextColumn::make('name')
-                    ->label('Seri')
+                    ->label('Series')
                     ->weight('bold')
                     ->searchable(),
                 TextColumn::make('badge')
                     ->label('Badge')
                     ->badge(),
                 TextColumn::make('title')
-                    ->label('Judul Lengkap')
+                    ->label('Full Title')
                     ->limit(30)
                     ->searchable(),
                 TextColumn::make('order_column')
-                    ->label('Urutan')
+                    ->label('Order')
                     ->sortable(),
                 IconColumn::make('is_active')
-                    ->label('Aktif')
+                    ->label('Active')
                     ->boolean(),
             ])
             ->defaultSort('order_column', 'asc')

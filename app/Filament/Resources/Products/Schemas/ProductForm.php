@@ -19,11 +19,11 @@ class ProductForm
     {
         return $schema
             ->components([
-                Section::make('Informasi Produk Truk')
+                Section::make('Product Information')
                     ->schema([
                         Grid::make(3)->schema([
                             TextInput::make('name')
-                                ->label('Nama Produk')
+                                ->label('Product Name')
                                 ->placeholder('SHACMAN X3000')
                                 ->required(),
                             TextInput::make('slug')
@@ -31,7 +31,7 @@ class ProductForm
                                 ->placeholder('shacman-x3000-dump-truck')
                                 ->required(),
                             Select::make('truck_series_id')
-                                ->label('Seri Truk')
+                                ->label('Truck Series')
                                 ->relationship('truckSeries', 'name')
                                 ->searchable()
                                 ->preload()
@@ -39,62 +39,62 @@ class ProductForm
                         ]),
                         Grid::make(3)->schema([
                             TextInput::make('type')
-                                ->label('Tipe / Varian')
+                                ->label('Type / Variant')
                                 ->placeholder('Dump Truck 6x4 & 8x4'),
                             TextInput::make('badge')
-                                ->label('Badge Kategori')
+                                ->label('Category Badge')
                                 ->placeholder('Flagship Heavy-Duty'),
                             TextInput::make('drive')
-                                ->label('Sistem Penggerak (Drive)')
+                                ->label('Drive System')
                                 ->placeholder('6x4 / 8x4 Heavy Axle'),
                         ]),
                         Grid::make(2)->schema([
                             TextInput::make('engine')
-                                ->label('Mesin (Engine)')
+                                ->label('Engine')
                                 ->placeholder('Weichai WP12 / Cummins ISM'),
                             TextInput::make('capacity')
-                                ->label('Kapasitas Muatan')
+                                ->label('Payload Capacity')
                                 ->placeholder('30 - 45 Ton'),
                         ]),
                         CmsImageField::make(
                             name: 'image',
-                            label: 'Foto Unit Truk',
+                            label: 'Product Image',
                             directory: 'products',
                             defaultFallbackAsset: 'products/h3000s-dump-truck-6x4.webp',
                         ),
                         Textarea::make('description')
-                            ->label('Ringkasan / Keunggulan Unit')
+                            ->label('Summary & Highlights')
                             ->rows(3)
                             ->columnSpanFull(),
                         Grid::make(2)->schema([
                             TextInput::make('detail_url')
-                                ->label('Tautan Detail Produk')
+                                ->label('Product Detail URL')
                                 ->default('/produk'),
                             TextInput::make('whatsapp_message')
-                                ->label('Pesan WhatsApp Default')
-                                ->placeholder('Halo, saya tertarik dengan unit ini.'),
+                                ->label('Default WhatsApp Message')
+                                ->placeholder('Hello, I am interested in this unit.'),
                         ]),
                         Grid::make(3)->schema([
                             TextInput::make('order_column')
-                                ->label('Urutan')
+                                ->label('Sort Order')
                                 ->numeric()
                                 ->default(0),
                             Toggle::make('is_featured')
-                                ->label('Unggulan (Tampil di Homepage)')
+                                ->label('Featured on Homepage')
                                 ->default(true)
                                 ->inline(false),
                             Toggle::make('is_active')
-                                ->label('Status Aktif')
+                                ->label('Active')
                                 ->default(true)
                                 ->inline(false),
                         ]),
                     ]),
 
-                Section::make('Galeri & Spesifikasi Detail Unit')
+                Section::make('Gallery & Technical Specifications')
                     ->collapsed()
                     ->schema([
                         FileUpload::make('gallery_images')
-                            ->label('Galeri Foto Tambahan')
+                            ->label('Additional Gallery Images')
                             ->image()
                             ->multiple()
                             ->reorderable()
@@ -104,20 +104,20 @@ class ProductForm
                             ->downloadable()
                             ->columnSpanFull(),
                         Repeater::make('specifications')
-                            ->label('Spesifikasi Teknis Khusus Unit (Opsional)')
+                            ->label('Unit Specifications (Optional)')
                             ->schema([
                                 TextInput::make('item')
-                                    ->label('Item')
+                                    ->label('Specification Item')
                                     ->placeholder('GVM (Gross Vehicle Weight)')
                                     ->required(),
                                 TextInput::make('value')
-                                    ->label('Spesifikasi')
-                                    ->placeholder('25.000 – 31.000 kg')
+                                    ->label('Value')
+                                    ->placeholder('25,000 – 31,000 kg')
                                     ->required(),
                             ])
                             ->columns(2)
                             ->defaultItems(0)
-                            ->helperText('Kosongkan jika ingin memakai spesifikasi standar seri.')
+                            ->helperText('Leave empty to use standard series specifications.')
                             ->columnSpanFull(),
                     ]),
             ]);

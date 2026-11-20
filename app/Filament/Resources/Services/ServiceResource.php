@@ -19,13 +19,13 @@ class ServiceResource extends Resource
 {
     protected static ?string $model = Service::class;
 
-    protected static string|UnitEnum|null $navigationGroup = 'Konten & Informasi';
+    protected static string|UnitEnum|null $navigationGroup = 'Content Management';
 
-    protected static ?string $navigationLabel = 'Layanan Purna Jual';
+    protected static ?string $navigationLabel = 'Services';
 
-    protected static ?string $modelLabel = 'Layanan';
+    protected static ?string $modelLabel = 'Service';
 
-    protected static ?string $pluralModelLabel = 'Layanan Purna Jual';
+    protected static ?string $pluralModelLabel = 'Services';
 
     protected static ?int $navigationSort = 2;
 
