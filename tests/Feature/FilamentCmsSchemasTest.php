@@ -1,0 +1,83 @@
+<?php
+
+use App\Models\AboutSetting;
+use App\Models\HomepageSetting;
+use App\Models\Post;
+use App\Models\Product;
+use App\Models\Service;
+use App\Models\ServiceSetting;
+use App\Models\SiteSetting;
+use App\Models\SparepartsSetting;
+use App\Models\TruckSeries;
+use App\Models\User;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+
+uses(RefreshDatabase::class);
+
+test('authenticated admin can access all CMS settings and resource edit pages', function () {
+    $user = User::factory()->create();
+
+    $about = AboutSetting::current();
+    $site = SiteSetting::current();
+    $serviceSetting = ServiceSetting::current();
+    $spareparts = SparepartsSetting::current();
+    $homepage = HomepageSetting::current();
+
+    $service = Service::create([
+        'title' => 'Layanan Servis Tambang',
+        'slug' => 'layanan-servis-tambang',
+        'description' => 'Servis on-site 24 jam.',
+        'image' => 'services/service-banner-facility.jpg',
+        'is_active' => true,
+    ]);
+
+    $product = Product::create([
+        'name' => 'SHACMAN X3000 Dump Truck',
+        'slug' => 'shacman-x3000-dump-truck',
+        'type' => 'Dump Truck',
+        'drive' => '6x4',
+        'description' => 'Truk tambang heavy duty.',
+        'image' => 'products/h3000s-dump-truck-6x4.webp',
+        'is_active' => true,
+    ]);
+
+    $post = Post::create([
+        'title' => 'Berita Perawatan Truk',
+        'slug' => 'berita-perawatan-truk',
+        'content' => 'Panduan lengkap perawatan mesin.',
+        'image' => 'homepage/blog-dump-truck.jpg',
+        'is_published' => true,
+    ]);
+
+    $truckSeries = TruckSeries::create([
+        'key' => 'X3000',
+        'name' => 'X3000',
+        'badge' => 'FLAGSHIP',
+        'title' => 'Truk X3000',
+        'description' => 'Heavy duty flagship.',
+        'image' => 'homepage/shacman-x3000.png',
+        'detail_url' => '/produk',
+        'is_active' => true,
+    ]);
+
+    $routes = [
+        '/admin/about-settings/'.$about->id.'/edit',
+        '/admin/site-settings/'.$site->id.'/edit',
+        '/admin/service-settings/'.$serviceSetting->id.'/edit',
+        '/admin/spareparts-settings/'.$spareparts->id.'/edit',
+        '/admin/homepage-settings/'.$homepage->id.'/edit',
+        '/admin/services',
+        '/admin/services/'.$service->id.'/edit',
+        '/admin/products',
+        '/admin/products/'.$product->id.'/edit',
+        '/admin/posts',
+        '/admin/posts/'.$post->id.'/edit',
+        '/admin/truck-series',
+        '/admin/truck-series/'.$truckSeries->id.'/edit',
+    ];
+
+    foreach ($routes as $route) {
+        $response = $this->actingAs($user)->get($route);
+        $response->assertStatus(200);
+    }
+});

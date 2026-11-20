@@ -23,6 +23,17 @@ class SiteSetting extends Model
         'nav_items' => 'array',
     ];
 
+    public static function current(): self
+    {
+        return static::firstOrCreate([], [
+            'site_name' => 'SHINDO - Official SHACMAN Distributor',
+            'navbar_logo' => 'homepage/shacman-shindo-white.png',
+            'footer_logo' => 'homepage/shindo-logo-white.png',
+            'office_email' => 'sales@shindo.id',
+            'office_phone' => '(021) 22574351',
+        ]);
+    }
+
     public function resolveImageUrl(?string $path, string $defaultAsset = ''): string
     {
         if ($path) {
