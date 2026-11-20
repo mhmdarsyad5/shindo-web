@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources\Posts\Schemas;
 
+use App\Filament\Forms\Components\TinyEditor;
 use App\Filament\Support\CmsImageField;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
@@ -39,8 +39,9 @@ class PostForm
                                             }
                                         }),
 
-                                    RichEditor::make('content')
+                                    TinyEditor::make('content')
                                         ->label('Konten Halaman')
+                                        ->minHeight(480)
                                         ->columnSpanFull(),
 
                                     Textarea::make('excerpt')
