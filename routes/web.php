@@ -16,13 +16,14 @@ use Livewire\Volt\Volt;
 
 Route::get('/', function () {
     $settings = HomepageSetting::current();
+    $serviceSetting = ServiceSetting::current();
     $site = SiteSetting::first() ?? new SiteSetting;
     $truckSeries = TruckSeries::where('is_active', true)->orderBy('order_column')->get();
     $products = Product::where('is_active', true)->where('is_featured', true)->orderBy('order_column')->get();
     $services = Service::where('is_active', true)->orderBy('order_column')->get();
     $posts = Post::where('is_published', true)->where('is_featured', true)->orderBy('published_at', 'desc')->get();
 
-    return view('welcome', compact('settings', 'site', 'truckSeries', 'products', 'services', 'posts'));
+    return view('welcome', compact('settings', 'serviceSetting', 'site', 'truckSeries', 'products', 'services', 'posts'));
 })->name('home');
 
 Route::get('/produk', function () {

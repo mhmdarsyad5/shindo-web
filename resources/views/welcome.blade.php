@@ -666,21 +666,26 @@
 
     <!-- ================= SECTION 5: LAYANAN AFTERSALES ================= -->
     <section id="layanan" class="w-full bg-white py-14 sm:py-20 lg:py-24 border-t border-slate-200">
+        @php
+            $servicesBadge = $serviceSetting->hero_badge ?? ($settings->services_badge ?? 'LAYANAN AFTERSALES');
+            $servicesTitle = $serviceSetting->hero_title ?? ($settings->services_title ?? 'DUKUNGAN PENUH UNTUK BISNIS ANDA');
+            $servicesSubtitle = $serviceSetting->hero_subtitle ?? ($settings->services_subtitle ?? 'Memastikan performa dan ketersediaan armada dump truck SHACMAN di site tambang tetap optimal dengan dukungan mekanik tersertifikasi ATPM dan pasokan suku cadang asli.');
+        @endphp
         <!-- Section Header -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-10 sm:mb-14 text-center reveal-on-scroll">
-            @if(!empty($settings->services_badge))
+            @if(!empty($servicesBadge))
                 <span
                     class="inline-flex items-center px-3.5 py-1 bg-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider mb-2.5 shadow-xs">
-                    {{ $settings->services_badge }}
+                    {{ $servicesBadge }}
                 </span>
             @endif
             <h2
                 class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase font-barlow-condensed leading-none tracking-tight text-[#00163c]">
-                {{ $settings->services_title ?? 'DUKUNGAN PENUH UNTUK BISNIS ANDA' }}
+                {{ $servicesTitle }}
             </h2>
-            @if(!empty($settings->services_subtitle))
+            @if(!empty($servicesSubtitle))
                 <p class="mt-2.5 text-slate-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-normal">
-                    {{ $settings->services_subtitle }}
+                    {{ $servicesSubtitle }}
                 </p>
             @endif
         </div>
