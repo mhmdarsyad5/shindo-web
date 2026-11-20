@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Services\Schemas;
 
 use App\Filament\Support\CmsImageField;
+use App\Models\IconAsset;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -30,14 +31,15 @@ class ServiceForm
                                 ->required(),
                             Select::make('icon')
                                 ->label('Icon')
-                                ->options([
+                                ->options(fn () => IconAsset::getSelectOptions([
                                     'unit' => 'New Truck Units',
                                     'contract' => 'Service Contract',
                                     'guarantee' => 'OEM Warranty',
                                     'parts' => 'Genuine Spare Parts',
                                     'service' => 'Maintenance & Repairs',
                                     'support' => '24/7 Support',
-                                ])
+                                ]))
+                                ->searchable()
                                 ->default('unit')
                                 ->required(),
                         ]),

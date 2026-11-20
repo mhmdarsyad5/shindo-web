@@ -310,7 +310,9 @@
                         class="flex items-center space-x-3 sm:space-x-4 reveal-on-scroll {{ $idx === 0 ? 'reveal-delay-100' : ($idx === 1 ? 'reveal-delay-200' : ($idx === 2 ? 'reveal-delay-300' : 'reveal-delay-400')) }}">
                         <div
                             class="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 border border-white/10 flex items-center justify-center text-white flex-shrink-0 shadow-xs">
-                            @if(($stat['icon'] ?? '') === 'handshake')
+                            @if($customIconHtml = \App\Models\IconAsset::renderIcon($stat['icon'] ?? '', 'w-5 h-5 sm:w-6 sm:h-6'))
+                                {!! $customIconHtml !!}
+                            @elseif(($stat['icon'] ?? '') === 'handshake')
                                 <!-- Handshake Icon -->
                                 <svg class="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                     stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -606,7 +608,9 @@
                             class="bg-white p-5 sm:p-6 hover:shadow-xl transition-all duration-300 shadow-md group flex flex-col items-center text-center reveal-on-scroll {{ $idx === 0 ? 'reveal-delay-100' : ($idx === 1 ? 'reveal-delay-200' : ($idx === 2 ? 'reveal-delay-300' : 'reveal-delay-400')) }}">
                             <div
                                 class="w-12 h-12 border border-slate-200 bg-slate-50 text-[#0067b1] flex items-center justify-center mb-3.5 group-hover:bg-[#0067b1] group-hover:border-[#0067b1] group-hover:text-white transition-all duration-300 flex-shrink-0">
-                                @if(($adv['icon'] ?? '') === 'cpu' || str_contains(strtolower($adv['title'] ?? ''), 'torsi') || str_contains(strtolower($adv['title'] ?? ''), 'mesin'))
+                                @if($customIconHtml = \App\Models\IconAsset::renderIcon($adv['icon'] ?? '', 'w-5 h-5'))
+                                    {!! $customIconHtml !!}
+                                @elseif(($adv['icon'] ?? '') === 'cpu' || str_contains(strtolower($adv['title'] ?? ''), 'torsi') || str_contains(strtolower($adv['title'] ?? ''), 'mesin'))
                                     <!-- Microchip / Processor Engine Control Icon (Sesuai Gambar) -->
                                     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                         <rect x="4" y="4" width="16" height="16" rx="2" stroke-linecap="round"

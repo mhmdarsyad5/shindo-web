@@ -2,6 +2,7 @@
 
 use App\Models\AboutSetting;
 use App\Models\HomepageSetting;
+use App\Models\IconAsset;
 use App\Models\Post;
 use App\Models\Product;
 use App\Models\Service;
@@ -60,12 +61,22 @@ test('authenticated admin can access all CMS settings and resource edit pages', 
         'is_active' => true,
     ]);
 
+    $iconAsset = IconAsset::create([
+        'title' => 'Truk Tambang Heavy',
+        'key' => 'truk-tambang-heavy',
+        'file_path' => 'icons/test-icon.svg',
+        'category' => 'Fleet',
+    ]);
+
     $routes = [
         '/admin/about-settings/'.$about->id.'/edit',
         '/admin/site-settings/'.$site->id.'/edit',
         '/admin/service-settings/'.$serviceSetting->id.'/edit',
         '/admin/spareparts-settings/'.$spareparts->id.'/edit',
         '/admin/homepage-settings/'.$homepage->id.'/edit',
+        '/admin/icon-assets',
+        '/admin/icon-assets/create',
+        '/admin/icon-assets/'.$iconAsset->id.'/edit',
         '/admin/services',
         '/admin/services/'.$service->id.'/edit',
         '/admin/products',
@@ -104,4 +115,24 @@ test('post supports taxonomy and seo meta tags on frontend', function () {
     $response->assertSee('Tips Servis Truk Tambang Terbaik | SHINDO Official');
     $response->assertSee('Panduan lengkap perawatan armada dump truck SHACMAN di lokasi tambang.');
     $response->assertSee('servis truk, perawatan dump truck, spareparts shacman');
+});
+
+test('icon assets can be created and resolved in views', function () {
+    $asset = IconAsset::create([
+        'title' => 'Logo Hande Axle',
+        'key' => 'hande-axle-logo',
+        'file_path' => 'icons/hande.png',
+        'category' => 'Powertrain',
+    ]);
+
+    expect($asset->url)->toContain('icons/hande.png');
+
+    $html = IconAsset::renderIcon('asset:hande-axle-logo', 'w-8 h-8');
+    expect($html)->toContain('<img src=')
+        ->and($html)->toContain('w-8 h-8')
+        ->and($html)->toContain('alt="Logo Hande Axle"');
+
+    $options = IconAsset::getSelectOptions(['truck' => 'Truck']);
+    expect($options)->toHaveKey('Custom Icons (Icons & Assets)')
+        ->and($options['Custom Icons (Icons & Assets)'])->toHaveKey('asset:hande-axle-logo');
 });

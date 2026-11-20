@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\HomepageSettings\Schemas;
 
 use App\Filament\Support\CmsImageField;
+use App\Models\IconAsset;
 use App\Models\Service;
 use App\Models\ServiceSetting;
 use Filament\Forms\Components\Placeholder;
@@ -90,12 +91,13 @@ class HomepageSettingForm
                                                     ->required(),
                                                 Select::make('icon')
                                                     ->label('Icon')
-                                                    ->options([
+                                                    ->options(fn () => IconAsset::getSelectOptions([
                                                         'truck' => 'Truck',
                                                         'handshake' => 'Partnership',
                                                         'map-pin' => 'Location / Reach',
                                                         'shield-check' => 'Warranty / Security',
-                                                    ])
+                                                    ]))
+                                                    ->searchable()
                                                     ->default('truck')
                                                     ->required(),
                                             ])
@@ -223,12 +225,13 @@ class HomepageSettingForm
                                             ->schema([
                                                 Select::make('icon')
                                                     ->label('Icon')
-                                                    ->options([
+                                                    ->options(fn () => IconAsset::getSelectOptions([
                                                         'flame' => 'High Torque / Power',
                                                         'droplet' => 'Fuel Efficiency',
                                                         'shield' => 'Safety & Cabin Protection',
                                                         'cog' => 'Genuine Parts & Powertrain',
-                                                    ])
+                                                    ]))
+                                                    ->searchable()
                                                     ->required(),
                                                 TextInput::make('title')
                                                     ->label('Title')

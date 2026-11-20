@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\ServiceSettings\Schemas;
 
 use App\Filament\Support\CmsImageField;
+use App\Models\IconAsset;
 use Filament\Forms\Components\Repeater;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -67,12 +68,13 @@ class ServiceSettingForm
                                             ->schema([
                                                 Select::make('icon')
                                                     ->label('Icon')
-                                                    ->options([
+                                                    ->options(fn () => IconAsset::getSelectOptions([
                                                         'cpu' => 'High Torque / Engine',
                                                         'fuel' => 'Fuel Efficiency',
                                                         'truck' => 'Cabin Safety & Comfort',
                                                         'cog' => 'Genuine Parts & Gear',
-                                                    ])
+                                                    ]))
+                                                    ->searchable()
                                                     ->default('cpu')
                                                     ->required(),
                                                 TextInput::make('title')
