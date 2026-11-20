@@ -180,6 +180,16 @@ class ModularContentSeeder extends Seeder
             [
                 'title' => 'Penjualan Unit Baru',
                 'excerpt' => 'Menyediakan seluruh varian Shacman truck dalam kondisi prima lengkap dengan jaminan garansi ATPM terjamin dan resmi di Indonesia.',
+                'content' => <<<'HTML'
+<h2>Solusi Pengadaan Armada Dump Truck SHACMAN Resmi</h2>
+<p>PT SHINDO Tractors Adiperkasa menghadirkan lini lengkap heavy duty truck SHACMAN seri X3000, F3000, dan H3000 untuk memenuhi kebutuhan operasional pertambangan, logistik, dan konstruksi di seluruh Indonesia.</p>
+<h2>Keunggulan Seri Unggulan SHACMAN X3000 &amp; F3000</h2>
+<p>Ditenagai mesin Weichai bertenaga tinggi dan transmisi FAST yang andal, setiap unit dirancang khusus dengan sasis tangguh dan kabin ergonomis berstandar keamanan tinggi untuk kenyamanan pengemudi di medan ekstrem.</p>
+<h3>Kemudahan Pemesanan &amp; Layanan Purna Jual Terpadu</h3>
+<p>Dapatkan penawaran harga kompetitif, skema pembiayaan fleksibel, serta garansi resmi ATPM dengan dukungan suku cadang dan teknisi andal di setiap wilayah proyek Anda.</p>
+HTML,
+                'category' => 'Heavy Duty',
+                'tags' => ['Unit Baru', 'X3000', 'F3000'],
                 'image' => 'homepage/blog-dump-truck.jpg',
                 'url' => '/blog',
                 'is_featured' => true,
@@ -193,6 +203,16 @@ class ModularContentSeeder extends Seeder
             [
                 'title' => 'Servis & Perawatan Rutin',
                 'excerpt' => 'Penanganan pemeliharaan terjadwal dan tim mekanik tersedia 24/7 bersertifikasi resmi untuk menjaga ritase operasional.',
+                'content' => <<<'HTML'
+<h2>Pentingnya Pemeliharaan Terjadwal untuk Heavy Duty Truck</h2>
+<p>Pemeliharaan berkala merupakan kunci utama menjaga efisiensi bahan bakar dan memperpanjang umur pakai dump truck di medan tambang maupun konstruksi berat.</p>
+<h2>Layanan Servis &amp; Inspeksi Berkala 24/7</h2>
+<p>Tim mekanik bersertifikasi resmi PT SHINDO siap melayani pengecekan sistem pelumasan, transmisi FAST, sistem hidrolik dump body, hingga pengereman udara secara komprehensif langsung di job site Anda.</p>
+<h3>Jaminan Kualitas Pelayanan Standar ATPM</h3>
+<p>Setiap penanganan servis menggunakan peralatan diagnostik modern dan prosedur standar pabrikan untuk memastikan unit truk Anda selalu siap beroperasi pada performa puncaknya.</p>
+HTML,
+                'category' => 'Maintenance',
+                'tags' => ['Servis Rutin', 'Mekanik 24/7', 'Inspeksi'],
                 'image' => 'homepage/blog-service-routine.jpg',
                 'url' => '/blog',
                 'is_featured' => true,
@@ -206,6 +226,18 @@ class ModularContentSeeder extends Seeder
             [
                 'title' => 'Suku Cadang Asli',
                 'excerpt' => 'Stok lengkap suku cadang orisinal Shacman, FAST Transmission, dan Weichai Engine untuk memangkas downtime masa perbaikan alat.',
+                'content' => <<<'HTML'
+<h2>Keandalan Operasional Armada SHACMAN di Medan Ekstrem</h2>
+<p>Dump truck SHACMAN telah membuktikan ketangguhannya dalam mendukung berbagai proyek strategis nasional, mulai dari hauling nikel di Sulawesi, tambang batu bara di Kalimantan, hingga pembangunan infrastruktur jalan tol dan pelabuhan.</p>
+<h2>Ketersediaan Suku Cadang Orisinal &amp; Fast-Moving Parts</h2>
+<p>PT SHINDO menyediakan suku cadang orisinal lengkap dari SHACMAN, FAST Gear Transmission, dan mesin Weichai untuk memangkas downtime masa perbaikan alat berat Anda di lapangan.</p>
+<h3>Gardan Hande Heavy-Duty &amp; Sasis Tangguh</h3>
+<p>Kombinasi sasis berlapis ganda dan gardan reduksi ganda (Hande Double Reduction) menjaga kestabilan serta traksi optimal di jalur tambang berbatu dengan beban muatan di atas 30–40 ton.</p>
+<h2>Dukungan Mekanik On-Site &amp; Suku Cadang Resmi</h2>
+<p>PT SHINDO selaku Authorized Distributor resmi menghadirkan mekanik siaga 24 jam di lokasi proyek serta pasokan suku cadang original fast-moving agar jadwal operasional armada tetap berjalan tanpa downtime berkepanjangan.</p>
+HTML,
+                'category' => 'Spare Parts',
+                'tags' => ['Suku Cadang Asli', 'Weichai', 'FAST Gear', 'Hande Axle'],
                 'image' => 'homepage/blog-spare-parts.jpg',
                 'url' => '/blog',
                 'is_featured' => true,

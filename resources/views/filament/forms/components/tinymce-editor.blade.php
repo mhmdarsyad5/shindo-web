@@ -30,6 +30,11 @@
                 loadTinyMce().then((tinymce) => {
                     const isDark = document.documentElement.classList.contains('dark');
                     const targetEl = this.$refs.tinymceTextarea;
+                    const editorId = targetEl.id;
+
+                    if (tinymce.get(editorId)) {
+                        tinymce.get(editorId).remove();
+                    }
 
                     tinymce.init({
                         target: targetEl,
@@ -50,8 +55,10 @@
                             this.editor = editor;
 
                             editor.on('init', () => {
-                                if (this.state) {
-                                    editor.setContent(this.state);
+                                const initialContent = targetEl.value || this.state || '';
+                                if (initialContent) {
+                                    editor.setContent(initialContent);
+                                    this.state = initialContent;
                                 }
                             });
 
@@ -67,7 +74,7 @@
                     });
 
                     this.$watch('state', (val) => {
-                        if (this.editor && this.editor.initialized) {
+                        if (this.editor) {
                             const currentVal = this.editor.getContent();
                             if (val !== currentVal) {
                                 this.editor.setContent(val || '');
@@ -83,6 +90,6 @@
         wire:ignore
         class="w-full rounded-xl overflow-hidden border border-gray-200 dark:border-gray-800 shadow-xs"
     >
-        <textarea x-ref="tinymceTextarea" id="tinymce-{{ str_replace('.', '-', $getStatePath()) }}" class="hidden"></textarea>
+        <textarea x-ref="tinymceTextarea" id="tinymce-{{ str_replace('.', '-', $getStatePath()) }}" class="w-full p-3 font-sans text-sm text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-900 focus:outline-hidden" style="min-height: {{ $getMinHeight() }}px;">{{ $getState() ?? '' }}</textarea>
     </div>
 </x-filament-forms::field-wrapper>
