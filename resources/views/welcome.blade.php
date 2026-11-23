@@ -293,11 +293,14 @@
     </header>
 
     <!-- ================= HERO SECTION ================= -->
-    <section
-        class="relative w-full overflow-hidden bg-[#00163c] h-[300px] sm:h-[440px] md:h-[520px] lg:h-[calc(100vh-74px-165px)] lg:min-h-[560px] xl:min-h-[640px] 2xl:min-h-[760px]">
+    <section class="relative w-full overflow-hidden bg-[#00163c] flex items-center justify-center">
         <h1 class="sr-only">{{ $settings->hero_tagline ?? 'SHACMAN – Tangguh di Segala Medan' }}</h1>
-        <img src="{{ $settings->hero_background_image_url }}" alt="SHACMAN Heavy Duty Trucks di Segala Medan"
-            class="w-full h-full object-cover object-[49%_35%] block select-none pointer-events-none">
+        <div class="w-full max-w-[2560px] mx-auto flex items-center justify-center">
+            <img src="{{ $settings->hero_background_image_url }}" alt="SHACMAN Heavy Duty Trucks di Segala Medan"
+                class="w-full h-[280px] sm:h-[380px] md:h-auto md:max-h-[calc(100vh-140px)] 2xl:max-h-[calc(100vh-160px)] object-cover object-[50%_38%] block select-none pointer-events-none"
+                fetchpriority="high"
+                decoding="async">
+        </div>
     </section>
 
     <!-- ================= STATS BANNER SECTION ================= -->
