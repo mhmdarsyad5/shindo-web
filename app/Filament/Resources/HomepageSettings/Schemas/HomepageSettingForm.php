@@ -54,7 +54,7 @@ class HomepageSettingForm
                                             name: 'hero_background_image',
                                             label: 'Hero Truck Image',
                                             directory: 'homepage',
-                                            defaultFallbackAsset: 'homepage/hero-trucks.jpg',
+                                            defaultFallbackAsset: 'homepage/hero-cropped-mockup.png',
                                         ),
 
                                         CmsImageField::make(

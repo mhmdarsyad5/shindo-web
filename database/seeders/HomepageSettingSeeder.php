@@ -30,7 +30,7 @@ class HomepageSettingSeeder extends Seeder
         $setting->cta_url = '/kontak';
 
         // Hero
-        $setting->hero_background_image = 'homepage/hero-trucks.jpg';
+        $setting->hero_background_image = 'homepage/hero-cropped-mockup.png';
         $setting->hero_logo = 'homepage/shacman-logo.png';
         $setting->hero_tagline = 'TANGGUH DI SEGALA MEDAN';
 

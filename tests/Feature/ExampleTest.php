@@ -15,7 +15,7 @@ test('homepage returns a successful response', function () {
     $response->assertSee('Tentang Kami');
     $response->assertSee('Blog');
     $response->assertSee('Kontak');
-    $response->assertSee('hero-trucks.jpg');
+    $response->assertSee('hero-cropped-mockup.png');
     $response->assertDontSee('shacman-logo.png');
     $response->assertSee('homepage-quote-form');
     $response->assertSee('pro_detail08_1.jpg');

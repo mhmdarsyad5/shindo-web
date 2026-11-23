@@ -70,7 +70,7 @@ class HomepageSetting extends Model
      */
     public function getHeroBackgroundImageUrlAttribute(): string
     {
-        return $this->resolveImageUrl($this->hero_background_image, 'images/hero-trucks.jpg');
+        return $this->resolveImageUrl($this->hero_background_image, 'images/hero-cropped-mockup.png');
     }
 
     /**
@@ -117,7 +117,7 @@ class HomepageSetting extends Model
             ],
             'cta_text' => 'Hubungi Kami',
             'cta_url' => '/kontak',
-            'hero_background_image' => 'homepage/hero-trucks.jpg',
+            'hero_background_image' => 'homepage/hero-cropped-mockup.png',
             'hero_logo' => 'homepage/shacman-logo.png',
             'hero_tagline' => 'TANGGUH DI SEGALA MEDAN',
             'stats' => [
