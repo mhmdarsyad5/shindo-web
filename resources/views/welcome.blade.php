@@ -524,14 +524,19 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center max-w-4xl mx-auto mb-6 sm:mb-10 reveal-on-scroll">
+                @if(!empty($settings->showroom_badge))
+                    <span class="inline-block text-xs uppercase tracking-widest font-bold text-[#0067b1] font-barlow-condensed mb-1.5">
+                        {{ $settings->showroom_badge }}
+                    </span>
+                @endif
                 <!-- Heading Pilihan Armada SHACMAN -->
                 <h2
                     class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase text-[#070e1e] font-barlow-condensed leading-none tracking-tight">
-                    {{ $settings->products_title ?? 'Pilihan Armada SHACMAN' }}
+                    {{ $settings->showroom_title ?? ($settings->products_title ?? 'Pilihan Armada SHACMAN') }}
                 </h2>
                 <!-- Subheadline gaya Duta Hino -->
                 <p class="text-slate-600 text-sm sm:text-base font-normal mt-2 sm:mt-3 max-w-2xl mx-auto">
-                    {{ $settings->products_subtitle ?? 'Solusi armada dan alat angkut berat tangguh untuk setiap kebutuhan bisnis Anda.' }}
+                    {{ $settings->showroom_subtitle ?? ($settings->products_subtitle ?? 'Solusi armada dan alat angkut berat tangguh untuk setiap kebutuhan bisnis Anda.') }}
                 </p>
             </div>
 

@@ -91,16 +91,16 @@ class HomepageSettingForm
                         Tab::make('Showroom')
                             ->icon('heroicon-o-truck')
                             ->schema([
-                                Section::make('Showroom Header')
-                                    ->description('Truck series cards (X3000, F3000, H3000) are managed under "Fleet & Catalog > Truck Series".')
+                                Section::make('Truck Series & Fleet Cards Header')
+                                    ->description('Controls the header for the 3 Truck Series cards (X3000, F3000, H3000) displayed on the homepage.')
                                     ->schema([
                                         Grid::make(2)->schema([
                                             TextInput::make('showroom_badge')
                                                 ->label('Badge')
-                                                ->default('FEATURED TRUCK SERIES'),
+                                                ->default('SERI TRUK UNGGULAN'),
                                             TextInput::make('showroom_title')
                                                 ->label('Section Title')
-                                                ->default('PREMIER FLEET SELECTION FOR HEAVY OPERATIONS'),
+                                                ->default('PILIHAN ARMADA SHACMAN'),
                                         ]),
                                         Textarea::make('showroom_subtitle')
                                             ->label('Subtitle')
@@ -154,27 +154,6 @@ class HomepageSettingForm
                                             ->collapsible()
                                             ->cloneable()
                                             ->addActionLabel('Add Highlight'),
-                                    ]),
-                            ]),
-
-                        // TAB 5: FEATURED PRODUCTS
-                        Tab::make('Featured Products')
-                            ->icon('heroicon-o-cube')
-                            ->schema([
-                                Section::make('Featured Products Header')
-                                    ->description('Product cards are managed under "Fleet & Catalog > Products".')
-                                    ->schema([
-                                        Grid::make(2)->schema([
-                                            TextInput::make('products_badge')
-                                                ->label('Badge')
-                                                ->default('FEATURED PRODUCTS'),
-                                            TextInput::make('products_title')
-                                                ->label('Section Title')
-                                                ->default('SHACMAN DUMP TRUCK LINEUP'),
-                                        ]),
-                                        Textarea::make('products_subtitle')
-                                            ->label('Subtitle')
-                                            ->rows(2),
                                     ]),
                             ]),
 

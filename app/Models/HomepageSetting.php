@@ -128,8 +128,8 @@ class HomepageSetting extends Model
             ],
             // Showroom / Seri Truk
             'showroom_badge' => 'SERI TRUK UNGGULAN',
-            'showroom_title' => 'PILIHAN ARMADA TERBAIK UNTUK SEGALA KEBUTUHAN',
-            'showroom_subtitle' => 'Pilih lini produk heavy-duty kami yang telah terbukti tangguh, efisien, dan siap bekerja optimal di kondisi operasional terberat sekalipun.',
+            'showroom_title' => 'PILIHAN ARMADA SHACMAN',
+            'showroom_subtitle' => 'Solusi armada dan alat angkut berat tangguh untuk setiap kebutuhan bisnis Anda.',
             'truck_series' => [
                 [
                     'key' => 'X3000',
