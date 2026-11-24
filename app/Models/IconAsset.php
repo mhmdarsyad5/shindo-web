@@ -49,18 +49,22 @@ class IconAsset extends Model
         $cleanKey = str_starts_with($icon, 'asset:') ? substr($icon, 6) : $icon;
         $asset = static::where('key', $cleanKey)->first();
 
+        $styleAttr = (str_contains($class, 'brightness-0') && str_contains($class, 'invert'))
+            ? ' style="filter: brightness(0) invert(1);"'
+            : '';
+
         if ($asset && $asset->url) {
             $safeTitle = e($asset->title);
             $safeUrl = e($asset->url);
 
-            return '<img src="'.$safeUrl.'" alt="'.$safeTitle.'" class="'.e($class).' object-contain inline-block">';
+            return '<img src="'.$safeUrl.'" alt="'.$safeTitle.'" class="'.e($class).' object-contain inline-block"'.$styleAttr.'>';
         }
 
         // If it's a direct file path stored
         if (str_contains($icon, '/') && (str_ends_with($icon, '.svg') || str_ends_with($icon, '.png') || str_ends_with($icon, '.webp'))) {
             $url = Storage::disk('public')->url($icon);
 
-            return '<img src="'.e($url).'" alt="Icon" class="'.e($class).' object-contain inline-block">';
+            return '<img src="'.e($url).'" alt="Icon" class="'.e($class).' object-contain inline-block"'.$styleAttr.'>';
         }
 
         return '';

@@ -313,7 +313,7 @@
                         class="flex items-center space-x-3 sm:space-x-4 reveal-on-scroll {{ $idx === 0 ? 'reveal-delay-100' : ($idx === 1 ? 'reveal-delay-200' : ($idx === 2 ? 'reveal-delay-300' : 'reveal-delay-400')) }}">
                         <div
                             class="w-10 h-10 sm:w-12 sm:h-12 bg-white/10 border border-white/10 flex items-center justify-center text-white flex-shrink-0 shadow-xs">
-                            @if($customIconHtml = \App\Models\IconAsset::renderIcon($stat['icon'] ?? '', 'w-5 h-5 sm:w-6 sm:h-6'))
+                            @if($customIconHtml = \App\Models\IconAsset::renderIcon($stat['icon'] ?? '', 'w-5 h-5 sm:w-6 sm:h-6 brightness-0 invert'))
                                 {!! $customIconHtml !!}
                             @elseif(($stat['icon'] ?? '') === 'handshake')
                                 <!-- Handshake Icon -->
