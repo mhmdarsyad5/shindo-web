@@ -212,11 +212,32 @@ class HomepageSettingForm
                         Tab::make('Aftersales Services')
                             ->icon('heroicon-o-wrench-screwdriver')
                             ->schema([
-                                Section::make('Unified Services Master Data')
-                                    ->description('The Homepage services section is 100% synchronized with the master data in Services Page.')
+                                Section::make('Aftersales Services Header')
+                                    ->description('Customize the Aftersales Services heading displayed on the homepage, or leave blank to inherit from Services Page.')
+                                    ->schema([
+                                        Grid::make(2)->schema([
+                                            TextInput::make('services_badge')
+                                                ->label('Badge')
+                                                ->placeholder('LAYANAN AFTERSALES')
+                                                ->helperText('Optional. Leave empty to use default.'),
+                                            TextInput::make('services_title')
+                                                ->label('Section Title')
+                                                ->placeholder('DUKUNGAN PENUH UNTUK BISNIS ANDA')
+                                                ->helperText('Optional. Leave empty to inherit from Services Page.'),
+                                        ]),
+                                        Textarea::make('services_subtitle')
+                                            ->label('Subtitle')
+                                            ->placeholder('Memastikan performa dan ketersediaan armada dump truck SHACMAN di site tambang tetap optimal...')
+                                            ->rows(2)
+                                            ->helperText('Optional. Leave empty to inherit from Services Page.')
+                                            ->columnSpanFull(),
+                                    ]),
+
+                                Section::make('Unified Services Master Catalog')
+                                    ->description('Service cards are managed centrally and synchronized across the entire site.')
                                     ->schema([
                                         Placeholder::make('services_sync_info')
-                                            ->label('')
+                                            ->hiddenLabel()
                                             ->content(function () {
                                                 $serviceSetting = ServiceSetting::current();
                                                 $servicesCount = Service::where('is_active', true)->count();
@@ -224,35 +245,31 @@ class HomepageSettingForm
                                                 $servicesListUrl = route('filament.admin.resources.services.index');
 
                                                 return new HtmlString("
-                                                    <div class='p-5 bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800 rounded-xl space-y-4'>
-                                                        <div class='flex items-start gap-3.5'>
-                                                            <div class='p-2.5 bg-[#0067b1] text-white rounded-lg shadow-xs shrink-0'>
-                                                                <svg class='w-5 h-5' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'><path stroke-linecap='round' stroke-linejoin='round' d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'/></svg>
+                                                    <div style='padding: 16px; background-color: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; font-family: inherit;'>
+                                                        <div style='display: flex; align-items: flex-start; gap: 12px;'>
+                                                            <div style='width: 36px; height: 36px; min-width: 36px; min-height: 36px; background-color: #0067b1; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #ffffff;'>
+                                                                <svg style='width: 20px; height: 20px; min-width: 20px; min-height: 20px; max-width: 20px; max-height: 20px; display: block;' width='20' height='20' fill='none' viewBox='0 0 24 24' stroke='currentColor' stroke-width='2'>
+                                                                    <path stroke-linecap='round' stroke-linejoin='round' d='M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z'/>
+                                                                </svg>
                                                             </div>
-                                                            <div class='space-y-1'>
-                                                                <h4 class='text-sm font-bold text-sky-950 dark:text-sky-100 flex items-center gap-2'>
-                                                                    <span>Single Source of Truth Active</span>
-                                                                    <span class='px-2 py-0.5 text-[10px] bg-emerald-100 text-emerald-800 dark:bg-emerald-900/60 dark:text-emerald-300 font-semibold rounded-full'>Auto Synced</span>
-                                                                </h4>
-                                                                <p class='text-xs text-sky-800 dark:text-sky-200 leading-relaxed'>
-                                                                    Headline, description, and <strong>{$servicesCount} active service cards</strong> on both the Homepage and Services Page are managed from a single source. Changes saved in Services automatically reflect across both pages.
+                                                            <div style='flex: 1;'>
+                                                                <div style='display: flex; align-items: center; gap: 8px; margin-bottom: 4px;'>
+                                                                    <span style='font-size: 14px; font-weight: 700; color: #082f49;'>Services Master Sync</span>
+                                                                    <span style='font-size: 10px; font-weight: 600; padding: 2px 8px; background-color: #dcfce7; color: #166534; border-radius: 9999px;'>Active</span>
+                                                                </div>
+                                                                <p style='font-size: 12px; color: #0369a1; line-height: 1.5; margin: 0 0 12px 0;'>
+                                                                    Homepage automatically displays the <strong>{$servicesCount} active service cards</strong> managed in the Services catalog.
                                                                 </p>
+
+                                                                <div style='display: flex; flex-wrap: wrap; gap: 8px;'>
+                                                                    <a href='{$editSettingUrl}' style='display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background-color: #0067b1; color: #ffffff; text-decoration: none; font-size: 12px; font-weight: 600; border-radius: 6px;'>
+                                                                        Edit Services Page Header &rarr;
+                                                                    </a>
+                                                                    <a href='{$servicesListUrl}' style='display: inline-flex; align-items: center; gap: 6px; padding: 7px 14px; background-color: #ffffff; color: #1e293b; border: 1px solid #cbd5e1; text-decoration: none; font-size: 12px; font-weight: 600; border-radius: 6px;'>
+                                                                        Manage {$servicesCount} Service Cards &rarr;
+                                                                    </a>
+                                                                </div>
                                                             </div>
-                                                        </div>
-
-                                                        <div class='p-3.5 bg-white dark:bg-neutral-900 rounded-lg border border-sky-200/80 dark:border-sky-800/80 text-xs space-y-1.5'>
-                                                            <div class='text-neutral-500 dark:text-neutral-400 font-medium'>Current Services Headline:</div>
-                                                            <div class='font-bold text-neutral-900 dark:text-white text-sm'>{$serviceSetting->hero_title}</div>
-                                                            <div class='text-neutral-600 dark:text-neutral-300 line-clamp-2'>{$serviceSetting->hero_subtitle}</div>
-                                                        </div>
-
-                                                        <div class='pt-2 flex flex-wrap items-center gap-2.5'>
-                                                            <a href='{$editSettingUrl}' class='inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#0067b1] hover:bg-[#00528e] text-white text-xs font-semibold rounded-lg shadow-xs transition-colors'>
-                                                                ✏️ Edit Services Header ↗
-                                                            </a>
-                                                            <a href='{$servicesListUrl}' class='inline-flex items-center gap-1.5 px-3.5 py-2 bg-white dark:bg-neutral-800 hover:bg-neutral-50 text-neutral-800 dark:text-neutral-200 border border-neutral-300 dark:border-neutral-700 text-xs font-semibold rounded-lg shadow-xs transition-colors'>
-                                                                📋 Manage {$servicesCount} Active Services ↗
-                                                            </a>
                                                         </div>
                                                     </div>
                                                 ");
