@@ -30,43 +30,22 @@ class HomepageSettingForm
                         Tab::make('Hero Banner')
                             ->icon('heroicon-o-sparkles')
                             ->schema([
-                                Section::make('Hero Headline & Copy')
-                                    ->schema([
-                                        TextInput::make('hero_badge')
-                                            ->label('Top Badge')
-                                            ->placeholder('OFFICIAL SHACMAN DISTRIBUTOR')
-                                            ->default('OFFICIAL SHACMAN DISTRIBUTOR'),
-
-                                        TextInput::make('hero_title')
-                                            ->label('Headline')
-                                            ->placeholder('Heavy-Duty Reliability & Power')
-                                            ->default('Heavy-Duty Reliability & Power')
-                                            ->required(),
-
-                                        Textarea::make('hero_subtitle')
-                                            ->label('Description / Subheadline')
-                                            ->rows(3),
-                                    ]),
-
-                                Section::make('Hero Media')
+                                Section::make('Hero Banner Image')
+                                    ->description('Full widescreen hero banner displayed at the top of the homepage. All branding, trucks, and slogans are embedded directly in the visual graphic.')
                                     ->schema([
                                         CmsImageField::make(
                                             name: 'hero_background_image',
-                                            label: 'Hero Truck Image',
+                                            label: 'Hero Banner Image (Widescreen)',
                                             directory: 'homepage',
                                             defaultFallbackAsset: 'homepage/hero-cropped-mockup.png',
+                                            helperText: 'Recommended aspect ratio ~1.94:1 (e.g. 2560x1317 px for crisp 2K/Retina displays). Format: JPG, PNG, or WebP. Max 5MB.',
                                         ),
 
-                                        CmsImageField::make(
-                                            name: 'hero_logo',
-                                            label: 'SHACMAN Logo',
-                                            directory: 'homepage',
-                                            defaultFallbackAsset: 'homepage/shacman-logo.png',
-                                        ),
-
-                                        TextInput::make('hero_logo_tagline')
-                                            ->label('Logo Tagline')
-                                            ->default('TOUGH ON EVERY TERRAIN')
+                                        TextInput::make('hero_tagline')
+                                            ->label('Accessibility Alt Text & SEO Title')
+                                            ->placeholder('SHACMAN – Tangguh di Segala Medan')
+                                            ->default('SHACMAN – Tangguh di Segala Medan')
+                                            ->helperText('Used for search engine crawlers (SEO) and screen readers (alt attribute).')
                                             ->columnSpanFull(),
                                     ]),
                             ]),

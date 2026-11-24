@@ -296,7 +296,7 @@
     <section class="relative w-full overflow-hidden bg-[#00163c] flex items-center justify-center">
         <h1 class="sr-only">{{ $settings->hero_tagline ?? 'SHACMAN – Tangguh di Segala Medan' }}</h1>
         <div class="w-full max-w-[2560px] mx-auto flex items-center justify-center">
-            <img src="{{ $settings->hero_background_image_url }}" alt="SHACMAN Heavy Duty Trucks di Segala Medan"
+            <img src="{{ $settings->hero_background_image_url }}" alt="{{ $settings->hero_tagline ?? 'SHACMAN Heavy Duty Trucks di Segala Medan' }}"
                 class="w-full h-[280px] sm:h-[380px] md:h-auto md:max-h-[calc(100vh-140px)] 2xl:max-h-[calc(100vh-160px)] object-cover object-[50%_38%] block select-none pointer-events-none"
                 fetchpriority="high"
                 decoding="async">
