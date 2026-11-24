@@ -441,7 +441,7 @@
         class="relative w-full min-h-[440px] lg:min-h-[480px] flex items-center py-10 sm:py-14 lg:py-16 overflow-hidden bg-[#070e1e] border-t border-b border-slate-800">
         <!-- Background Image (Armada Truk SHACMAN dari Gambar 3) -->
         <div class="absolute inset-0 z-0">
-            <img src="{{ asset('images/about-shacman-fleet-bg.png') }}" alt="Armada Truk SHACMAN PT SHINDO"
+            <img src="{{ $settings->about_image_url }}" alt="{{ $settings->about_title ?? 'Armada Truk SHACMAN PT SHINDO' }}"
                 class="w-full h-full object-cover object-[center_35%] select-none pointer-events-none">
             <!-- Cinematic Dark Gradient Overlay -->
             <div class="absolute inset-0 bg-gradient-to-t from-[#070e1e] via-[#070e1e]/85 to-black/60 lg:hidden"></div>

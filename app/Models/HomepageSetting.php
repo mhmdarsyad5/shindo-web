@@ -78,7 +78,7 @@ class HomepageSetting extends Model
      */
     public function getAboutImageUrlAttribute(): string
     {
-        return $this->resolveImageUrl($this->about_image, 'images/about-truck.png');
+        return $this->resolveImageUrl($this->about_image, 'images/about-shacman-fleet-bg.png');
     }
 
     /**
@@ -161,7 +161,7 @@ class HomepageSetting extends Model
             'about_title' => 'SHACMAN – TRUK HEAVY-DUTY PILIHAN UTAMA INDONESIA',
             'about_description_1' => 'Sebagai authorized dealer resmi, kami berkomitmen menjaga produktivitas operasional Anda dengan Advance features yang mendukung kinerja tinggi dan stabil. Kami melayani pengadaan unit baru, penyediaan suku cadang asli bergaransi, hingga perawatan berkala oleh teknisi bersertifikat langsung di site Anda.',
             'about_description_2' => 'Kami tidak hanya menyediakan unit truk berkualitas tinggi, tetapi juga menghadirkan ekosistem layanan purna jual menyeluruh — mulai dari ketersediaan suku cadang asli hingga pemeliharaan berkala oleh teknisi bersertifikasi.',
-            'about_image' => 'homepage/about-truck.png',
+            'about_image' => 'homepage/about-shacman-fleet-bg.png',
             'about_features' => [
                 [
                     'title' => 'Mitra Penjualan Resmi Bersertifikasi SHACMAN Global',

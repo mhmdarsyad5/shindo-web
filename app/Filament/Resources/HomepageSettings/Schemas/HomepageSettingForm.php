@@ -130,13 +130,14 @@ class HomepageSettingForm
                                             ->rows(3),
                                     ]),
 
-                                Section::make('Unit Showcase & Highlights')
+                                Section::make('Unit Showcase & Background')
                                     ->schema([
                                         CmsImageField::make(
                                             name: 'about_image',
-                                            label: 'Showcase Image',
+                                            label: 'About Section Background Image',
                                             directory: 'homepage',
-                                            defaultFallbackAsset: 'homepage/about-truck.png',
+                                            defaultFallbackAsset: 'homepage/about-shacman-fleet-bg.png',
+                                            helperText: 'Full-width cinematic background image for the About Us section on the homepage. Format: JPG, PNG, or WebP. Max 5MB.',
                                         ),
 
                                         Repeater::make('about_features')
