@@ -3,8 +3,6 @@
 namespace App\Filament\Resources\Services\Schemas;
 
 use App\Filament\Support\CmsImageField;
-use App\Models\IconAsset;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -20,7 +18,7 @@ class ServiceForm
             ->components([
                 Section::make('Service Information')
                     ->schema([
-                        Grid::make(3)->schema([
+                        Grid::make(2)->schema([
                             TextInput::make('title')
                                 ->label('Service Name')
                                 ->placeholder('New Unit Sales')
@@ -28,19 +26,6 @@ class ServiceForm
                             TextInput::make('slug')
                                 ->label('Slug (URL)')
                                 ->placeholder('new-unit-sales')
-                                ->required(),
-                            Select::make('icon')
-                                ->label('Icon')
-                                ->options(fn () => IconAsset::getSelectOptions([
-                                    'unit' => 'New Truck Units',
-                                    'contract' => 'Service Contract',
-                                    'guarantee' => 'OEM Warranty',
-                                    'parts' => 'Genuine Spare Parts',
-                                    'service' => 'Maintenance & Repairs',
-                                    'support' => '24/7 Support',
-                                ]))
-                                ->searchable()
-                                ->default('unit')
                                 ->required(),
                         ]),
                         Textarea::make('description')

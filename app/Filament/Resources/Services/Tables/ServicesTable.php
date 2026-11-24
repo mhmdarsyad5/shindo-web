@@ -26,9 +26,6 @@ class ServicesTable
                     ->label('Service Name')
                     ->weight('bold')
                     ->searchable(),
-                TextColumn::make('icon')
-                    ->label('Icon')
-                    ->badge(),
                 TextColumn::make('order_column')
                     ->label('Order')
                     ->sortable(),

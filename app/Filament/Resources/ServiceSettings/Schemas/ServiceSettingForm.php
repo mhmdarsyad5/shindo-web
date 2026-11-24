@@ -3,9 +3,6 @@
 namespace App\Filament\Resources\ServiceSettings\Schemas;
 
 use App\Filament\Support\CmsImageField;
-use App\Models\IconAsset;
-use Filament\Forms\Components\Repeater;
-use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Section;
@@ -44,53 +41,7 @@ class ServiceSettingForm
                                     ]),
                             ]),
 
-                        // TAB 2: KEUNGGULAN OPERASIONAL
-                        Tab::make('Operational Highlights')
-                            ->icon('heroicon-o-shield-check')
-                            ->schema([
-                                Section::make('Highlights Section')
-                                    ->schema([
-                                        TextInput::make('advantages_badge')
-                                            ->label('Badge')
-                                            ->default('OPERATIONAL EXCELLENCE'),
-
-                                        TextInput::make('advantages_title')
-                                            ->label('Section Title')
-                                            ->required(),
-
-                                        Textarea::make('advantages_subtitle')
-                                            ->label('Subtitle')
-                                            ->rows(2)
-                                            ->columnSpanFull(),
-
-                                        Repeater::make('advantages_items')
-                                            ->label('Highlights Cards')
-                                            ->schema([
-                                                Select::make('icon')
-                                                    ->label('Icon')
-                                                    ->options(fn () => IconAsset::getSelectOptions([
-                                                        'cpu' => 'High Torque / Engine',
-                                                        'fuel' => 'Fuel Efficiency',
-                                                        'truck' => 'Cabin Safety & Comfort',
-                                                        'cog' => 'Genuine Parts & Gear',
-                                                    ]))
-                                                    ->searchable()
-                                                    ->default('cpu')
-                                                    ->required(),
-                                                TextInput::make('title')
-                                                    ->label('Title')
-                                                    ->required(),
-                                                Textarea::make('description')
-                                                    ->label('Description')
-                                                    ->rows(2)
-                                                    ->required(),
-                                            ])
-                                            ->collapsible()
-                                            ->columnSpanFull(),
-                                    ]),
-                            ]),
-
-                        // TAB 3: BANNER BAWAH
+                        // TAB 2: BANNER BAWAH
                         Tab::make('Showcase Banner')
                             ->icon('heroicon-o-photo')
                             ->schema([
