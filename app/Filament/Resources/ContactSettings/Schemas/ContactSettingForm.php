@@ -81,7 +81,7 @@ class ContactSettingForm
                                     ->schema([
                                         Textarea::make('map_embed_url')
                                             ->label('Google Maps Embed URL (Iframe src)')
-                                            ->url()
+                                            ->rules(['url'])
                                             ->rows(3)
                                             ->columnSpanFull(),
 
