@@ -6,12 +6,7 @@
     $isSpareparts = request()->is('spareparts*');
     $isOtherActive = request()->is('tentang-kami*', 'blog*', 'kontak*');
 
-    $siteSetting = $site ?? \App\Models\SiteSetting::first() ?? new \App\Models\SiteSetting;
-    $rawPhone = $siteSetting->office_phone ?? '628123456789';
-    $cleanPhone = preg_replace('/[^0-9]/', '', $rawPhone);
-    if (str_starts_with($cleanPhone, '0')) {
-        $cleanPhone = '62' . substr($cleanPhone, 1);
-    }
+    $siteSetting = $site ?? \App\Models\SiteSetting::current();
 @endphp
 
 <!-- ================= MOBILE & TABLET FLOATING LIQUID PILL NAVBAR (SMART SLIDE UP/DOWN) ================= -->
@@ -119,17 +114,17 @@
         class="absolute inset-0 bg-black/75 pointer-events-none will-change-opacity"
         style="opacity: 0; transition: opacity 0.3s ease;"></div>
 
-    <!-- Sheet Panel with iOS Slide Transition (Masuk NAIK dari Bawah, Keluar TURUN ke Bawah) -->
+    <!-- Sheet Panel with Slide Transition -->
     <div id="mobile-nav-sheet"
         role="dialog"
         aria-modal="true"
         aria-label="Menu Lengkap PT SHINDO"
-        class="absolute bottom-0 inset-x-0 bg-[#00163c] border-t border-slate-700/80 rounded-t-3xl p-5 sm:p-6 shadow-2xl max-h-[88vh] overflow-y-auto pointer-events-auto touch-pan-y will-change-transform"
+        class="absolute bottom-0 inset-x-0 bg-[#00163c] border-t-2 border-t-[#0067b1] p-5 sm:p-6 shadow-2xl max-h-[88vh] overflow-y-auto pointer-events-auto touch-pan-y will-change-transform"
         style="transform: translate3d(0, 120%, 0);">
 
-        <!-- Top Drag Handle with tactile affordance -->
+        <!-- Top Drag Handle -->
         <div class="py-1 cursor-grab active:cursor-grabbing flex justify-center" id="mobile-sheet-drag-area">
-            <div class="w-12 h-1.5 bg-white/30 rounded-full mx-auto mb-3" id="mobile-sheet-drag-handle"></div>
+            <div class="w-10 h-1 bg-white/25 mx-auto mb-3" id="mobile-sheet-drag-handle"></div>
         </div>
 
         <!-- Sheet Header -->
@@ -140,112 +135,69 @@
             <button type="button"
                 id="btn-close-mobile-sheet"
                 aria-label="Tutup Menu"
-                class="ios-spring-tap w-9 h-9 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-white">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                class="ios-spring-tap w-9 h-9 bg-white/10 hover:bg-white/20 border border-white/10 text-white flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-white">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
             </button>
         </div>
 
-        <!-- Secondary Navigation Grid -->
+        <!-- Secondary Navigation Links -->
         <div class="py-4 space-y-2">
-            <p class="text-[11px] font-bold font-sans uppercase tracking-wider text-slate-400 px-1">Menu Utama</p>
+            <p class="text-[11px] font-bold font-sans uppercase tracking-widest text-blue-300 mb-2.5">Navigasi</p>
 
             <a href="{{ url('/tentang-kami') }}"
-                class="ios-spring-tap flex items-center justify-between p-3 rounded-xl transition-colors {{ request()->is('tentang-kami*') ? 'bg-[#0067b1] text-white font-medium' : 'text-slate-200 hover:bg-white/10 font-normal' }}">
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="text-sm">Tentang Kami</div>
-                        <div class="text-[11px] text-slate-400">Profil & jaringan cabang PT SHINDO</div>
-                    </div>
-                </div>
+                class="ios-spring-tap flex items-center justify-between px-3.5 py-3 border transition-colors {{ request()->is('tentang-kami*') ? 'bg-[#0067b1] border-[#0067b1] text-white font-semibold' : 'bg-white/[0.03] border-white/10 text-slate-100 hover:bg-white/10 font-medium' }}">
+                <span class="text-sm font-sans">Tentang Kami</span>
                 <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
             </a>
 
             <a href="{{ url('/blog') }}"
-                class="ios-spring-tap flex items-center justify-between p-3 rounded-xl transition-colors {{ request()->is('blog*') ? 'bg-[#0067b1] text-white font-medium' : 'text-slate-200 hover:bg-white/10 font-normal' }}">
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="text-sm">Blog & Berita</div>
-                        <div class="text-[11px] text-slate-400">Update industri dan panduan armada</div>
-                    </div>
-                </div>
+                class="ios-spring-tap flex items-center justify-between px-3.5 py-3 border transition-colors {{ request()->is('blog*') ? 'bg-[#0067b1] border-[#0067b1] text-white font-semibold' : 'bg-white/[0.03] border-white/10 text-slate-100 hover:bg-white/10 font-medium' }}">
+                <span class="text-sm font-sans">Blog &amp; Artikel</span>
                 <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
             </a>
 
             <a href="{{ url('/kontak') }}"
-                class="ios-spring-tap flex items-center justify-between p-3 rounded-xl transition-colors {{ request()->is('kontak*') ? 'bg-[#0067b1] text-white font-medium' : 'text-slate-200 hover:bg-white/10 font-normal' }}">
-                <div class="flex items-center space-x-3">
-                    <div class="w-8 h-8 rounded-lg bg-white/10 flex items-center justify-center text-white">
-                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <div class="text-sm">Hubungi & Lokasi</div>
-                        <div class="text-[11px] text-slate-400">Peta workshop dan nomor hotline</div>
-                    </div>
-                </div>
+                class="ios-spring-tap flex items-center justify-between px-3.5 py-3 border transition-colors {{ request()->is('kontak*') ? 'bg-[#0067b1] border-[#0067b1] text-white font-semibold' : 'bg-white/[0.03] border-white/10 text-slate-100 hover:bg-white/10 font-medium' }}">
+                <span class="text-sm font-sans">Kontak</span>
                 <svg class="w-4 h-4 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
                 </svg>
             </a>
         </div>
 
-        <!-- Seri Truk Pilihan -->
-        <div class="py-3 border-t border-white/10">
-            <p class="text-[11px] font-bold font-sans uppercase tracking-wider text-slate-400 px-1 mb-2">Pilihan Seri Truk SHACMAN</p>
+        <!-- Seri Truk SHACMAN -->
+        <div class="py-4 border-t border-white/10">
+            <p class="text-[11px] font-bold font-sans uppercase tracking-widest text-blue-300 mb-2.5">Seri Truk SHACMAN</p>
             <div class="grid grid-cols-3 gap-2">
                 <a href="{{ route('produk.series', 'x3000') }}"
-                    class="ios-spring-tap flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-center transition-colors">
-                    <span class="text-xs font-bold text-white">X3000</span>
-                    <span class="text-[9px] text-slate-400">Heavy Duty</span>
-                </a>
-                <a href="{{ route('produk.series', 'h3000') }}"
-                    class="ios-spring-tap flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-center transition-colors">
-                    <span class="text-xs font-bold text-white">H3000</span>
-                    <span class="text-[9px] text-slate-400">Logistik & Dump</span>
+                    class="ios-spring-tap flex items-center justify-center py-3 px-2 bg-white/[0.04] hover:bg-[#0067b1] border border-white/10 hover:border-[#0067b1] text-center transition-colors">
+                    <span class="text-base font-bold font-barlow-condensed tracking-wider text-white">X3000</span>
                 </a>
                 <a href="{{ route('produk.series', 'f3000') }}"
-                    class="ios-spring-tap flex flex-col items-center justify-center p-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-center transition-colors">
-                    <span class="text-xs font-bold text-white">F3000</span>
-                    <span class="text-[9px] text-slate-400">Off-Road Mining</span>
+                    class="ios-spring-tap flex items-center justify-center py-3 px-2 bg-white/[0.04] hover:bg-[#0067b1] border border-white/10 hover:border-[#0067b1] text-center transition-colors">
+                    <span class="text-base font-bold font-barlow-condensed tracking-wider text-white">F3000</span>
+                </a>
+                <a href="{{ route('produk.series', 'h3000') }}"
+                    class="ios-spring-tap flex items-center justify-center py-3 px-2 bg-white/[0.04] hover:bg-[#0067b1] border border-white/10 hover:border-[#0067b1] text-center transition-colors">
+                    <span class="text-base font-bold font-barlow-condensed tracking-wider text-white">H3000</span>
                 </a>
             </div>
         </div>
 
-        <!-- Direct Contact Actions -->
-        <div class="pt-4 border-t border-white/10 flex flex-col sm:flex-row gap-2.5">
-            <a href="https://wa.me/{{ $cleanPhone }}?text={{ urlencode('Halo PT SHINDO, saya ingin informasi unit dan spesifikasi truk SHACMAN.') }}"
-                target="_blank"
-                rel="noopener noreferrer"
-                class="ios-spring-tap flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white text-xs sm:text-sm font-bold shadow-lg transition-colors">
-                <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24">
-                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        <!-- Single Contact CTA -->
+        <div class="pt-4 border-t border-white/10">
+            <a href="{{ route('kontak') }}"
+                class="ios-spring-tap w-full inline-flex items-center justify-center gap-2 py-3.5 px-5 bg-[#0067b1] hover:bg-[#0284c7] text-white text-sm font-barlow-condensed font-bold uppercase tracking-wider shadow-md transition-colors">
+                <span>{{ $siteSetting->cta_text ?? 'Hubungi Kami' }}</span>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                 </svg>
-                <span>WhatsApp Sales</span>
-            </a>
-            <a href="tel:{{ $cleanPhone }}"
-                class="ios-spring-tap flex-1 inline-flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-[#0067b1] hover:bg-[#005a9c] text-white text-xs sm:text-sm font-bold shadow-lg transition-colors">
-                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                </svg>
-                <span>Telepon Hotline</span>
             </a>
         </div>
     </div>
@@ -565,6 +517,7 @@
                 backdrop.classList.add('pointer-events-none');
 
                 if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+                if (topHeaderMenuBtn) topHeaderMenuBtn.setAttribute('aria-expanded', 'false');
                 document.body.style.overflow = '';
 
                 // 3. Navbar naik kembali dengan fluid spring (kapsul sudah diam rapi di Beranda)
@@ -588,6 +541,7 @@
                     if (window.innerWidth < 1024) {
                         e.stopImmediatePropagation();
                         openSheet();
+                        topHeaderMenuBtn.setAttribute('aria-expanded', 'true');
                     }
                 }, true);
             }

@@ -30,9 +30,9 @@ class Lead extends Model
         return match ($this->status) {
             'new' => 'info',
             'contacted' => 'warning',
-            'quoted' => 'primary',
-            'closed' => 'success',
-            'cancelled' => 'danger',
+            'in_negotiation', 'quoted' => 'primary',
+            'closed_won', 'closed' => 'success',
+            'closed_lost', 'cancelled' => 'danger',
             default => 'gray',
         };
     }

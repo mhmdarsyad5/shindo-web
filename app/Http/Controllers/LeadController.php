@@ -17,7 +17,7 @@ class LeadController extends Controller
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'phone' => ['required', 'string', 'max:50'],
-            'email' => ['nullable', 'string', 'max:255'],
+            'email' => ['nullable', 'email', 'max:255'],
             'company' => ['nullable', 'string', 'max:255'],
             'truck_series' => ['nullable', 'string', 'max:255'],
             'quantity' => ['nullable', 'string', 'max:100'],
@@ -39,19 +39,8 @@ class LeadController extends Controller
             'status' => 'new',
         ]);
 
-        $site = SiteSetting::first();
-        $rawPhone = $site?->office_phone ?? '6281234567890';
-        $cleanPhone = preg_replace('/[^0-9]/', '', $rawPhone);
-
-        if (str_starts_with($cleanPhone, '0')) {
-            $cleanPhone = '62'.substr($cleanPhone, 1);
-        } elseif (! str_starts_with($cleanPhone, '62')) {
-            $cleanPhone = '62'.$cleanPhone;
-        }
-
-        if (strlen($cleanPhone) < 8) {
-            $cleanPhone = '6281234567890';
-        }
+        $site = SiteSetting::current();
+        $cleanPhone = $site->whatsapp;
 
         $isContactPage = ($lead->source === 'contact_page');
         $header = $isContactPage

@@ -3,6 +3,12 @@
         x-data="{
             state: $wire.$entangle('{{ $getStatePath() }}'),
             editor: null,
+            destroy() {
+                if (this.editor) {
+                    this.editor.remove();
+                    this.editor = null;
+                }
+            },
             initEditor() {
                 const loadTinyMce = () => {
                     return new Promise((resolve, reject) => {

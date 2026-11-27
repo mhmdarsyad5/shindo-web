@@ -4,9 +4,10 @@ namespace App\Filament\Resources\Posts\Schemas;
 
 use App\Filament\Forms\Components\TinyEditor;
 use App\Filament\Support\CmsImageField;
+use App\Models\BlogCategory;
+use App\Models\BlogTag;
 use Filament\Forms\Components\DateTimePicker;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Toggle;
@@ -47,6 +48,7 @@ class PostForm
                                     Textarea::make('excerpt')
                                         ->label('Ringkasan / Excerpt')
                                         ->rows(3)
+                                        ->maxLength(200)
                                         ->placeholder('Deskripsi ringkas artikel...')
                                         ->helperText('Maksimal 200 karakter. Jika dikosongkan, deskripsi diambil otomatis dari konten.')
                                         ->columnSpanFull(),
@@ -77,17 +79,46 @@ class PostForm
                                         ->default(now())
                                         ->helperText('Waktu rilis publikasi artikel.'),
 
-                                    TextInput::make('category')
+                                    Select::make('category')
                                         ->label('Kategori')
-                                        ->placeholder('Contoh: Berita, Heavy Duty, Servis'),
+                                        ->options(fn () => BlogCategory::where('is_active', true)->orderBy('order_column')->pluck('name', 'name')->toArray())
+                                        ->searchable()
+                                        ->preload()
+                                        ->nullable()
+                                        ->createOptionForm([
+                                            TextInput::make('name')
+                                                ->label('Nama Kategori')
+                                                ->required()
+                                                ->unique('blog_categories', 'name'),
+                                        ])
+                                        ->createOptionUsing(function (array $data): string {
+                                            $cat = BlogCategory::create(['name' => $data['name']]);
 
-                                    TagsInput::make('tags')
+                                            return $cat->name;
+                                        }),
+
+                                    Select::make('tags')
                                         ->label('Tags / Label')
-                                        ->placeholder('Ketik tag lalu tekan Enter'),
+                                        ->multiple()
+                                        ->options(fn () => BlogTag::orderBy('name')->pluck('name', 'name')->toArray())
+                                        ->searchable()
+                                        ->preload()
+                                        ->createOptionForm([
+                                            TextInput::make('name')
+                                                ->label('Nama Tag')
+                                                ->required()
+                                                ->unique('blog_tags', 'name'),
+                                        ])
+                                        ->createOptionUsing(function (array $data): string {
+                                            $tag = BlogTag::create(['name' => $data['name']]);
+
+                                            return $tag->name;
+                                        }),
 
                                     Toggle::make('is_featured')
-                                        ->label('Tampil di Beranda (Featured)')
-                                        ->default(true),
+                                        ->label('Featured Article')
+                                        ->helperText('Jadikan sorotan utama di halaman Blog (maksimal 1 artikel, mengaktifkan ini otomatis mengganti Featured sebelumnya).')
+                                        ->default(false),
                                 ]),
 
                             Section::make('Gambar Post')

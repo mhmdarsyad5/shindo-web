@@ -19,6 +19,17 @@ class Post extends Model
         'tags' => 'array',
     ];
 
+    protected static function booted(): void
+    {
+        static::saved(function (Post $post): void {
+            if ($post->is_featured) {
+                static::where('id', '!=', $post->id)
+                    ->where('is_featured', true)
+                    ->update(['is_featured' => false]);
+            }
+        });
+    }
+
     public function resolveImageUrl(?string $path, string $defaultAsset = ''): string
     {
         if ($path) {
@@ -27,6 +38,9 @@ class Post extends Model
             }
             if (Storage::disk('public')->exists($path)) {
                 return Storage::disk('public')->url($path);
+            }
+            if (file_exists(public_path($path))) {
+                return asset($path);
             }
             $filename = basename($path);
             if (file_exists(public_path('images/'.$filename))) {

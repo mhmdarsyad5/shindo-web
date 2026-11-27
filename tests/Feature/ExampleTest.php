@@ -4,9 +4,9 @@ test('homepage returns a successful response', function () {
     $response = $this->get('/');
     $response->assertStatus(200);
     $response->assertSee('HUBUNGI KAMI');
-    $response->assertSee('SHACMAN – TRUK HEAVY-DUTY PILIHAN UTAMA INDONESIA');
-    $response->assertSee('PILIHAN ARMADA SHACMAN');
-    $response->assertSee('Solusi armada dan alat angkut berat tangguh untuk setiap kebutuhan bisnis Anda.');
+    $response->assertSee('PELAJARI LEBIH LANJUT');
+    $response->assertDontSee('SHACMAN – TRUK HEAVY-DUTY PILIHAN UTAMA INDONESIA');
+    $response->assertDontSee('PILIHAN ARMADA SHACMAN');
     $response->assertSee('Konsultasikan kebutuhan armada truk dan spesifikasi unit bersama tim kami.');
     $response->assertSee('Beranda');
     $response->assertSee('Produk');
@@ -15,7 +15,7 @@ test('homepage returns a successful response', function () {
     $response->assertSee('Tentang Kami');
     $response->assertSee('Blog');
     $response->assertSee('Kontak');
-    $response->assertSee('hero-cropped-mockup.png');
+    $response->assertSee('heronew.webp');
     $response->assertDontSee('shacman-logo.png');
     $response->assertSee('homepage-quote-form');
     $response->assertSee('pro_detail08_1.jpg');

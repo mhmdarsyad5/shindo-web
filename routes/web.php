@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\LeadController;
 use App\Models\AboutSetting;
+use App\Models\BlogCategory;
+use App\Models\BlogTag;
 use App\Models\ContactSetting;
 use App\Models\HomepageSetting;
 use App\Models\Post;
@@ -11,31 +13,49 @@ use App\Models\ServiceSetting;
 use App\Models\SiteSetting;
 use App\Models\SparepartsSetting;
 use App\Models\TruckSeries;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 use Livewire\Volt\Volt;
 
 Route::get('/', function () {
     $settings = HomepageSetting::current();
     $serviceSetting = ServiceSetting::current();
-    $site = SiteSetting::first() ?? new SiteSetting;
+    $site = SiteSetting::current();
     $truckSeries = TruckSeries::where('is_active', true)->orderBy('order_column')->get();
     $products = Product::where('is_active', true)->where('is_featured', true)->orderBy('order_column')->get();
     $services = Service::where('is_active', true)->orderBy('order_column')->get();
-    $posts = Post::where('is_published', true)->where('is_featured', true)->orderBy('published_at', 'desc')->get();
+    $posts = Post::where('is_published', true)->orderBy('published_at', 'desc')->limit(3)->get();
 
     return view('welcome', compact('settings', 'serviceSetting', 'site', 'truckSeries', 'products', 'services', 'posts'));
 })->name('home');
 
 Route::get('/produk', function () {
-    $products = Product::with('truckSeries')->where('is_active', true)->orderBy('order_column')->get();
-    $seriesIdsWithProducts = $products->pluck('truck_series_id')->filter()->unique();
+    $activeSeri = strtolower((string) request('seri', 'all')) ?: 'all';
+    $allActiveProducts = Product::where('is_active', true)->get(['id', 'truck_series_id']);
+    $totalProductsCount = $allActiveProducts->count();
+    $seriesCounts = $allActiveProducts->groupBy('truck_series_id')->map->count();
+    $seriesIdsWithProducts = $allActiveProducts->pluck('truck_series_id')->filter()->unique();
+
     $truckSeries = TruckSeries::where('is_active', true)
         ->whereIn('id', $seriesIdsWithProducts)
         ->orderBy('order_column')
         ->get();
-    $site = SiteSetting::first() ?? new SiteSetting;
 
-    return view('pages.produk', compact('truckSeries', 'products', 'site'));
+    $selectedSeries = ($activeSeri !== '' && $activeSeri !== 'all')
+        ? $truckSeries->first(fn ($s): bool => strtolower((string) $s->name) === $activeSeri || strtolower((string) ($s->key ?? '')) === $activeSeri)
+        : null;
+
+    $products = Product::with('truckSeries')
+        ->where('is_active', true)
+        ->when($activeSeri !== '' && $activeSeri !== 'all', fn ($q) => $q->where('truck_series_id', $selectedSeries?->id ?? 0))
+        ->orderBy('order_column')
+        ->paginate(9)
+        ->withQueryString();
+
+    $site = SiteSetting::current();
+
+    return view('pages.produk', compact('truckSeries', 'products', 'site', 'totalProductsCount', 'seriesCounts', 'activeSeri'));
 })->name('produk');
 
 Route::get('/produk/unit/{slug}', function (string $slug) {
@@ -131,7 +151,7 @@ Route::get('/produk/unit/{slug}', function (string $slug) {
         ->limit(3)
         ->get();
 
-    $site = SiteSetting::first() ?? new SiteSetting;
+    $site = SiteSetting::current();
 
     return view('pages.product-detail', compact(
         'product',
@@ -154,8 +174,11 @@ Route::get('/produk/{seriesKey}', function (string $seriesKey) {
     };
     $seriesData = config("series_data.{$seriesDataKey}");
 
-    $seriesModel = TruckSeries::where('key', strtoupper($seriesKey))
-        ->orWhere('name', strtoupper($seriesKey))
+    $seriesModel = TruckSeries::where('is_active', true)
+        ->where(function ($q) use ($seriesKey) {
+            $q->where('key', strtoupper($seriesKey))
+                ->orWhere('name', strtoupper($seriesKey));
+        })
         ->first();
 
     if (! $seriesData && ! $seriesModel) {
@@ -166,14 +189,14 @@ Route::get('/produk/{seriesKey}', function (string $seriesKey) {
         ? Product::where('truck_series_id', $seriesModel->id)->where('is_active', true)->orderBy('order_column')->get()
         : collect();
 
-    $site = SiteSetting::first() ?? new SiteSetting;
+    $site = SiteSetting::current();
     $allSeries = TruckSeries::where('is_active', true)->orderBy('order_column')->get();
 
     return view('pages.series-detail', compact('seriesKeyLower', 'seriesData', 'seriesModel', 'products', 'site', 'allSeries'));
 })->name('produk.series');
 
 Route::get('/spareparts', function () {
-    $site = SiteSetting::first() ?? new SiteSetting;
+    $site = SiteSetting::current();
     $settings = HomepageSetting::current();
     $spareparts = SparepartsSetting::current();
     $sparepartsConfig = config('spareparts');
@@ -183,7 +206,7 @@ Route::get('/spareparts', function () {
 
 Route::get('/layanan', function () {
     $services = Service::where('is_active', true)->orderBy('order_column')->get();
-    $site = SiteSetting::first() ?? new SiteSetting;
+    $site = SiteSetting::current();
     $settings = HomepageSetting::current();
     $serviceSetting = ServiceSetting::current();
     $truckSeries = TruckSeries::where('is_active', true)->orderBy('order_column')->get();
@@ -192,7 +215,7 @@ Route::get('/layanan', function () {
 })->name('layanan');
 
 Route::get('/tentang-kami', function () {
-    $site = SiteSetting::first() ?? new SiteSetting;
+    $site = SiteSetting::current();
     $settings = HomepageSetting::current();
     $about = AboutSetting::current();
 
@@ -200,12 +223,116 @@ Route::get('/tentang-kami', function () {
 })->name('tentang-kami');
 
 Route::get('/blog', function () {
-    $posts = Post::where('is_published', true)->orderBy('published_at', 'desc')->get();
-    $site = SiteSetting::first() ?? new SiteSetting;
+    $activeCategorySlug = request('kategori');
+    $categories = BlogCategory::where('is_active', true)->orderBy('order_column')->get();
+    $site = SiteSetting::current();
     $settings = HomepageSetting::current();
 
-    return view('pages.blog', compact('posts', 'site', 'settings'));
+    $activeCategory = null;
+    $featuredPost = null;
+
+    if (! empty($activeCategorySlug)) {
+        $activeCategory = $categories->firstWhere('slug', $activeCategorySlug);
+        $regularPosts = Post::where('is_published', true)
+            ->orderBy('published_at', 'desc')
+            ->get()
+            ->filter(function (Post $post) use ($activeCategorySlug, $activeCategory): bool {
+                $postCatSlug = Str::slug((string) $post->category);
+                if ($postCatSlug === $activeCategorySlug) {
+                    return true;
+                }
+
+                return $activeCategory && strtolower(trim((string) $post->category)) === strtolower(trim($activeCategory->name));
+            });
+
+        $page = max(1, (int) request('page', 1));
+        $perPage = 9;
+        $paginated = new LengthAwarePaginator(
+            $regularPosts->forPage($page, $perPage)->values(),
+            $regularPosts->count(),
+            $perPage,
+            $page,
+            ['path' => route('blog'), 'query' => request()->query()]
+        );
+
+        return view('pages.blog', [
+            'featuredPost' => null,
+            'regularPosts' => $paginated,
+            'site' => $site,
+            'settings' => $settings,
+            'categories' => $categories,
+            'activeCategory' => $activeCategory,
+            'activeCategorySlug' => $activeCategorySlug,
+        ]);
+    }
+
+    $featuredPostModel = Post::where('is_published', true)
+        ->where('is_featured', true)
+        ->orderBy('published_at', 'desc')
+        ->first()
+        ?? Post::where('is_published', true)->orderBy('published_at', 'desc')->first();
+
+    $regularPosts = Post::where('is_published', true)
+        ->when($featuredPostModel, fn ($q) => $q->where('id', '!=', $featuredPostModel->id))
+        ->orderBy('published_at', 'desc')
+        ->paginate(9)
+        ->withQueryString();
+
+    $featuredPost = request()->integer('page', 1) <= 1 ? $featuredPostModel : null;
+
+    return view('pages.blog', compact('featuredPost', 'regularPosts', 'site', 'settings', 'categories', 'activeCategory', 'activeCategorySlug'));
 })->name('blog');
+
+Route::get('/blog/tag/{slug}', function (string $slug) {
+    $categories = BlogCategory::where('is_active', true)->orderBy('order_column')->get();
+    $tagModel = BlogTag::where('slug', $slug)->first();
+
+    $matchedPosts = Post::where('is_published', true)
+        ->orderBy('published_at', 'desc')
+        ->get()
+        ->filter(function (Post $post) use ($slug, $tagModel): bool {
+            foreach ($post->tags ?? [] as $tagName) {
+                if (Str::slug((string) $tagName) === $slug) {
+                    return true;
+                }
+                if ($tagModel && strtolower(trim((string) $tagName)) === strtolower(trim($tagModel->name))) {
+                    return true;
+                }
+            }
+
+            return false;
+        });
+
+    if (! $tagModel && $matchedPosts->isEmpty()) {
+        abort(404);
+    }
+
+    $page = max(1, (int) request('page', 1));
+    $perPage = 9;
+    $regularPosts = new LengthAwarePaginator(
+        $matchedPosts->forPage($page, $perPage)->values(),
+        $matchedPosts->count(),
+        $perPage,
+        $page,
+        ['path' => route('blog.tag', $slug), 'query' => request()->query()]
+    );
+
+    $activeTagName = $tagModel?->name ?? ucwords(str_replace('-', ' ', $slug));
+    $site = SiteSetting::current();
+    $settings = HomepageSetting::current();
+
+    return view('pages.blog', [
+        'featuredPost' => null,
+        'regularPosts' => $regularPosts,
+        'site' => $site,
+        'settings' => $settings,
+        'categories' => $categories,
+        'activeCategory' => null,
+        'activeCategorySlug' => null,
+        'activeTagName' => $activeTagName,
+        'activeTagSlug' => $slug,
+    ]);
+})->name('blog.tag');
 
 Route::get('/blog/{slug}', function (string $slug) {
     $post = Post::where('slug', $slug)->where('is_published', true)->firstOrFail();
@@ -214,13 +341,13 @@ Route::get('/blog/{slug}', function (string $slug) {
         ->orderByDesc('published_at')
         ->limit(4)
         ->get();
-    $site = SiteSetting::first() ?? new SiteSetting;
+    $site = SiteSetting::current();
 
     return view('pages.blog-detail', compact('post', 'relatedPosts', 'site'));
 })->name('blog.detail');
 
 Route::get('/kontak', function () {
-    $site = SiteSetting::first() ?? new SiteSetting;
+    $site = SiteSetting::current();
     $settings = HomepageSetting::current();
     $contact = ContactSetting::current();
 
@@ -230,10 +357,6 @@ Route::get('/kontak', function () {
 Route::post('/leads', [LeadController::class, 'store'])
     ->middleware('throttle:15,1')
     ->name('leads.store');
-
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
 
 Route::middleware(['auth'])->group(function () {
     Route::redirect('settings', 'settings/profile');

@@ -112,10 +112,12 @@
                             <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none"></div>
                         </div>
                         <div class="pt-4 flex flex-col">
-                            <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">{{ str_pad($idx + 1, 2, '0', STR_PAD_LEFT) }}</span>
-                            <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                                {{ $service->title }}
-                            </h3>
+                            <div class="flex items-baseline gap-2.5">
+                                <span class="text-lg sm:text-xl font-sans font-bold text-[#0067b1] tracking-tight leading-snug shrink-0">{{ str_pad($idx + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                                <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug group-hover:text-[#0067b1] transition-colors">
+                                    {{ $service->title }}
+                                </h3>
+                            </div>
                             <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
                                 {{ $service->description }}
                             </p>

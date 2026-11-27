@@ -23,7 +23,7 @@ class ServiceSettingForm
                             ->icon('heroicon-o-sparkles')
                             ->schema([
                                 Section::make('Services Header')
-                                    ->description('Headline used across both Homepage and Services Page. Manage individual service cards under "Content Management > Services".')
+                                    ->description('Headline for the Services Page. Homepage services header can be customized under Homepage Settings. Manage individual service cards under "Content Management > Services".')
                                     ->schema([
                                         TextInput::make('hero_badge')
                                             ->label('Badge')

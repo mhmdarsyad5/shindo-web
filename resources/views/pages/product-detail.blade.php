@@ -2,7 +2,7 @@
 
 @php
     $seriesName = $product->truckSeries?->name ?? strtoupper($seriesKey);
-    $waPhone = preg_replace('/[^0-9]/', '', $site->office_phone ?? '6281234567890');
+    $waPhone = preg_replace('/[^0-9]/', '', $site->whatsapp ?: '6282128889556');
     if (str_starts_with($waPhone, '0')) {
         $waPhone = '62' . substr($waPhone, 1);
     }
@@ -506,9 +506,9 @@
 
                     <!-- Primary Action Buttons -->
                     <div class="flex flex-col sm:flex-row gap-3 pt-2">
-                        <a href="{{ route('kontak') }}"
+                        <a href="{{ route('kontak', ['unit' => $product->name]) }}"
                             class="flex-1 inline-flex items-center justify-center gap-2 px-6 py-3.5 bg-[#0067b1] hover:bg-[#00528e] text-white font-bold text-sm uppercase font-barlow-condensed tracking-wider transition-colors shadow-sm text-center">
-                            <span>Request Quote</span>
+                            <span>Minta Penawaran</span>
                             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                             </svg>
@@ -708,7 +708,7 @@
                                         @if(!empty($specRows))
                                             @foreach($specRows as $idx => $row)
                                                 <tr>
-                                                    @if($idx === 0)
+                                                    @if($loop->first)
                                                         <td rowspan="{{ count($specRows) }}" class="main-config-td">
                                                             Main configuration
                                                         </td>
@@ -796,7 +796,7 @@
                         <div class="bg-white border border-slate-200 hover:border-[#0067b1] shadow-xs hover:shadow-lg transition-all duration-300 p-5 sm:p-6 flex flex-col justify-between group">
                             <div>
                                 <a href="{{ route('produk.detail', $rel->slug) }}"
-                                    class="block w-full aspect-[4/3] flex items-center justify-center p-4 mb-4 bg-slate-50/70 border border-slate-100 overflow-hidden">
+                                    class="w-full aspect-[4/3] flex items-center justify-center p-4 mb-4 bg-slate-50/70 border border-slate-100 overflow-hidden">
                                     <img src="{{ $rel->image_url }}" alt="{{ $rel->name }}"
                                         class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300 select-none">
                                 </a>

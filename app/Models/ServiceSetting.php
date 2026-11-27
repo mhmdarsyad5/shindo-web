@@ -25,6 +25,9 @@ class ServiceSetting extends Model
             if (Storage::disk('public')->exists($path)) {
                 return Storage::disk('public')->url($path);
             }
+            if (file_exists(public_path($path))) {
+                return asset($path);
+            }
             $filename = basename($path);
             if (file_exists(public_path('images/'.$filename))) {
                 return asset('images/'.$filename);

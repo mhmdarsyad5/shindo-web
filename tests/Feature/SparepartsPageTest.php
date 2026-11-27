@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use App\Models\SiteSetting;
 
-it('renders the spareparts page with all categories, items, and mechanic section', function (): void {
+it('renders the spareparts page with all categories and items without mechanic section', function (): void {
     SiteSetting::create([]);
 
     $response = $this->get(route('spareparts'));
@@ -21,7 +21,7 @@ it('renders the spareparts page with all categories, items, and mechanic section
     $response->assertSee('Engine Assy');
     $response->assertSee('Brake Drum');
     $response->assertSee('Steering Pump');
-    $response->assertSee('LAYANAN MEKANIK 24 JAM');
+    $response->assertDontSee('LAYANAN MEKANIK 24 JAM');
     $response->assertSee('Hubungi Kami');
     $response->assertDontSee('Order / Tanya Spareparts');
     $response->assertDontSee('Hubungi Mekanik 24 Jam');

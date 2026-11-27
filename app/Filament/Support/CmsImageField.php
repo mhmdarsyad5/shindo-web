@@ -21,6 +21,7 @@ class CmsImageField
         return FileUpload::make($name)
             ->label($label)
             ->image()
+            ->maxSize(5120)
             ->disk('public')
             ->directory($directory)
             ->openable()

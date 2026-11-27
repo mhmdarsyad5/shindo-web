@@ -51,12 +51,12 @@
             <div class="flex flex-col lg:flex-row lg:items-end justify-between gap-6 reveal-on-scroll">
                 <div class="max-w-3xl">
                     <h1 class="text-3xl sm:text-5xl lg:text-6xl font-bold uppercase font-barlow-condensed not-italic text-[#00163c] leading-none tracking-tight">
-                        KATALOG ARMADA TRUK SHACMAN
+                        {{ $site->products_page_title ?: 'KATALOG ARMADA TRUK SHACMAN' }}
                     </h1>
                 </div>
                 <div class="max-w-xl text-slate-600 text-sm sm:text-base leading-relaxed">
                     <p>
-                        Pilihan dump truck dan tractor head bertenaga tinggi untuk sektor pertambangan nikel, batu bara, quarry, serta logistik angkutan berat di seluruh Indonesia.
+                        {{ $site->products_page_subtitle ?: 'Pilihan dump truck dan tractor head bertenaga tinggi untuk sektor pertambangan nikel, batu bara, quarry, serta logistik angkutan berat di seluruh Indonesia.' }}
                     </p>
                 </div>
             </div>
@@ -106,17 +106,18 @@
                             </label>
                             <div class="space-y-3">
                                 <label class="flex items-center space-x-3 cursor-pointer select-none">
-                                    <input type="radio" name="filter-series" value="all" checked
+                                    <input type="radio" name="filter-series" value="all" {{ ($activeSeri ?? 'all') === 'all' || empty($activeSeri) ? 'checked' : '' }}
                                         class="filter-series-radio w-4 h-4 sm:w-5 sm:h-5 text-[#0067b1] focus:ring-[#0067b1] cursor-pointer">
                                     <span class="font-bold text-slate-900 text-sm sm:text-base">All Series</span>
-                                    <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 border border-slate-200 ml-auto font-sans">({{ $products->count() }})</span>
+                                    <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 border border-slate-200 ml-auto font-sans">({{ $totalProductsCount ?? $products->total() }})</span>
                                 </label>
                                 @foreach($truckSeries as $series)
                                     @php
-                                        $count = $products->where('truck_series_id', $series->id)->count();
+                                        $seriesSlug = strtolower($series->name);
+                                        $count = $seriesCounts[$series->id] ?? 0;
                                     @endphp
                                     <label class="flex items-center space-x-3 cursor-pointer select-none">
-                                        <input type="radio" name="filter-series" value="{{ strtolower($series->name) }}"
+                                        <input type="radio" name="filter-series" value="{{ $seriesSlug }}" {{ ($activeSeri ?? 'all') === $seriesSlug || ($activeSeri ?? 'all') === strtolower($series->key ?? '') ? 'checked' : '' }}
                                             class="filter-series-radio w-4 h-4 sm:w-5 sm:h-5 text-[#0067b1] focus:ring-[#0067b1] cursor-pointer">
                                         <span class="text-sm sm:text-base font-medium text-slate-800">{{ $series->name }} Series</span>
                                         <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 border border-slate-200 ml-auto font-sans">({{ $count }})</span>
@@ -147,7 +148,7 @@
                                 $cleanDrive = $product->drive ? explode(' ', $product->drive)[0] : '6X4';
                                 $seriesName = $product->truckSeries?->name ?? 'SHACMAN';
                                 $quoteText = 'Halo PT SHINDO, saya tertarik meminta penawaran harga resmi (Quotation) untuk unit: ' . $product->name . ' (' . ($product->drive ?? '6x4') . ').';
-                                $waPhone = preg_replace('/[^0-9]/', '', $site->office_phone ?? '6281234567890');
+                                $waPhone = preg_replace('/[^0-9]/', '', $site->whatsapp ?: '6282128889556');
                                 if (str_starts_with($waPhone, '0')) {
                                     $waPhone = '62' . substr($waPhone, 1);
                                 }
@@ -158,7 +159,7 @@
                                 <div>
                                     <!-- Visual Stage -->
                                     <a href="{{ route('produk.detail', $product->slug) }}"
-                                        class="block w-full aspect-[4/3] flex items-center justify-center p-3 sm:p-4 mb-4 bg-slate-50/70 border border-slate-100 overflow-hidden">
+                                        class="w-full aspect-[4/3] flex items-center justify-center p-3 sm:p-4 mb-4 bg-slate-50/70 border border-slate-100 overflow-hidden">
                                         <img src="{{ $product->image_url }}" alt="{{ $product->name }}"
                                             class="w-full h-full object-contain group-hover:scale-108 transition-transform duration-300 drop-shadow-md select-none pointer-events-none">
                                     </a>
@@ -194,28 +195,24 @@
                                 </div>
                             </div>
                         @empty
-                            <div class="col-span-full bg-white border border-slate-300 p-12 text-center text-slate-500 font-sans text-xs">
-                                Unit truk belum tersedia.
+                            <div class="col-span-full bg-white border border-slate-300 p-10 text-center space-y-3">
+                                <p class="text-slate-500 font-sans text-xs">Unit truk belum tersedia untuk filter saat ini.</p>
+                                @if(($activeSeri ?? 'all') !== 'all')
+                                    <a href="{{ route('produk') }}"
+                                        class="inline-block px-5 py-2.5 bg-[#0067b1] text-white font-bold text-xs uppercase font-barlow-condensed not-italic tracking-wider">
+                                        Reset Semua Filter
+                                    </a>
+                                @endif
                             </div>
                         @endforelse
                     </div>
 
-                    <!-- No Results Notification -->
-                    <div id="no-filter-results" class="hidden bg-white border border-slate-300 p-10 text-center space-y-3 mt-6">
-                        <div class="w-12 h-12 mx-auto bg-blue-50 text-[#0067b1] border border-blue-200 flex items-center justify-center font-bold text-lg">
-                            !
+                    <!-- Pagination -->
+                    @if(method_exists($products, 'hasPages') && $products->hasPages())
+                        <div class="mt-10">
+                            {{ $products->links('partials.pagination', ['itemLabel' => 'unit']) }}
                         </div>
-                        <h4 class="text-xl font-bold font-barlow-condensed uppercase not-italic text-slate-900">
-                            Tidak Ada Unit Sesuai Filter
-                        </h4>
-                        <p class="text-xs text-slate-600 max-w-md mx-auto">
-                            Tidak ada unit yang sesuai kombinasi filter saat ini. Silakan reset filter untuk melihat katalog lengkap.
-                        </p>
-                        <button id="empty-reset-btn" type="button"
-                            class="px-5 py-2.5 bg-[#0067b1] text-white font-bold text-xs uppercase font-barlow-condensed not-italic tracking-wider">
-                            Reset Semua Filter
-                        </button>
-                    </div>
+                    @endif
 
                 </div>
             </div>
@@ -257,54 +254,31 @@
                 });
             }
 
-            // Client-Side Filter Logic (Fokus Truck Series)
+            // Server-Synced Filter Logic (Fokus Truck Series + Pagination)
             const seriesRadios = document.querySelectorAll('.filter-series-radio');
             const resetBtn = document.getElementById('reset-filters-btn');
-            const emptyResetBtn = document.getElementById('empty-reset-btn');
-            const productItems = document.querySelectorAll('.product-item');
-            const noResults = document.getElementById('no-filter-results');
             const mobileBadge = document.getElementById('mobile-filter-badge');
+            const baseProdukUrl = '{{ route('produk') }}';
 
-            function applyFilters() {
-                const selectedSeries = (document.querySelector('.filter-series-radio:checked')?.value || 'all').toLowerCase();
+            if (mobileBadge) {
+                const activeSeri = '{{ $activeSeri ?? 'all' }}';
+                mobileBadge.textContent = activeSeri === 'all' ? 'Semua Unit' : '{{ $products->total() }} Unit';
+            }
 
-                let visibleCount = 0;
-
-                productItems.forEach(item => {
-                    const itemSeries = (item.getAttribute('data-series') || '').toLowerCase();
-                    const matchSeries = (selectedSeries === 'all') || itemSeries.includes(selectedSeries);
-
-                    if (matchSeries) {
-                        item.style.display = '';
-                        visibleCount++;
-                    } else {
-                        item.style.display = 'none';
-                    }
+            seriesRadios.forEach(rb => {
+                rb.addEventListener('change', function () {
+                    const selected = (this.value || 'all').toLowerCase();
+                    window.location.href = selected === 'all'
+                        ? baseProdukUrl
+                        : `${baseProdukUrl}?seri=${encodeURIComponent(selected)}`;
                 });
+            });
 
-                if (noResults) {
-                    if (visibleCount === 0 && productItems.length > 0) {
-                        noResults.classList.remove('hidden');
-                    } else {
-                        noResults.classList.add('hidden');
-                    }
-                }
-
-                if (mobileBadge) {
-                    mobileBadge.textContent = selectedSeries === 'all' ? 'Semua Unit' : `${visibleCount} Unit`;
-                }
+            if (resetBtn) {
+                resetBtn.addEventListener('click', () => {
+                    window.location.href = baseProdukUrl;
+                });
             }
-
-            seriesRadios.forEach(rb => rb.addEventListener('change', applyFilters));
-
-            function resetFilters() {
-                const allSeries = document.querySelector('.filter-series-radio[value="all"]');
-                if (allSeries) allSeries.checked = true;
-                applyFilters();
-            }
-
-            if (resetBtn) resetBtn.addEventListener('click', resetFilters);
-            if (emptyResetBtn) emptyResetBtn.addEventListener('click', resetFilters);
         });
     </script>
 @endpush

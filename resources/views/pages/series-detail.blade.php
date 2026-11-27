@@ -135,6 +135,7 @@
 .pro_detail01 .content {
     position: relative;
     padding-bottom: 220px;
+    overflow: hidden;
 }
 .pro_detail01 .content .img_ {
     position: relative;
@@ -770,6 +771,35 @@
         justify-content: center;
     }
     .pro_detail_521 .content .right ul { grid-template-columns: 1fr; }
+    .pro_detail_521 .table-responsive {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .pro_detail_521 .table.datalist {
+        font-size: 11.5px;
+        line-height: 1.35;
+    }
+    .pro_detail_521 .table.datalist th,
+    .pro_detail_521 .table.datalist td {
+        padding: 7px 8px;
+        word-break: break-word;
+        overflow-wrap: anywhere;
+    }
+    .pro_detail_521 .table.datalist .firstRow th {
+        font-size: 13px;
+    }
+    .pro_detail_521 .table.datalist .main-config-td {
+        width: 18%;
+        font-size: 11px;
+        padding: 7px 6px;
+    }
+    .pro_detail_521 .table.datalist .sub-cat-td {
+        width: 15%;
+        font-size: 11px;
+        padding: 7px 6px;
+    }
     .pro_detail08 { height: 380px; }
     .pro_detail08 .content .info .box .tit { font-size: 26px; line-height: 32px; }
 }
@@ -778,22 +808,26 @@
 
 @section('content')
     @php
-        $waPhone = preg_replace('/[^0-9]/', '', $site->office_phone ?? '6281234567890');
+        $seriesKeyValue = $seriesData['key'] ?? ($seriesModel?->key ?? strtoupper($seriesKeyLower));
+        $seriesNameValue = $seriesData['name'] ?? ($seriesModel?->name ?? $seriesKeyValue);
+        $seriesIntro = $seriesData['intro'] ?? ($seriesModel?->description ?? '');
+        $seriesHeroImg = !empty($seriesData['hero_image']) ? asset($seriesData['hero_image']) : ($seriesModel?->image_url ?? asset('images/series/x3000/pro_detail01_1.jpg'));
+        $waPhone = preg_replace('/[^0-9]/', '', $site->whatsapp ?: '6282128889556');
         if (str_starts_with($waPhone, '0')) {
             $waPhone = '62' . substr($waPhone, 1);
         }
-        $quoteMsg = urlencode("Halo PT Shindo Tractors Adiperkasa, saya tertarik meminta informasi spesifikasi teknis dan penawaran harga resmi untuk unit SHACMAN " . ($seriesData['key'] ?? '') . " Series.");
+        $quoteMsg = urlencode("Halo PT Shindo Tractors Adiperkasa, saya tertarik meminta informasi spesifikasi teknis dan penawaran harga resmi untuk unit SHACMAN " . $seriesKeyValue . " Series.");
     @endphp
 
     <!-- ================= BREADCRUMBS ================= -->
     <div class="w-full bg-white border-b border-slate-200">
         <div class="max-w-[1400px] mx-auto px-5 py-3.5 sm:py-4">
             <div class="flex items-center space-x-2 text-xs font-sans uppercase tracking-wider text-slate-500">
-                <a href="{{ url('/') }}" class="hover:text-[#0067b1] transition-colors">Home</a>
+                <a href="{{ url('/') }}" class="hover:text-[#0067b1] transition-colors">Beranda</a>
                 <span class="text-slate-300">/</span>
                 <a href="{{ url('/produk') }}" class="hover:text-[#0067b1] transition-colors">Produk</a>
                 <span class="text-slate-300">/</span>
-                <span class="text-[#00163c] font-bold">{{ $seriesData['key'] }}</span>
+                <span class="text-[#00163c] font-bold">{{ $seriesKeyValue }}</span>
             </div>
         </div>
     </div>
@@ -807,20 +841,17 @@
                 <div class="container">
                     <div class="infor fix has_con">
                         <div class="tit l fz32">
-                            {{ $seriesData['key'] }} <br>{{ $seriesData['tagline'] ?? '' }}
-                        </div>
-                        <div class="con r fz14">
-                            <p>{{ $seriesData['intro'] }}</p>
+                            {{ $seriesKeyValue }} <br>{{ $seriesData['tagline'] ?? ($seriesModel?->title ?? '') }}
                         </div>
                     </div>
                     <div class="content">
                         <div class="img_">
-                            <img src="{{ asset($seriesData['hero_image']) }}" alt="{{ $seriesData['name'] }}">
+                            <img src="{{ $seriesHeroImg }}" alt="{{ $seriesNameValue }}">
                         </div>
                         <div class="info">
                             <div class="box">
                                 <div class="text fz14">
-                                    <p>{{ $seriesData['intro'] }}</p>
+                                    <p>{{ $seriesIntro }}</p>
                                 </div>
                                 <div class="btn_group">
                                     <a href="https://wa.me/{{ $waPhone }}?text={{ $quoteMsg }}" target="_blank" rel="noopener noreferrer" class="btn_quote">
@@ -1099,7 +1130,7 @@
                         <div class="rect-66">
                             <img src="{{ asset('images/series/picker.jpg') }}" class="_full" alt="Pilih Unit Dump Truck" />
                         </div>
-                        <a href="{{ url('/produk?seri=' . strtolower($seriesData['key'])) }}" class="info">
+                        <a href="{{ url('/produk?seri=' . strtolower($seriesKeyValue)) }}" class="info">
                             <div class="box">
                                 <div class="tit fz32" style="color: #ffffff !important;">PILIH UNIT DUMP TRUCK</div>
                                 <div class="con" style="color: #ffffff !important;">Lihat ketersediaan unit armada SHACMAN di katalog resmi dealer PT SHINDO</div>

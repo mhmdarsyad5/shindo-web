@@ -18,6 +18,7 @@ class HomepageSetting extends Model
     {
         return [
             'nav_items' => 'array',
+            'hero_points' => 'array',
             'stats' => 'array',
             'truck_series' => 'array',
             'about_features' => 'array',
@@ -39,6 +40,9 @@ class HomepageSetting extends Model
             }
             if (Storage::disk('public')->exists($path)) {
                 return Storage::disk('public')->url($path);
+            }
+            if (file_exists(public_path($path))) {
+                return asset($path);
             }
             $filename = basename($path);
             if (file_exists(public_path('images/'.$filename))) {
@@ -70,7 +74,7 @@ class HomepageSetting extends Model
      */
     public function getHeroBackgroundImageUrlAttribute(): string
     {
-        return $this->resolveImageUrl($this->hero_background_image, 'images/hero-cropped-mockup.png');
+        return $this->resolveImageUrl($this->hero_background_image, 'images/heronew.webp');
     }
 
     /**
@@ -117,9 +121,17 @@ class HomepageSetting extends Model
             ],
             'cta_text' => 'Hubungi Kami',
             'cta_url' => '/kontak',
-            'hero_background_image' => 'homepage/hero-cropped-mockup.png',
+            'hero_background_image' => 'homepage/heronew.webp',
             'hero_logo' => 'homepage/shacman-logo.png',
             'hero_tagline' => 'TANGGUH DI SEGALA MEDAN',
+            'hero_description' => 'Kombinasi teknologi mesin tangguh, konstruksi kokoh, dan dukungan purna jual menyeluruh untuk menunjang profitabilitas armada Anda.',
+            'hero_points' => [
+                'Ketersediaan Genuine Parts',
+                'Authorized Dealer SHACMAN',
+                'SHASS (Shacman After Sales Service) 24 Jam',
+            ],
+            'hero_cta_text' => 'PELAJARI LEBIH LANJUT',
+            'hero_cta_url' => '/tentang-kami',
             'stats' => [
                 ['value' => '56+ Tahun', 'label' => 'Pengalaman Armada', 'icon' => 'truck'],
                 ['value' => '124+ Klien', 'label' => 'Klien Puas & Loyal', 'icon' => 'handshake'],
@@ -218,17 +230,17 @@ class HomepageSetting extends Model
             'advantages_subtitle' => 'Kombinasi teknologi mesin tangguh, konstruksi kokoh, dan dukungan purna jual menyeluruh untuk menunjang profitabilitas armada Anda.',
             'advantages_items' => [
                 [
-                    'icon' => 'flame',
+                    'icon' => 'cpu',
                     'title' => 'Mesin Torsi Tinggi',
                     'description' => 'Didukung mesin Weichai & Cummins bertenaga besar dengan daya tanjak optimal di medan berat.',
                 ],
                 [
-                    'icon' => 'droplet',
+                    'icon' => 'fuel',
                     'title' => 'Efisiensi Konsumsi BBM',
                     'description' => 'Sistem powertrain yang disesuaikan menghasilkan konsumsi solar lebih hemat pada setiap ritase muatan.',
                 ],
                 [
-                    'icon' => 'shield',
+                    'icon' => 'truck',
                     'title' => 'Kabin Ergonomis & Aman',
                     'description' => 'Dilengkapi suspensi kabin empuk, AC maksimal, serta visibilitas luas demi keselamatan operator.',
                 ],
@@ -278,7 +290,7 @@ class HomepageSetting extends Model
             'cta_banner_title' => 'SIAP MEMILIKI ARMADA TRUK SHACMAN ANDA?',
             'cta_banner_subtitle' => 'Hubungi tim kami sekarang untuk konsultasi konfigurasi unit, kebutuhan suku cadang, serta penawaran harga resmi.',
             'cta_banner_bg_image' => 'homepage/cta-mining-clean.jpg',
-            'whatsapp_number' => '628123456789',
+            'whatsapp_number' => '6282128889556',
             'whatsapp_text' => 'Hubungi via WhatsApp',
             'brochure_text' => 'Dapatkan Brosur Unit',
             'brochure_url' => '/kontak',
@@ -290,7 +302,7 @@ class HomepageSetting extends Model
             'linkedin_url' => 'https://linkedin.com',
             'youtube_url' => 'https://youtube.com',
             'office_address' => 'Town House Cordoba No. 59, RT.6/RW.2, Kamal Muara, Penjaringan, Jakarta Utara, DKI Jakarta 14470',
-            'office_phone' => '(021) 555-8321',
+            'office_phone' => '0821-2888-9556',
             'office_email' => 'sales@shindo.id',
             'office_hours' => 'Senin - Jumat, 09:00 - 17:00',
             'mechanic_hours' => 'Siaga Darurat 24 Jam',

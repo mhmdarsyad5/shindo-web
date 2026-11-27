@@ -106,7 +106,6 @@ select:focus[data-flux-control] {
     content: '';
     width: 6px;
     height: 6px;
-    border-radius: 50%;
     background: #cbd5e1;
     flex-shrink: 0;
     transition: background-color 0.2s ease, transform 0.2s ease;

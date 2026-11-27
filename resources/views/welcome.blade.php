@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>SHINDO | Dealer Resmi SHACMAN Indonesia</title>
+    <title>{{ $site->site_name ?? 'SHINDO | Dealer Resmi SHACMAN Indonesia' }}</title>
 
     <meta name="description"
         content="{{ $settings->meta_description ?? 'Authorized Dealer Resmi SHACMAN Indonesia - Solusi Truk Heavy Duty Terbaik & Tangguh di Segala Medan.' }}">
@@ -293,13 +293,73 @@
     </header>
 
     <!-- ================= HERO SECTION ================= -->
-    <section class="relative w-full overflow-hidden bg-[#00163c] flex items-center justify-center">
+    @php
+        $heroDescription = $settings->hero_description ?: 'Kombinasi teknologi mesin tangguh, konstruksi kokoh, dan dukungan purna jual menyeluruh untuk menunjang profitabilitas armada Anda.';
+        $heroPoints = !empty($settings->hero_points) && is_array($settings->hero_points)
+            ? $settings->hero_points
+            : [
+                'Ketersediaan Genuine Parts',
+                'Authorized Dealer SHACMAN',
+                'SHASS (Shacman After Sales Service) 24 Jam',
+            ];
+        $heroCtaText = $settings->hero_cta_text ?: 'PELAJARI LEBIH LANJUT';
+        $heroCtaUrl = $settings->hero_cta_url ?: '#series-truk';
+    @endphp
+    <section class="relative w-full overflow-hidden bg-[#060a10]">
         <h1 class="sr-only">{{ $settings->hero_tagline ?? 'SHACMAN – Tangguh di Segala Medan' }}</h1>
-        <div class="w-full max-w-[2560px] mx-auto flex items-center justify-center">
+        <div class="relative w-full flex items-center justify-center overflow-hidden">
             <img src="{{ $settings->hero_background_image_url }}" alt="{{ $settings->hero_tagline ?? 'SHACMAN Heavy Duty Trucks di Segala Medan' }}"
-                class="w-full h-[280px] sm:h-[380px] md:h-auto md:max-h-[calc(100vh-140px)] 2xl:max-h-[calc(100vh-160px)] object-cover object-[50%_38%] block select-none pointer-events-none"
+                class="w-full h-[340px] sm:h-[420px] md:h-[500px] lg:h-auto lg:max-h-[calc(100vh-112px)] object-cover object-[50%_46%] lg:object-[50%_58%] 2xl:max-h-[90vh] block select-none pointer-events-none"
                 fetchpriority="high"
                 decoding="async">
+
+            {{-- Hero Bottom Overlay: Seamless fade into asphalt / dark section --}}
+            <div class="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-16 lg:h-56 2xl:h-96 bg-gradient-to-t from-[#060a10] via-[#060a10]/55 lg:from-black lg:via-black/75 to-transparent"></div>
+        </div>
+
+        {{-- Hero Bottom Content: Description, Checklist Points & CTA Button --}}
+        <div class="relative lg:absolute lg:inset-x-0 lg:bottom-0 z-10 bg-[#060a10] lg:bg-transparent py-6 lg:py-0 lg:pb-5 2xl:pb-10 px-4 sm:px-6 lg:px-8">
+            <div class="max-w-5xl 2xl:max-w-6xl mx-auto text-center">
+                @if(!empty($heroDescription))
+                    <p class="text-xs sm:text-sm md:text-base 2xl:text-xl text-white/95 font-sans font-medium leading-relaxed max-w-3xl 2xl:max-w-5xl mx-auto">
+                        {{ $heroDescription }}
+                    </p>
+                @endif
+
+                @if(!empty($heroPoints))
+                    <div class="mt-2.5 sm:mt-3 2xl:mt-4 flex flex-wrap items-center justify-center gap-x-4 sm:gap-x-7 2xl:gap-x-8 gap-y-2">
+                        @foreach($heroPoints as $point)
+                            @php
+                                $pointText = is_array($point) ? ($point['point'] ?? $point['title'] ?? '') : $point;
+                            @endphp
+                            @if(!empty($pointText))
+                                <div class="inline-flex items-center gap-2 text-xs sm:text-sm 2xl:text-[17px] font-sans font-medium text-white/95">
+                                    <span class="w-4 h-4 2xl:w-5 2xl:h-5 bg-[#0067b1] flex items-center justify-center shrink-0 shadow-xs">
+                                        <svg class="w-2.5 h-2.5 2xl:w-3 2xl:h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </span>
+                                    <span>{{ $pointText }}</span>
+                                </div>
+                            @endif
+                        @endforeach
+                    </div>
+                @endif
+
+                @if(!empty($heroCtaText))
+                    @php
+                        $resolvedHeroCtaHref = (str_starts_with($heroCtaUrl, '#') || str_starts_with($heroCtaUrl, 'http://') || str_starts_with($heroCtaUrl, 'https://'))
+                            ? $heroCtaUrl
+                            : url($heroCtaUrl);
+                    @endphp
+                    <div class="mt-3.5 sm:mt-4 2xl:mt-5">
+                        <a href="{{ $resolvedHeroCtaHref }}"
+                            class="inline-flex items-center justify-center px-6 py-2.5 2xl:px-9 2xl:py-3.5 border border-white/85 bg-white/5 hover:bg-white hover:text-[#00163c] text-white text-xs 2xl:text-[15px] font-sans font-bold uppercase tracking-widest transition-all duration-200">
+                            {{ $heroCtaText }}
+                        </a>
+                    </div>
+                @endif
+            </div>
         </div>
     </section>
 
@@ -398,7 +458,7 @@
 
                 <!-- Teks Belakang Truk (Barlow Watermark - Ramping & Proporsional) -->
                 <div id="truck-bg-text"
-                    class="absolute inset-0 flex items-center justify-center font-barlow-condensed font-medium italic text-[#cbd5e1]/40 text-[8.5rem] xs:text-[11rem] sm:text-[15.5rem] md:text-[20rem] lg:text-[25rem] xl:text-[28rem] tracking-wide leading-none select-none pointer-events-none z-0 transition-all duration-500 transform whitespace-nowrap">
+                    class="absolute inset-0 flex items-center justify-center font-barlow-condensed font-medium italic text-[#cbd5e1]/40 text-[8.5rem] sm:text-[15.5rem] md:text-[20rem] lg:text-[25rem] xl:text-[28rem] tracking-wide leading-none select-none pointer-events-none z-0 transition-all duration-500 transform whitespace-nowrap">
                     {{ $firstSeries->name ?? 'X3000' }}
                 </div>
 
@@ -436,6 +496,7 @@
         </div>
     </section>
 
+    {{--
     <!-- ================= SECTION 2: TENTANG KAMI (FULL-WIDTH CINEMATIC BANNER) ================= -->
     <section id="tentang-kami"
         class="relative w-full min-h-[440px] lg:min-h-[480px] flex items-center py-10 sm:py-14 lg:py-16 overflow-hidden bg-[#070e1e] border-t border-b border-slate-800">
@@ -587,6 +648,7 @@
 
         </div>
     </section>
+    --}}
 
     <!-- ================= SECTION 4: KEUNGGULAN OPERASIONAL DARI CMS ================= -->
     @if(!empty($settings->advantages_items))
@@ -615,7 +677,7 @@
                         <div
                             class="bg-white p-5 sm:p-6 hover:shadow-xl transition-all duration-300 shadow-md group flex flex-col items-center text-center reveal-on-scroll {{ $idx === 0 ? 'reveal-delay-100' : ($idx === 1 ? 'reveal-delay-200' : ($idx === 2 ? 'reveal-delay-300' : 'reveal-delay-400')) }}">
                             <div
-                                class="w-12 h-12 border border-slate-200 bg-slate-50 text-[#0067b1] flex items-center justify-center mb-3.5 group-hover:bg-[#0067b1] group-hover:border-[#0067b1] group-hover:text-white transition-all duration-300 flex-shrink-0">
+                                class="w-12 h-12 border border-slate-200 bg-slate-50 text-[#0067b1] flex items-center justify-center mb-3.5 flex-shrink-0">
                                 @if($customIconHtml = \App\Models\IconAsset::renderIcon($adv['icon'] ?? '', 'w-5 h-5'))
                                     {!! $customIconHtml !!}
                                 @elseif(($adv['icon'] ?? '') === 'cpu' || str_contains(strtolower($adv['title'] ?? ''), 'torsi') || str_contains(strtolower($adv['title'] ?? ''), 'mesin'))
@@ -728,18 +790,18 @@
                             <div class="absolute inset-x-0 bottom-0 h-14 sm:h-16 lg:h-20 service-smooth-fade pointer-events-none"></div>
                         </div>
                         <div class="pt-4 flex flex-col">
-                            <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">{{ str_pad($idx + 1, 2, '0', STR_PAD_LEFT) }}</span>
-                            <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                                <a href="{{ url('/layanan') }}">{{ $service->title }}</a>
-                            </h3>
+                            <div class="flex items-baseline gap-2.5">
+                                <span class="text-lg sm:text-xl font-sans font-bold text-[#0067b1] tracking-tight leading-snug shrink-0">{{ str_pad($idx + 1, 2, '0', STR_PAD_LEFT) }}</span>
+                                <h3 class="text-lg sm:text-xl font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug group-hover:text-[#0067b1] transition-colors">
+                                    <a href="{{ url('/layanan') }}">{{ $service->title }}</a>
+                                </h3>
+                            </div>
                             <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
                                 {{ $service->description }}
                             </p>
                         </div>
                     </div>
                 @endforeach
-            </div>
-
             </div>
         </div>
     </section>
@@ -774,35 +836,35 @@
             <!-- Blog Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
                 @foreach($posts->take(3) as $idx => $blog)
-                    <article
-                        class="bg-white border border-slate-300 hover:border-[#0067b1] transition-all flex flex-col justify-between group reveal-on-scroll {{ $idx === 0 ? 'reveal-delay-100' : ($idx === 1 ? 'reveal-delay-200' : 'reveal-delay-300') }}">
+                    <a href="{{ url('/blog/' . $blog->slug) }}"
+                        class="bg-white border border-slate-300 hover:border-[#0067b1] hover:shadow-md transition-all flex flex-col justify-between group reveal-on-scroll {{ $idx === 0 ? 'reveal-delay-100' : ($idx === 1 ? 'reveal-delay-200' : 'reveal-delay-300') }}">
                         <div>
                             <div class="aspect-[16/10] w-full overflow-hidden bg-slate-900 relative">
                                 <img src="{{ $blog->image_url }}" alt="{{ $blog->title }}"
                                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                                 <div
                                     class="absolute bottom-2 left-2 bg-black/70 text-slate-200 text-[10px] font-sans px-2 py-0.5">
-                                    {{ $blog->published_at?->format('d M Y') ?? date('d M Y') }}
+                                    {{ $blog->published_at?->format('d M Y') ?? $blog->created_at?->format('d M Y') ?? '-' }}
                                 </div>
                             </div>
                             <div class="p-4 sm:p-5">
                                 <h3
                                     class="text-xl font-bold font-barlow-condensed uppercase text-slate-900 leading-snug group-hover:text-[#0067b1] transition-colors">
-                                    <a href="{{ url('/blog/' . $blog->slug) }}">{{ $blog->title }}</a>
+                                    {{ $blog->title }}
                                 </h3>
                                 <p class="mt-2 text-xs sm:text-sm text-slate-600 leading-relaxed font-normal line-clamp-3">
-                                    {{ $blog->excerpt }}
+                                    {{ $blog->excerpt ?: \Illuminate\Support\Str::limit(strip_tags((string) $blog->content), 160) }}
                                 </p>
                             </div>
                         </div>
                         <div
-                            class="px-5 py-3 border-t border-slate-100 bg-slate-50 flex items-center justify-between text-xs font-sans">
-                            <a href="{{ url('/blog/' . $blog->slug) }}"
-                                class="text-[#0067b1] font-bold uppercase hover:underline">
-                                Baca Detail
-                            </a>
+                            class="px-5 py-3 border-t border-slate-100 bg-slate-50 group-hover:bg-[#0067b1] group-hover:border-[#0067b1] flex items-center justify-between text-xs font-sans font-bold uppercase tracking-wider text-[#0067b1] group-hover:text-white transition-colors">
+                            <span>Baca Artikel</span>
+                            <svg class="w-4 h-4 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                            </svg>
                         </div>
-                    </article>
+                    </a>
                 @endforeach
             </div>
         </div>
@@ -879,9 +941,6 @@
                                     <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                                 </svg>
                             </button>
-                            <p class="mt-2.5 text-xs text-slate-500 text-center font-sans">
-                                Data Anda otomatis tersimpan & terhubung langsung ke WhatsApp tim sales kami.
-                            </p>
                         </div>
                     </form>
                 </div>
@@ -994,7 +1053,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                                 </svg>
-                                <a href="tel:{{ preg_replace('/[^0-9]/', '', $site->office_phone) }}"
+                                <a href="{{ $site->whatsapp_url ?? 'https://wa.me/6282128889556' }}" target="_blank" rel="noopener noreferrer"
                                     class="hover:text-white transition-colors">{{ $site->office_phone }}</a>
                             </li>
                         @endif
@@ -1100,12 +1159,12 @@
             // Truck Series Tab Interactive Switcher
             const seriesData = {
                 @foreach($truckSeries as $item)
-                                                            '{{ $item->key ?? $item->name }}': {
-                        text: '{{ $item->name ?? '' }}',
-                        image: "{{ $item->image_url }}",
-                        alt: 'SHACMAN {{ $item->name ?? '' }} Heavy Duty Truck',
-                        desc: {!! json_encode($item->description ?? '') !!},
-                        detailUrl: '{{ route('produk.series', strtolower($item->key ?? $item->name)) }}'
+                    @json($item->key ?? $item->name): {
+                        text: @json($item->name ?? ''),
+                        image: @json($item->image_url),
+                        alt: @json('SHACMAN ' . ($item->name ?? '') . ' Heavy Duty Truck'),
+                        desc: @json($item->description ?? ''),
+                        detailUrl: @json(route('produk.series', strtolower($item->key ?? $item->name)))
                     },
                 @endforeach
             };
@@ -1202,6 +1261,11 @@
                     const data = await response.json();
 
                     if (response.ok && data.success && data.whatsapp_url) {
+                        if (btn) {
+                            btn.disabled = false;
+                            if (btnText) btnText.textContent = 'Hubungi Kami';
+                            if (spinner) spinner.classList.add('hidden');
+                        }
                         window.location.href = data.whatsapp_url;
                     } else {
                         alert(data.message || 'Terjadi kendala saat menyimpan formulir. Silakan coba kembali.');
@@ -1213,7 +1277,7 @@
                     }
                 } catch (err) {
                     console.error('Lead submission error:', err);
-                    let waNumber = '{{ preg_replace('/[^0-9]/', '', $site->office_phone ?? '6281234567890') }}';
+                    let waNumber = '{{ preg_replace('/[^0-9]/', '', $site->whatsapp ?: '6282128889556') }}';
                     if (waNumber.startsWith('0')) {
                         waNumber = '62' + waNumber.substring(1);
                     }

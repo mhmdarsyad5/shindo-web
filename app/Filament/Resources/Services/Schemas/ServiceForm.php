@@ -18,16 +18,11 @@ class ServiceForm
             ->components([
                 Section::make('Service Information')
                     ->schema([
-                        Grid::make(2)->schema([
-                            TextInput::make('title')
-                                ->label('Service Name')
-                                ->placeholder('New Unit Sales')
-                                ->required(),
-                            TextInput::make('slug')
-                                ->label('Slug (URL)')
-                                ->placeholder('new-unit-sales')
-                                ->required(),
-                        ]),
+                        TextInput::make('title')
+                            ->label('Service Name')
+                            ->placeholder('New Unit Sales')
+                            ->required()
+                            ->columnSpanFull(),
                         Textarea::make('description')
                             ->label('Description (Optional)')
                             ->rows(3)

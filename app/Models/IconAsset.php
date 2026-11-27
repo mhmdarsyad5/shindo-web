@@ -45,19 +45,25 @@ class IconAsset extends Model
             return '';
         }
 
-        // If it refers to an IconAsset via key or asset:key
-        $cleanKey = str_starts_with($icon, 'asset:') ? substr($icon, 6) : $icon;
-        $asset = static::where('key', $cleanKey)->first();
-
         $styleAttr = (str_contains($class, 'brightness-0') && str_contains($class, 'invert'))
             ? ' style="filter: brightness(0) invert(1);"'
             : '';
 
-        if ($asset && $asset->url) {
-            $safeTitle = e($asset->title);
-            $safeUrl = e($asset->url);
+        // Only resolve DB IconAsset when explicitly prefixed with "asset:"
+        if (str_starts_with($icon, 'asset:')) {
+            $cleanKey = substr($icon, 6);
+            static $cachedAssets = null;
+            $cachedAssets ??= static::all()->keyBy('key');
+            $asset = $cachedAssets->get($cleanKey);
 
-            return '<img src="'.$safeUrl.'" alt="'.$safeTitle.'" class="'.e($class).' object-contain inline-block"'.$styleAttr.'>';
+            if ($asset && $asset->url) {
+                $safeTitle = e($asset->title);
+                $safeUrl = e($asset->url);
+
+                return '<img src="'.$safeUrl.'" alt="'.$safeTitle.'" class="'.e($class).' object-contain inline-block"'.$styleAttr.'>';
+            }
+
+            return '';
         }
 
         // If it's a direct file path stored

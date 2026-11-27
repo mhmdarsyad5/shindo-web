@@ -30,7 +30,7 @@ class HomepageSettingSeeder extends Seeder
         $setting->cta_url = '/kontak';
 
         // Hero
-        $setting->hero_background_image = 'homepage/hero-cropped-mockup.png';
+        $setting->hero_background_image = 'homepage/heronew.webp';
         $setting->hero_logo = 'homepage/shacman-logo.png';
         $setting->hero_tagline = 'TANGGUH DI SEGALA MEDAN';
 
@@ -137,17 +137,17 @@ class HomepageSettingSeeder extends Seeder
         $setting->advantages_subtitle = 'Kombinasi teknologi mesin tangguh, konstruksi kokoh, dan dukungan purna jual menyeluruh untuk menunjang profitabilitas armada Anda.';
         $setting->advantages_items = [
             [
-                'icon' => 'flame',
+                'icon' => 'cpu',
                 'title' => 'Mesin Torsi Tinggi',
                 'description' => 'Didukung mesin Weichai & Cummins bertenaga besar dengan daya tanjak optimal di medan berat.',
             ],
             [
-                'icon' => 'droplet',
+                'icon' => 'fuel',
                 'title' => 'Efisiensi Konsumsi BBM',
                 'description' => 'Sistem powertrain yang disesuaikan menghasilkan konsumsi solar lebih hemat pada setiap ritase muatan.',
             ],
             [
-                'icon' => 'shield',
+                'icon' => 'truck',
                 'title' => 'Kabin Ergonomis & Aman',
                 'description' => 'Dilengkapi suspensi kabin empuk, AC maksimal, serta visibilitas luas demi keselamatan operator.',
             ],
@@ -200,7 +200,7 @@ class HomepageSettingSeeder extends Seeder
         $setting->cta_banner_title = 'SIAP MEMILIKI ARMADA TRUK SHACMAN ANDA?';
         $setting->cta_banner_subtitle = 'Hubungi tim kami sekarang untuk konsultasi konfigurasi unit, kebutuhan suku cadang, serta penawaran harga resmi.';
         $setting->cta_banner_bg_image = 'homepage/cta-mining-clean.jpg';
-        $setting->whatsapp_number = '628123456789';
+        $setting->whatsapp_number = '6282128889556';
         $setting->whatsapp_text = 'Hubungi via WhatsApp';
         $setting->brochure_text = 'Dapatkan Brosur Unit';
         $setting->brochure_url = '/kontak';
@@ -213,7 +213,7 @@ class HomepageSettingSeeder extends Seeder
         $setting->linkedin_url = 'https://linkedin.com';
         $setting->youtube_url = 'https://youtube.com';
         $setting->office_address = 'Town House Cordoba No. 59, RT.6/RW.2, Kamal Muara, Penjaringan, Jakarta Utara, DKI Jakarta 14470';
-        $setting->office_phone = '(021) 555-8321';
+        $setting->office_phone = '0821-2888-9556';
         $setting->office_email = 'sales@shindo.id';
         $setting->office_hours = 'Senin - Jumat, 09:00 - 17:00';
         $setting->mechanic_hours = 'Siaga Darurat 24 Jam';

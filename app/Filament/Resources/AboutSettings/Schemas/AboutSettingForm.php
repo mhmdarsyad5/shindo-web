@@ -202,42 +202,6 @@ class AboutSettingForm
                                             defaultFallbackAsset: 'images/about-branch-map.jpg',
                                         ),
                                     ]),
-
-                                Section::make('Long-term Commitment')
-                                    ->schema([
-                                        TextInput::make('commitment_title')
-                                            ->label('Title')
-                                            ->required(),
-
-                                        Textarea::make('commitment_subtitle')
-                                            ->label('Description')
-                                            ->rows(3)
-                                            ->columnSpanFull(),
-
-                                        CmsImageField::make(
-                                            name: 'commitment_image',
-                                            label: 'Banner Image',
-                                            directory: 'about',
-                                            defaultFallbackAsset: 'images/cta-mining-bg.jpg',
-                                        ),
-
-                                        Repeater::make('commitment_items')
-                                            ->label('Commitment Points')
-                                            ->schema([
-                                                TextInput::make('number')
-                                                    ->label('Number (e.g. 01)')
-                                                    ->required(),
-                                                TextInput::make('title')
-                                                    ->label('Title')
-                                                    ->required(),
-                                                Textarea::make('description')
-                                                    ->label('Description')
-                                                    ->rows(2)
-                                                    ->required(),
-                                            ])
-                                            ->collapsible()
-                                            ->columnSpanFull(),
-                                    ]),
                             ]),
                     ])
                     ->columnSpanFull(),

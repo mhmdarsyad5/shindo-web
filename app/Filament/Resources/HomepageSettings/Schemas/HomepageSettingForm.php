@@ -37,8 +37,8 @@ class HomepageSettingForm
                                             name: 'hero_background_image',
                                             label: 'Hero Banner Image (Widescreen)',
                                             directory: 'homepage',
-                                            defaultFallbackAsset: 'homepage/hero-cropped-mockup.png',
-                                            helperText: 'Recommended aspect ratio ~1.94:1 (e.g. 2560x1317 px for crisp 2K/Retina displays). Format: JPG, PNG, or WebP. Max 5MB.',
+                                            defaultFallbackAsset: 'homepage/heronew.webp',
+                                            helperText: 'Recommended widescreen aspect ratio (WebP/PNG/JPG, Max 5MB).',
                                         ),
 
                                         TextInput::make('hero_tagline')
@@ -47,6 +47,38 @@ class HomepageSettingForm
                                             ->default('SHACMAN – Tangguh di Segala Medan')
                                             ->helperText('Used for search engine crawlers (SEO) and screen readers (alt attribute).')
                                             ->columnSpanFull(),
+                                    ]),
+
+                                Section::make('Hero Overlay Content')
+                                    ->description('Description, checklist highlights, and CTA button displayed at the bottom of the hero banner.')
+                                    ->schema([
+                                        Textarea::make('hero_description')
+                                            ->label('Hero Description')
+                                            ->placeholder('Kombinasi teknologi mesin tangguh, konstruksi kokoh, dan dukungan purna jual menyeluruh untuk menunjang profitabilitas armada Anda.')
+                                            ->rows(2)
+                                            ->columnSpanFull(),
+
+                                        Repeater::make('hero_points')
+                                            ->label('Checklist Points')
+                                            ->simple(
+                                                TextInput::make('point')
+                                                    ->placeholder('Ketersediaan Genuine Parts')
+                                                    ->required()
+                                            )
+                                            ->defaultItems(3)
+                                            ->addActionLabel('Add Point')
+                                            ->columnSpanFull(),
+
+                                        Grid::make(2)->schema([
+                                            TextInput::make('hero_cta_text')
+                                                ->label('CTA Button Text')
+                                                ->placeholder('PELAJARI LEBIH LANJUT')
+                                                ->default('PELAJARI LEBIH LANJUT'),
+                                            TextInput::make('hero_cta_url')
+                                                ->label('CTA Button URL')
+                                                ->placeholder('/tentang-kami')
+                                                ->default('/tentang-kami'),
+                                        ]),
                                     ]),
                             ]),
 
@@ -125,9 +157,6 @@ class HomepageSettingForm
                                         Textarea::make('about_description_1')
                                             ->label('Introduction Paragraph')
                                             ->rows(3),
-                                        Textarea::make('about_description_2')
-                                            ->label('Services & Value-add Paragraph')
-                                            ->rows(3),
                                     ]),
 
                                 Section::make('Unit Showcase & Background')
@@ -146,12 +175,7 @@ class HomepageSettingForm
                                                 TextInput::make('title')
                                                     ->label('Title')
                                                     ->required(),
-                                                Textarea::make('description')
-                                                    ->label('Description')
-                                                    ->rows(2)
-                                                    ->required(),
                                             ])
-                                            ->columns(2)
                                             ->collapsible()
                                             ->cloneable()
                                             ->addActionLabel('Add Highlight'),
@@ -185,9 +209,9 @@ class HomepageSettingForm
                                                 Select::make('icon')
                                                     ->label('Icon')
                                                     ->options(fn () => IconAsset::getSelectOptions([
-                                                        'flame' => 'High Torque / Power',
-                                                        'droplet' => 'Fuel Efficiency',
-                                                        'shield' => 'Safety & Cabin Protection',
+                                                        'cpu' => 'High Torque / Engine',
+                                                        'fuel' => 'Fuel Efficiency',
+                                                        'truck' => 'Safety & Cabin Protection',
                                                         'cog' => 'Genuine Parts & Powertrain',
                                                     ]))
                                                     ->searchable()
@@ -298,46 +322,17 @@ class HomepageSettingForm
                                     ]),
                             ]),
 
-                        // TAB 9: CTA BANNER
-                        Tab::make('Call to Action')
-                            ->icon('heroicon-o-megaphone')
+                        // TAB 9: WHATSAPP & CONTACT
+                        Tab::make('WhatsApp & Contact')
+                            ->icon('heroicon-o-chat-bubble-left-right')
                             ->schema([
-                                Section::make('Bottom CTA Banner')
+                                Section::make('Floating WhatsApp Widget')
+                                    ->description('Controls the floating WhatsApp contact button displayed across the site.')
                                     ->schema([
-                                        TextInput::make('cta_banner_title')
-                                            ->label('Headline')
-                                            ->default('READY TO POWER YOUR FLEET WITH SHACMAN?')
-                                            ->columnSpanFull(),
-
-                                        Textarea::make('cta_banner_subtitle')
-                                            ->label('Subtitle')
-                                            ->rows(2)
-                                            ->columnSpanFull(),
-
-                                        CmsImageField::make(
-                                            name: 'cta_banner_bg_image',
-                                            label: 'Background Image',
-                                            directory: 'homepage',
-                                            defaultFallbackAsset: 'homepage/cta-mining-clean.jpg',
-                                        ),
-
-                                        Grid::make(2)->schema([
-                                            TextInput::make('whatsapp_number')
-                                                ->label('WhatsApp Number (e.g. 628123456789)')
-                                                ->default('628123456789'),
-                                            TextInput::make('whatsapp_text')
-                                                ->label('WhatsApp Button Text')
-                                                ->default('Contact via WhatsApp'),
-                                        ]),
-
-                                        Grid::make(2)->schema([
-                                            TextInput::make('brochure_text')
-                                                ->label('Brochure Button Text')
-                                                ->default('Request Brochure'),
-                                            TextInput::make('brochure_url')
-                                                ->label('Brochure URL')
-                                                ->default('/kontak'),
-                                        ]),
+                                        TextInput::make('whatsapp_number')
+                                            ->label('WhatsApp Number (e.g. 6282128889556)')
+                                            ->default('6282128889556')
+                                            ->required(),
                                     ]),
                             ]),
                     ])

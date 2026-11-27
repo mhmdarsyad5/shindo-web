@@ -18,23 +18,25 @@ class TruckSeriesForm
             ->components([
                 Section::make('Truck Series Information')
                     ->schema([
-                        Grid::make(3)->schema([
+                        Grid::make(2)->schema([
                             TextInput::make('key')
                                 ->label('Series Key (Unique)')
                                 ->placeholder('X3000')
+                                ->unique('truck_series', 'key', ignoreRecord: true)
                                 ->required(),
                             TextInput::make('name')
                                 ->label('Series Name')
                                 ->placeholder('X3000')
                                 ->required(),
-                            TextInput::make('badge')
-                                ->label('Badge Label')
-                                ->placeholder('FLAGSHIP HEAVY-DUTY'),
                         ]),
-                        TextInput::make('title')
-                            ->label('Full Title')
-                            ->placeholder('X3000 Series Heavy-Duty Truck')
-                            ->columnSpanFull(),
+                        Grid::make(2)->schema([
+                            TextInput::make('badge')
+                                ->label('Series Badge')
+                                ->placeholder('e.g. Heavy Duty Series'),
+                            TextInput::make('title')
+                                ->label('Series Title')
+                                ->placeholder('e.g. SHACMAN X3000 Series'),
+                        ]),
                         CmsImageField::make(
                             name: 'image',
                             label: 'Series Image (Transparent PNG)',
@@ -45,10 +47,7 @@ class TruckSeriesForm
                             ->label('Description')
                             ->rows(4)
                             ->columnSpanFull(),
-                        Grid::make(3)->schema([
-                            TextInput::make('detail_url')
-                                ->label('Detail URL')
-                                ->default('/produk'),
+                        Grid::make(2)->schema([
                             TextInput::make('order_column')
                                 ->label('Sort Order')
                                 ->numeric()

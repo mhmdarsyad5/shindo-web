@@ -7,12 +7,6 @@
 @endif
 
 @php
-    $waRaw = $site->whatsapp ?: '628111009567';
-    $waNumber = preg_replace('/[^0-9]/', '', (string) $waRaw);
-    if (str_starts_with($waNumber, '0')) {
-        $waNumber = '62' . substr($waNumber, 1);
-    }
-
     $relatedPosts = $relatedPosts ?? collect();
 
     $fallbackBody = <<<'HTML'
@@ -198,14 +192,21 @@
 
                         {{-- Article Meta Strip --}}
                         <div class="flex flex-wrap items-center gap-3 text-xs font-sans text-slate-500 pb-4 border-b border-slate-100">
-                            <span class="inline-flex items-center px-2.5 py-1 bg-[#0067b1] text-white text-[11px] font-bold uppercase tracking-wider">
-                                ARTIKEL TEKNIS
-                            </span>
+                            @if(!empty($post->category))
+                                <a href="{{ route('blog', ['kategori' => \Illuminate\Support\Str::slug($post->category)]) }}"
+                                   class="inline-flex items-center px-2.5 py-1 bg-[#0067b1] hover:bg-[#004f8a] text-white text-[11px] font-bold uppercase tracking-wider transition-colors">
+                                    {{ $post->category }}
+                                </a>
+                            @else
+                                <span class="inline-flex items-center px-2.5 py-1 bg-[#0067b1] text-white text-[11px] font-bold uppercase tracking-wider">
+                                    ARTIKEL TEKNIS
+                                </span>
+                            @endif
                             <span class="inline-flex items-center gap-1.5 font-medium text-slate-600">
                                 <svg class="w-3.5 h-3.5 text-[#0067b1]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                 </svg>
-                                {{ $post->published_at?->format('d F Y') ?? date('d F Y') }}
+                                {{ $post->published_at?->format('d F Y') ?? $post->created_at?->format('d F Y') ?? '-' }}
                             </span>
                             <span class="text-slate-300">•</span>
                             <span class="inline-flex items-center gap-1.5 font-medium text-slate-600">
@@ -256,6 +257,18 @@
                         <div id="articleContent" class="mt-8 max-w-none">
                             {!! $renderedBody !!}
                         </div>
+
+                        @if(!empty($post->tags) && is_array($post->tags))
+                            <div class="mt-8 pt-4 border-t border-slate-100 flex flex-wrap items-center gap-2">
+                                <span class="text-[11px] font-sans font-bold uppercase tracking-wider text-slate-500 mr-1">Tags:</span>
+                                @foreach($post->tags as $tag)
+                                    <a href="{{ route('blog.tag', ['slug' => \Illuminate\Support\Str::slug($tag)]) }}"
+                                       class="px-2.5 py-1 bg-slate-100 hover:bg-[#0067b1] text-slate-700 hover:text-white text-xs font-sans font-medium border border-slate-200 hover:border-[#0067b1] transition-colors">
+                                        #{{ $tag }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        @endif
 
                         {{-- Share & Copy Link Bar --}}
                         <div class="mt-10 pt-6 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -319,19 +332,18 @@
                 <aside class="lg:col-span-4">
                     <div class="lg:sticky lg:top-24 space-y-6">
 
-                        {{-- Widget 1: Desktop Table of Contents --}}
-                        <div id="toc-card" class="hidden bg-white border border-slate-200 shadow-xs">
-                            <div class="bg-[#00163c] px-5 py-3 flex items-center justify-between">
-                                <h2 class="text-sm font-sans font-bold uppercase tracking-wider text-white">
-                                    Daftar Isi
-                                </h2>
-                                <span class="text-[10px] font-sans font-semibold uppercase tracking-widest text-blue-300">
-                                    Navigasi
-                                </span>
+                        {{-- Widget 1: Desktop Table of Contents (hidden on mobile/tablet since inline & sticky TOC exist) --}}
+                        <div class="hidden lg:block">
+                            <div id="toc-card" class="hidden bg-white border border-slate-200 shadow-xs">
+                                <div class="bg-[#00163c] px-5 py-3 flex items-center justify-between">
+                                    <h2 class="text-sm font-sans font-bold uppercase tracking-wider text-white">
+                                        Daftar Isi
+                                    </h2>
+                                </div>
+                                <nav aria-label="Daftar isi artikel" class="p-4">
+                                    <ul id="desktop-toc-list" class="space-y-1 text-xs sm:text-sm font-sans"></ul>
+                                </nav>
                             </div>
-                            <nav aria-label="Daftar isi artikel" class="p-4">
-                                <ul id="desktop-toc-list" class="space-y-1 text-xs sm:text-sm font-sans"></ul>
-                            </nav>
                         </div>
 
                         {{-- Widget 2: Related Articles (Baca Juga) --}}
@@ -360,7 +372,7 @@
                                                     {{ $related->title }}
                                                 </h3>
                                                 <div class="mt-1.5 text-[11px] font-sans text-slate-400">
-                                                    {{ $related->published_at?->format('d M Y') ?? date('d M Y') }}
+                                                    {{ $related->published_at?->format('d M Y') ?? $related->created_at?->format('d M Y') ?? '-' }}
                                                 </div>
                                             </div>
                                         </a>
@@ -371,23 +383,23 @@
 
                         {{-- Widget 3: SHINDO Armada Consultation CTA --}}
                         <div class="bg-[#00163c] border-t-4 border-t-[#0067b1] p-6 text-white shadow-xs">
-                            <div class="text-[11px] font-sans font-bold uppercase tracking-widest text-blue-300 mb-1.5">
-                                SHINDO AFTERSALES &amp; SALES
-                            </div>
+                            @if(!empty($site->blog_cta_badge ?? 'SHINDO AFTERSALES & SALES'))
+                                <div class="text-[11px] font-sans font-bold uppercase tracking-widest text-blue-300 mb-1.5">
+                                    {{ $site->blog_cta_badge ?: 'SHINDO AFTERSALES & SALES' }}
+                                </div>
+                            @endif
                             <h3 class="text-xl sm:text-2xl font-bold font-barlow-condensed uppercase not-italic leading-tight tracking-tight">
-                                Butuh Konsultasi Armada Truk SHACMAN?
+                                {{ $site->blog_cta_title ?: 'Butuh Konsultasi Armada Truk SHACMAN?' }}
                             </h3>
                             <p class="mt-2 text-xs sm:text-sm text-slate-300 leading-relaxed">
-                                Diskusikan kebutuhan unit dump truck, tronton, atau suku cadang resmi untuk operasional proyek Anda.
+                                {{ $site->blog_cta_subtitle ?: 'Diskusikan kebutuhan unit dump truck, tronton, atau suku cadang resmi untuk operasional proyek Anda.' }}
                             </p>
-                            <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode('Halo Shindo, saya membaca artikel "' . $post->title . '" dan ingin berkonsultasi mengenai armada SHACMAN.') }}"
-                               target="_blank"
-                               rel="noopener noreferrer"
+                            <a href="{{ route('kontak') }}"
                                class="mt-5 w-full inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#0067b1] hover:bg-[#0284c7] text-white text-xs sm:text-sm font-sans font-bold uppercase tracking-wider transition-colors">
                                 <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                 </svg>
-                                Hubungi Kami
+                                {{ $site->blog_cta_button_text ?: 'Hubungi Kami' }}
                             </a>
                         </div>
 
@@ -408,7 +420,7 @@
     <div id="shareToast"
          role="status"
          aria-live="polite"
-         class="fixed bottom-6 left-1/2 -translate-x-1/2 z-[70] hidden px-4 py-2.5 bg-[#00163c] border-l-4 border-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider shadow-lg">
+         class="fixed bottom-24 lg:bottom-6 left-1/2 -translate-x-1/2 z-[70] hidden px-4 py-2.5 bg-[#00163c] border-l-4 border-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider shadow-lg">
         Link artikel berhasil disalin!
     </div>
 @endsection

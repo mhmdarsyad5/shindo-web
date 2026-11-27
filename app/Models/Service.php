@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class Service extends Model
 {
@@ -16,6 +17,22 @@ class Service extends Model
         'is_active' => 'boolean',
         'order_column' => 'integer',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function (Service $service): void {
+            if (empty($service->slug)) {
+                $base = Str::slug($service->title ?: 'service');
+                $slug = $base;
+                $i = 1;
+                while (static::where('slug', $slug)->exists()) {
+                    $slug = "{$base}-{$i}";
+                    $i++;
+                }
+                $service->slug = $slug;
+            }
+        });
+    }
 
     public function resolveImageUrl(?string $path, string $defaultAsset = ''): string
     {

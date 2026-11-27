@@ -4,15 +4,10 @@
 @section('meta_description', 'Katalog sparepart resmi dump truck SHACMAN: Cabin Parts, Electrical Parts, Engine Parts, Chassis Parts, Others Parts, serta layanan mekanik on-site 24/7 di seluruh Indonesia.')
 
 @php
-    $waRaw = !empty($spareparts->whatsapp_number) ? $spareparts->whatsapp_number : ($site->whatsapp ?: '628111009567');
-    $waNumber = preg_replace('/[^0-9]/', '', (string) $waRaw);
-    if (str_starts_with($waNumber, '0')) {
-        $waNumber = '62' . substr($waNumber, 1);
-    }
+    $waNumber = $site->whatsapp ?: '6282128889556';
 
     $categories = $sparepartsConfig['categories'] ?? [];
     $items = $sparepartsConfig['items'] ?? [];
-    $mechanics = $sparepartsConfig['mechanics'] ?? [];
 
     $groupedItems = [];
     foreach ($categories as $catKey => $catMeta) {
@@ -21,12 +16,6 @@
     foreach ($items as $item) {
         $groupedItems[$item['category']][] = $item;
     }
-
-    $mechanicPillars = !empty($spareparts->mechanic_points) ? $spareparts->mechanic_points : [
-        'Solusi Cepat, Andal & Profesional',
-        'Dukungan Mekanik Terbaik',
-        'Siaga 24/7',
-    ];
 @endphp
 
 @push('styles')
@@ -138,88 +127,15 @@
                 <h3 class="text-2xl sm:text-3xl lg:text-4xl font-bold font-barlow-condensed uppercase not-italic text-[#00163c] tracking-tight leading-none">
                     Pemesanan &amp; Konsultasi Suku Cadang Resmi
                 </h3>
-                <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode('Halo Shindo, saya ingin order / tanya ketersediaan dan harga sparepart SHACMAN.') }}"
+                <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode($spareparts->whatsapp_message ?: 'Halo Shindo, saya ingin order / tanya ketersediaan dan harga sparepart SHACMAN.') }}"
                    target="_blank"
                    rel="noopener noreferrer"
                    class="w-full sm:w-auto shrink-0 inline-flex items-center justify-center gap-2.5 px-7 py-3.5 bg-[#0067b1] hover:bg-[#004f8a] text-white text-xs sm:text-sm font-sans font-bold uppercase tracking-wider transition-colors shadow-xs">
                     <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                     </svg>
-                    Hubungi Kami
+                    {{ $spareparts->whatsapp_button_text ?: 'Hubungi Kami' }}
                 </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ================= 3. LAYANAN MEKANIK 24 JAM (CLEAN INDUSTRIAL SPLIT) ================= -->
-    <section id="mekanik-24-jam" class="w-full bg-[#0067b1] py-14 sm:py-20 border-t border-[#005a9c]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-
-                {{-- Left Column: Headline, 3 Service Pillars & CTA --}}
-                <div class="lg:col-span-6 space-y-6 reveal-on-scroll">
-                    <div>
-                        <span class="inline-flex items-center px-3.5 py-1 bg-white/15 border border-white/30 text-white text-xs font-sans font-bold uppercase tracking-wider mb-3">
-                            {{ $spareparts->mechanic_badge ?: 'FIELD SERVICE UNIT' }}
-                        </span>
-                        <h2 class="text-3xl sm:text-5xl lg:text-[54px] font-bold uppercase text-white font-barlow-condensed not-italic leading-none tracking-tight drop-shadow-xs">
-                            {{ $spareparts->mechanic_title ?: 'LAYANAN MEKANIK 24 JAM' }}
-                        </h2>
-                        <p class="mt-3 text-blue-100 text-sm sm:text-base leading-relaxed max-w-xl">
-                            {{ $spareparts->mechanic_subtitle ?: 'Dukungan tim teknisi bersertifikasi langsung di lokasi proyek dan pertambangan untuk menjaga kesiapan operasional armada SHACMAN Anda setiap saat.' }}
-                        </p>
-                    </div>
-
-                    {{-- 3 Compact Numbered Pillars --}}
-                    <div class="space-y-3">
-                        @foreach($mechanicPillars as $idx => $pillarTitle)
-                            @php
-                                $stepNum = str_pad((string) ($idx + 1), 2, '0', STR_PAD_LEFT);
-                            @endphp
-                            <div class="bg-white border-l-4 border-[#00163c] px-4 py-3.5 shadow-md flex items-center gap-4 group hover:shadow-lg transition-shadow">
-                                <div class="w-10 h-10 bg-[#f0f7ff] border border-blue-100 text-[#0067b1] group-hover:bg-[#0067b1] group-hover:text-white flex items-center justify-center shrink-0 transition-colors font-barlow-condensed text-xl font-bold tracking-wider">
-                                    {{ $stepNum }}
-                                </div>
-                                <h3 class="text-base sm:text-lg font-bold font-barlow-condensed uppercase not-italic text-[#00163c] leading-tight">
-                                    {{ $pillarTitle }}
-                                </h3>
-                            </div>
-                        @endforeach
-                    </div>
-
-                    {{-- Direct Action Button --}}
-                    <div class="pt-1">
-                        <a href="https://wa.me/{{ $waNumber }}?text={{ urlencode($spareparts->whatsapp_message ?: 'Halo Shindo, saya membutuhkan bantuan layanan mekanik 24 jam.') }}"
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           class="inline-flex items-center justify-center gap-2 px-7 py-3.5 bg-[#00163c] hover:bg-[#070e1e] text-white text-xs sm:text-sm font-sans font-bold uppercase tracking-wider transition-colors shadow-md">
-                            <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                            </svg>
-                            {{ $spareparts->whatsapp_button_text ?: 'Hubungi Kami' }}
-                        </a>
-                    </div>
-                </div>
-
-                {{-- Right Column: 3x3 Field Service Mosaic --}}
-                <div class="lg:col-span-6 reveal-on-scroll reveal-delay-100">
-                    <div class="max-w-lg mx-auto lg:mr-0 bg-white p-2 sm:p-2.5 shadow-xl grid grid-cols-3 gap-1.5 sm:gap-2">
-                        @foreach($mechanics as $mech)
-                            <div class="group relative aspect-square overflow-hidden bg-[#00163c]">
-                                <img src="{{ asset($mech['image']) }}"
-                                     alt="{{ $mech['caption'] }}"
-                                     loading="lazy"
-                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                <div class="hidden sm:flex items-end p-2.5 absolute inset-0 bg-gradient-to-t from-[#00163c]/85 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <span class="text-[11px] font-semibold text-white leading-tight">
-                                        {{ $mech['caption'] }}
-                                    </span>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>

@@ -97,12 +97,16 @@ class SiteSettingForm
                                     ->schema([
                                         TextInput::make('office_address')
                                             ->label('Office Address')
+                                            ->maxLength(255)
                                             ->columnSpanFull(),
                                         Grid::make(2)->schema([
                                             TextInput::make('office_phone')
-                                                ->label('Phone Number'),
+                                                ->label('Phone / WhatsApp Number')
+                                                ->placeholder('0821-2888-9556')
+                                                ->helperText('Pusat nomor kontak & link WhatsApp di seluruh website.'),
                                             TextInput::make('office_email')
-                                                ->label('Email Address'),
+                                                ->label('Email Address')
+                                                ->email(),
                                         ]),
                                         Grid::make(2)->schema([
                                             TextInput::make('office_hours')
@@ -122,15 +126,19 @@ class SiteSettingForm
                                         Grid::make(2)->schema([
                                             TextInput::make('facebook_url')
                                                 ->label('Facebook URL')
+                                                ->url()
                                                 ->placeholder('https://facebook.com/...'),
                                             TextInput::make('instagram_url')
                                                 ->label('Instagram URL')
+                                                ->url()
                                                 ->placeholder('https://instagram.com/...'),
                                             TextInput::make('linkedin_url')
                                                 ->label('LinkedIn URL')
+                                                ->url()
                                                 ->placeholder('https://linkedin.com/...'),
                                             TextInput::make('youtube_url')
                                                 ->label('YouTube URL')
+                                                ->url()
                                                 ->placeholder('https://youtube.com/...'),
                                         ]),
                                     ]),
@@ -147,6 +155,58 @@ class SiteSettingForm
                                             ->required(),
                                         TextInput::make('copyright_text')
                                             ->label('Copyright Notice')
+                                            ->columnSpanFull(),
+                                    ]),
+                            ]),
+
+                        // TAB 6: PAGE HEADERS (Products Catalog & Blog)
+                        Tab::make('Page Headers')
+                            ->icon('heroicon-o-document-duplicate')
+                            ->schema([
+                                Section::make('Products Catalog Header (/produk)')
+                                    ->schema([
+                                        TextInput::make('products_page_title')
+                                            ->label('Headline')
+                                            ->default('KATALOG ARMADA TRUK SHACMAN')
+                                            ->required(),
+                                        Textarea::make('products_page_subtitle')
+                                            ->label('Subtitle')
+                                            ->rows(2)
+                                            ->columnSpanFull(),
+                                    ]),
+
+                                Section::make('Blog & Articles Header (/blog)')
+                                    ->schema([
+                                        TextInput::make('blog_page_title')
+                                            ->label('Headline')
+                                            ->default('BLOG & ARTIKEL TERBARU')
+                                            ->required(),
+                                        Textarea::make('blog_page_subtitle')
+                                            ->label('Subtitle')
+                                            ->rows(2)
+                                            ->columnSpanFull(),
+                                    ]),
+
+                                Section::make('Blog Sidebar Consultation Card')
+                                    ->description('Controls the dark consultation CTA box in the Blog Detail sidebar.')
+                                    ->schema([
+                                        Grid::make(2)->schema([
+                                            TextInput::make('blog_cta_badge')
+                                                ->label('Badge')
+                                                ->default('SHINDO AFTERSALES & SALES'),
+                                            TextInput::make('blog_cta_button_text')
+                                                ->label('Button Label')
+                                                ->default('Hubungi Kami')
+                                                ->required(),
+                                        ]),
+                                        TextInput::make('blog_cta_title')
+                                            ->label('Headline')
+                                            ->default('Butuh Konsultasi Armada Truk SHACMAN?')
+                                            ->required()
+                                            ->columnSpanFull(),
+                                        Textarea::make('blog_cta_subtitle')
+                                            ->label('Description')
+                                            ->rows(2)
                                             ->columnSpanFull(),
                                     ]),
                             ]),

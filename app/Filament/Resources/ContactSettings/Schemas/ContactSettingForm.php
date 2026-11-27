@@ -23,10 +23,6 @@ class ContactSettingForm
                             ->schema([
                                 Section::make('Hero Header')
                                     ->schema([
-                                        TextInput::make('hero_badge')
-                                            ->label('Badge')
-                                            ->default('CONTACT US'),
-
                                         TextInput::make('hero_title')
                                             ->label('Headline')
                                             ->required(),
@@ -52,6 +48,7 @@ class ContactSettingForm
                                         Textarea::make('office_address')
                                             ->label('Office Address')
                                             ->rows(3)
+                                            ->maxLength(255)
                                             ->columnSpanFull()
                                             ->required(),
 
@@ -84,11 +81,13 @@ class ContactSettingForm
                                     ->schema([
                                         Textarea::make('map_embed_url')
                                             ->label('Google Maps Embed URL (Iframe src)')
+                                            ->url()
                                             ->rows(3)
                                             ->columnSpanFull(),
 
                                         TextInput::make('map_link_url')
                                             ->label('Google Maps External Link')
+                                            ->url()
                                             ->columnSpanFull(),
                                     ]),
                             ]),
@@ -112,11 +111,6 @@ class ContactSettingForm
                                             ->label('Submit Button Label')
                                             ->default('Contact Us')
                                             ->required(),
-
-                                        TextInput::make('submit_notice_text')
-                                            ->label('Notice Below Button')
-                                            ->default('Your submission is saved and forwarded to our sales team.')
-                                            ->columnSpanFull(),
                                     ]),
                             ]),
                     ])

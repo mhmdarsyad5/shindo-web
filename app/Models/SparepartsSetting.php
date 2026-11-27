@@ -27,6 +27,9 @@ class SparepartsSetting extends Model
             if (Storage::disk('public')->exists($path)) {
                 return Storage::disk('public')->url($path);
             }
+            if (file_exists(public_path($path))) {
+                return asset($path);
+            }
             $filename = basename($path);
             if (file_exists(public_path('images/'.$filename))) {
                 return asset('images/'.$filename);
@@ -92,7 +95,7 @@ class SparepartsSetting extends Model
 
             'cta_title' => 'BUTUH NOMOR PART ATAU KONSULTASI SUKU CADANG?',
             'cta_subtitle' => 'Hubungi tim inventory spareparts PT SHINDO sekarang untuk cek ketersediaan stok, harga resmi, atau skema konsinyasi site proyek.',
-            'whatsapp_number' => '628111009567',
+            'whatsapp_number' => '6282128889556',
             'whatsapp_button_text' => 'Konsultasi Spareparts via WhatsApp',
             'whatsapp_message' => 'Halo Tim Spareparts PT SHINDO, saya membutuhkan informasi ketersediaan suku cadang resmi SHACMAN untuk kebutuhan armada kami.',
         ];

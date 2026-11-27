@@ -38,7 +38,7 @@ class ModularContentSeeder extends Seeder
                 'linkedin_url' => 'https://linkedin.com',
                 'youtube_url' => 'https://youtube.com',
                 'office_address' => 'Town House Cordoba No. 59, RT.6/RW.2, Kamal Muara, Penjaringan, Jakarta Utara, DKI Jakarta 14470',
-                'office_phone' => '(021) 555-8321',
+                'office_phone' => '0821-2888-9556',
                 'office_email' => 'sales@shindo.id',
                 'office_hours' => 'Senin - Jumat, 09:00 - 17:00',
                 'mechanic_hours' => 'Siaga Darurat 24 Jam',
@@ -152,12 +152,12 @@ class ModularContentSeeder extends Seeder
 
         // 4. SERVICES (Layanan Purna Jual)
         $services = [
-            ['title' => 'Penjualan Unit Baru', 'icon' => 'unit', 'order' => 1, 'image' => 'services/service-banner-facility.jpg', 'desc' => 'Pengadaan unit baru SHACMAN bergaransi resmi untuk kebutuhan tambang, konstruksi, dan logistik angkutan berat di seluruh Indonesia.'],
-            ['title' => 'Program Kontak Servis', 'icon' => 'contract', 'order' => 2, 'image' => 'services/service-banner-contract.jpg', 'desc' => 'Konsultasi teknis langsung, penjadwalan servis berkala, dan penanganan cepat kendala unit dengan skema kemitraan yang fleksibel.'],
-            ['title' => 'Garansi Terjamin', 'icon' => 'guarantee', 'order' => 3, 'image' => 'services/service-banner-warranty.jpg', 'desc' => 'Perlindungan garansi resmi pabrikan untuk mesin Weichai, transmisi FAST, dan gardan Hande demi ketenangan operasional bisnis Anda.'],
-            ['title' => 'Suku Cadang Asli', 'icon' => 'parts', 'order' => 4, 'image' => 'services/service-banner-parts.jpg', 'desc' => 'Ketersediaan suku cadang orisinal lengkap dan cepat untuk meminimalkan masa tunggu perbaikan dan menjaga keaslian unit Anda.'],
-            ['title' => 'Servis & Perawatan Rutin', 'icon' => 'service', 'order' => 5, 'image' => 'services/service-banner-mechanic.jpg', 'desc' => 'Pemeliharaan berkala terjadwal oleh mekanik bersertifikasi demi menjaga performa puncak mesin, transmisi, dan efisiensi bahan bakar armada.'],
-            ['title' => 'Dukungan Layanan 24/7', 'icon' => 'support', 'order' => 6, 'image' => 'services/service-banner-support.jpg', 'desc' => 'Tim teknisi storing darurat siaga 24 jam dengan armada mobile service siap meluncur langsung ke site kerja Anda.'],
+            ['title' => 'Penjualan Unit Baru', 'icon' => 'unit', 'order' => 1, 'image' => 'services/service-banner-facility.jpg', 'desc' => 'Unit baru SHACMAN bergaransi resmi untuk kebutuhan armada tambang, konstruksi, dan logistik skala besar.'],
+            ['title' => 'Program Kontak Servis', 'icon' => 'contract', 'order' => 2, 'image' => 'services/service-banner-contract.jpg', 'desc' => 'Konsultasi teknis langsung, penjadwalan servis berkala, dan penanganan cepat.'],
+            ['title' => 'Garansi Terjamin', 'icon' => 'guarantee', 'order' => 3, 'image' => 'services/service-banner-warranty.jpg', 'desc' => 'Perlindungan garansi mesin resmi pabrikan.'],
+            ['title' => 'Suku Cadang Asli', 'icon' => 'parts', 'order' => 4, 'image' => 'services/service-banner-parts.jpg', 'desc' => 'Ketersediaan suku cadang orisinal lengkap dan pengiriman cepat.'],
+            ['title' => 'Servis & Perawatan Rutin', 'icon' => 'service', 'order' => 5, 'image' => 'services/service-banner-mechanic.jpg', 'desc' => 'Pemeliharaan berkala terjadwal oleh mekanik bersertifikasi untuk menjaga performa kerja.'],
+            ['title' => 'Dukungan Layanan 24/7', 'icon' => 'support', 'order' => 6, 'image' => 'services/service-banner-support.jpg', 'desc' => 'Tim teknisi darurat siaga 24 jam siap meluncur langsung ke site kerja Anda.'],
         ];
 
         foreach ($services as $svc) {

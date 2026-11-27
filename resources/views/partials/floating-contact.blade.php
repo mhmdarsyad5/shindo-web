@@ -1,13 +1,6 @@
 @php
-    $hpSettings = $settings ?? \App\Models\HomepageSetting::current();
-    $rawPhone = $hpSettings->whatsapp_number ?? ($site->office_phone ?? '628123456789');
-    $cleanWaPhone = preg_replace('/[^0-9]/', '', $rawPhone);
-    if (str_starts_with($cleanWaPhone, '0')) {
-        $cleanWaPhone = '62' . substr($cleanWaPhone, 1);
-    }
-    if (empty($cleanWaPhone)) {
-        $cleanWaPhone = '628123456789';
-    }
+    $siteSetting = $site ?? \App\Models\SiteSetting::current();
+    $cleanWaPhone = $siteSetting->whatsapp ?: '6282128889556';
     $waDefaultMessage = urlencode("Halo PT SHINDO, saya tertarik berkonsultasi mengenai spesifikasi teknis dan penawaran armada dump truck SHACMAN.");
 @endphp
 

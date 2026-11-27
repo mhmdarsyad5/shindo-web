@@ -27,6 +27,9 @@ class AboutSetting extends Model
             if (Storage::disk('public')->exists($path)) {
                 return Storage::disk('public')->url($path);
             }
+            if (file_exists(public_path($path))) {
+                return asset($path);
+            }
             $filename = basename($path);
             if (file_exists(public_path('images/'.$filename))) {
                 return asset('images/'.$filename);
@@ -48,7 +51,7 @@ class AboutSetting extends Model
             'profile_title' => "AUTHORIZED DEALER \n SHACMAN Dump Truck",
             'profile_description' => 'Kami bangga menjadi distributor utama SHACMAN Dump Truck, yang dikenal luas sebagai pemimpin pasar di Indonesia. Truk-truk kami dirancang untuk menghadapi tantangan terberat, memastikan produktivitas dan efisiensi operasional bisnis Anda.',
             'profile_image' => 'about/about-truck.png',
-            'profile_cta_text' => 'Lihat Katalog Truck',
+            'profile_cta_text' => 'Lihat Katalog Produk',
             'profile_cta_url' => '/produk',
 
             'vision_badge' => 'VISI',

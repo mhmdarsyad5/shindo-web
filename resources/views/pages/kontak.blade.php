@@ -103,15 +103,13 @@
                             </p>
                         </div>
 
-                        <!-- Telepon & Hotline -->
+                        <!-- WhatsApp / Hotline -->
                         <div class="p-4 bg-white border border-slate-200 shadow-xs">
-                            <div class="text-[11px] font-bold uppercase text-slate-400 mb-1">SALES & PENAWARAN HARGA</div>
-                            <a href="tel:{{ preg_replace('/[^0-9]/', '', $contact->office_phone ?? ($site->office_phone ?? '0215558321')) }}"
+                            <div class="text-[11px] font-bold uppercase text-slate-400 mb-1">KONTAK KAMI</div>
+                            <a href="{{ $site->whatsapp_url ?? 'https://wa.me/6282128889556' }}" target="_blank" rel="noopener noreferrer"
                                 class="text-base font-bold text-[#0067b1] hover:underline font-sans">
-                                {{ $contact->office_phone ?? ($site->office_phone ?? '(021) 555-8321') }}
+                                {{ $site->office_phone ?: ($contact->office_phone ?? '0821-2888-9556') }}
                             </a>
-                            <span class="text-[11px] text-slate-500 mt-1 block">Konsultasi unit baru, karoseri, dan
-                                pembiayaan.</span>
                         </div>
 
                         <!-- Email Resmi -->
@@ -121,22 +119,16 @@
                                 class="text-sm font-bold text-slate-900 hover:text-[#0067b1] font-sans">
                                 {{ $contact->office_email ?? ($site->office_email ?? 'sales@shindo.id') }}
                             </a>
-                            <span class="text-[11px] text-slate-500 mt-1 block">Kirim permintaan penawaran harga atau
-                                dokumen kerja sama.</span>
                         </div>
 
                         <!-- 24/7 Breakdown Hotline -->
                         <div class="p-4 bg-[#00163c] text-white border border-[#00163c] shadow-xs">
-                            <div class="flex items-center justify-between mb-2">
+                            <div class="mb-2">
                                 <span class="text-[11px] font-bold text-blue-300 uppercase tracking-wider">LAYANAN MEKANIK
                                     24/7</span>
-                                <span class="w-2 h-2 bg-blue-400 animate-pulse"></span>
                             </div>
-                            <div class="text-lg font-bold text-white font-sans">
-                                {{ $contact->office_phone ?? ($site->office_phone ?? '(021) 555-8321') }}
-                            </div>
-                            <div class="mt-2 text-[11px] text-slate-300 font-sans leading-tight">
-                                {{ $contact->mechanic_hours ?? 'Tim mekanik siaga meluncur ke lokasi proyek Anda.' }}
+                            <div class="text-xs text-slate-200 font-sans leading-relaxed">
+                                {{ $contact->mechanic_hours ?: 'Tim teknisi kami siap meluncur langsung ke site proyek Anda.' }}
                             </div>
                         </div>
 
@@ -210,9 +202,6 @@
                                         <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
                                     </svg>
                                 </button>
-                                <span class="text-[11px] font-sans text-slate-500 mt-2 block text-center">
-                                    {{ $contact->submit_notice_text ?? 'Data Anda otomatis tersimpan & terhubung langsung ke WhatsApp tim sales kami.' }}
-                                </span>
                             </div>
                         </form>
                     </div>
@@ -220,7 +209,7 @@
             </div>
             <!-- Interactive Map Frame with Sharp Non-rounded Borders -->
             <div
-                class="w-full h-[360px] sm:h-[420px] lg:h-[460px] bg-slate-100 border border-slate-300 shadow-sm overflow-hidden reveal-scale">
+                class="mt-10 w-full h-[360px] sm:h-[420px] lg:h-[460px] bg-slate-100 border border-slate-300 shadow-sm overflow-hidden reveal-on-scroll">
                 <iframe
                     src="{{ $contact->map_embed_url ?: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3967.0988078345155!2d106.7397087!3d-6.1107176!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e6a1d0049700fdb%3A0xe4077963238b9056!2sPT%20Shindo%20Tractors%20Adiperkasa!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid' }}"
                     width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"
@@ -228,8 +217,6 @@
                 </iframe>
             </div>
         </div>
-    </section>
-    </div>
     </section>
 @endsection
 
@@ -306,18 +293,23 @@
                         const data = await response.json();
 
                         if (response.ok && data.success && data.whatsapp_url) {
+                            if (btn) {
+                                btn.disabled = false;
+                                if (btnText) btnText.textContent = '{{ $contact->submit_button_text ?: 'Hubungi Kami' }}';
+                                if (spinner) spinner.classList.add('hidden');
+                            }
                             window.location.href = data.whatsapp_url;
                         } else {
                             alert(data.message || 'Terjadi kendala saat menyimpan formulir. Silakan coba kembali.');
                             if (btn) {
                                 btn.disabled = false;
-                                if (btnText) btnText.textContent = 'Hubungi Kami';
+                                if (btnText) btnText.textContent = '{{ $contact->submit_button_text ?: 'Hubungi Kami' }}';
                                 if (spinner) spinner.classList.add('hidden');
                             }
                         }
                     } catch (err) {
                         console.error('Lead submission error:', err);
-                        let waNumber = '{{ preg_replace('/[^0-9]/', '', $site->office_phone ?? '6281234567890') }}';
+                        let waNumber = '{{ preg_replace('/[^0-9]/', '', $site->whatsapp ?: '6282128889556') }}';
                         if (waNumber.startsWith('0')) {
                             waNumber = '62' + waNumber.substring(1);
                         }
@@ -330,7 +322,7 @@
                         window.location.href = `https://wa.me/${waNumber}?text=${encodeURIComponent(fallbackText)}`;
                         if (btn) {
                             btn.disabled = false;
-                            if (btnText) btnText.textContent = 'Hubungi Kami';
+                            if (btnText) btnText.textContent = '{{ $contact->submit_button_text ?: 'Hubungi Kami' }}';
                             if (spinner) spinner.classList.add('hidden');
                         }
                     }

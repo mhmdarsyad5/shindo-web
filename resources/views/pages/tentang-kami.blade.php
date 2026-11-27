@@ -167,7 +167,7 @@
                     <div class="pt-2">
                         <a href="{{ url($about->profile_cta_url ?: '/produk') }}"
                             class="inline-flex items-center px-8 py-3.5 bg-[#0067b1] hover:bg-[#00528e] text-white font-bold text-xs sm:text-sm uppercase font-barlow-condensed not-italic tracking-wider transition-all duration-200 shadow-sm hover:shadow-md group">
-                            <span>{{ $about->profile_cta_text ?: 'Lihat Katalog Truck' }}</span>
+                            <span>{{ $about->profile_cta_text ?: 'Lihat Katalog Produk' }}</span>
                             <svg class="w-4 h-4 ml-2.5 transform group-hover:translate-x-1 transition-transform" fill="none"
                                 viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
@@ -177,19 +177,18 @@
                 </div>
 
                 <!-- Right Column: Truck Photo in Architectural Showcase Frame -->
-                <div class="lg:col-span-6 reveal-on-scroll reveal-delay-200">
-                    <div class="relative bg-white p-3 sm:p-5 border-2 border-slate-200 shadow-xl">
+                <div class="lg:col-span-6 flex justify-center reveal-on-scroll reveal-delay-200">
+                    <div class="relative inline-block bg-white p-2 sm:p-3 border-2 border-slate-200 shadow-xl max-w-full">
                         <!-- Corner Crosshairs -->
                         <div class="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-[#0067b1]"></div>
                         <div class="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-[#0067b1]"></div>
                         <div class="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-[#0067b1]"></div>
                         <div class="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-[#0067b1]"></div>
 
-                        <div
-                            class="relative overflow-hidden aspect-[4/3] bg-gradient-to-b from-slate-50 to-slate-100 flex items-center justify-center p-2">
+                        <div class="relative overflow-hidden bg-slate-50">
                             <img src="{{ $about->resolveImageUrl($about->profile_image, 'images/about-truck.png') }}"
                                 alt="SHACMAN Dump Truck PT Shindo Tractors Adiperkasa"
-                                class="w-full h-full object-contain select-none transform hover:scale-105 transition-transform duration-500">
+                                class="w-auto max-w-full max-h-[420px] sm:max-h-[460px] object-contain block select-none transform hover:scale-105 transition-transform duration-500">
                         </div>
                     </div>
                 </div>
@@ -259,7 +258,7 @@
                                 <div
                                     class="p-4 bg-slate-50 border border-slate-200 flex items-start gap-3.5 hover:border-[#0067b1] transition-colors">
                                     <span
-                                        class="w-6 h-6 rounded-full bg-[#0067b1] text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">{{ $misi['number'] ?? $loop->iteration }}</span>
+                                        class="w-6 h-6 bg-[#0067b1] text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">{{ $misi['number'] ?? $loop->iteration }}</span>
                                     <div>
                                         <h4 class="text-sm font-bold text-slate-900 uppercase tracking-wide">
                                             {{ $misi['title'] ?? '' }}
@@ -314,11 +313,13 @@
                             </div>
                         </div>
                         <div class="pt-4 flex flex-col">
-                            <span class="text-xs sm:text-sm font-sans font-bold text-[#0067b1] tracking-wider">{{ $shass['number'] ?? '0' . $loop->iteration }}</span>
-                            <h3
-                                class="text-base sm:text-lg font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug mt-1 group-hover:text-[#0067b1] transition-colors">
-                                {{ $shass['title'] ?? '' }}
-                            </h3>
+                            <div class="flex items-baseline gap-2.5">
+                                <span class="text-base sm:text-lg font-sans font-bold text-[#0067b1] tracking-tight leading-snug shrink-0">{{ $shass['number'] ?? '0' . $loop->iteration }}</span>
+                                <h3
+                                    class="text-base sm:text-lg font-bold font-sans uppercase text-slate-900 tracking-tight leading-snug group-hover:text-[#0067b1] transition-colors">
+                                    {{ $shass['title'] ?? '' }}
+                                </h3>
+                            </div>
                             <p class="mt-2.5 text-xs sm:text-sm text-slate-500 leading-relaxed font-normal">
                                 {{ $shass['description'] ?? '' }}
                             </p>
@@ -333,7 +334,7 @@
     <section class="w-full bg-[#f4f6f9] py-16 sm:py-24 border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-12 reveal-on-scroll">
-                <span class="text-xs font-sans font-bold uppercase tracking-widest text-[#0067b1] block mb-2">
+                <span class="inline-flex items-center px-3.5 py-1 bg-[#0067b1] text-white text-xs font-sans font-bold uppercase tracking-wider mb-3 shadow-xs">
                     {{ $about->branches_badge ?: 'ALAMAT & LOKASI' }}
                 </span>
                 <h2
@@ -346,75 +347,14 @@
             </div>
 
             <!-- Showcase Gambar Branch (Peta Jaringan Cabang dari dealershacman.com) -->
-            <div class="bg-white p-3 sm:p-6 border-2 border-slate-200 shadow-xl reveal-on-scroll">
-                <div class="relative overflow-hidden bg-slate-100 flex items-center justify-center">
-                    <img src="{{ $about->resolveImageUrl($about->branches_map_image, 'images/about-branch-map.jpg') }}"
-                        alt="{{ $about->branches_title }}"
-                        class="w-full h-auto max-h-[550px] object-contain select-none">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ================= 6. SECTION: KOMITMEN KEMITRAAN JANGKA PANJANG ================= -->
-    <section class="w-full bg-white py-16 sm:py-24 border-b border-slate-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-
-                <!-- Left Column: Big Panoramic Image with Heavy Border -->
-                <div class="lg:col-span-6 order-2 lg:order-1 reveal-on-scroll">
-                    <div class="relative bg-white p-3 sm:p-5 border-2 border-slate-200 shadow-xl">
-                        <!-- Corner Crosshairs -->
-                        <div class="absolute -top-2 -left-2 w-4 h-4 border-t-2 border-l-2 border-[#0067b1]"></div>
-                        <div class="absolute -top-2 -right-2 w-4 h-4 border-t-2 border-r-2 border-[#0067b1]"></div>
-                        <div class="absolute -bottom-2 -left-2 w-4 h-4 border-b-2 border-l-2 border-[#0067b1]"></div>
-                        <div class="absolute -bottom-2 -right-2 w-4 h-4 border-b-2 border-r-2 border-[#0067b1]"></div>
-
-                        <div class="relative overflow-hidden bg-slate-100 aspect-[4/3] flex items-center justify-center">
-                            <img src="{{ $about->resolveImageUrl($about->commitment_image, 'images/about-shacman-fleet-bg.png') }}"
-                                alt="{{ $about->commitment_title }}"
-                                class="w-full h-full object-cover select-none">
-                            <div class="absolute inset-0 bg-gradient-to-t from-[#00163c]/50 via-transparent to-transparent">
-                            </div>
-                        </div>
+            <div class="flex justify-center reveal-on-scroll">
+                <div class="inline-block bg-white p-2 sm:p-4 border-2 border-slate-200 shadow-xl max-w-full">
+                    <div class="relative overflow-hidden bg-white">
+                        <img src="{{ $about->resolveImageUrl($about->branches_map_image, 'images/about-branch-map.jpg') }}"
+                            alt="{{ $about->branches_title }}"
+                            class="w-auto max-w-full max-h-[550px] object-contain block select-none">
                     </div>
                 </div>
-
-                <!-- Right Column: Copywriting & Commitments -->
-                <div class="lg:col-span-6 order-1 lg:order-2 space-y-6 reveal-on-scroll reveal-delay-200">
-                    <div>
-                        <h2
-                            class="text-3xl sm:text-4xl lg:text-5xl font-bold uppercase not-italic font-barlow-condensed tracking-tight text-[#00163c] leading-[1.02]">
-                            {{ $about->commitment_title }}
-                        </h2>
-                    </div>
-
-                    <p class="text-slate-700 text-sm sm:text-base leading-relaxed font-normal">
-                        {{ $about->commitment_subtitle }}
-                    </p>
-
-                    <!-- Core Commitments: Industrial Protocol Rows with Distinct Identifiers -->
-                    <div class="space-y-4 pt-1 font-sans">
-                        @foreach($about->commitment_items ?? [] as $komitmen)
-                            <div
-                                class="p-5 sm:p-6 bg-[#f8fafc] border border-slate-200 shadow-xs flex items-start gap-4 hover:border-[#0067b1] hover:bg-white transition-all">
-                                <span
-                                    class="text-3xl font-bold font-barlow-condensed text-[#0067b1] leading-none flex-shrink-0 mt-0.5">
-                                    {{ $komitmen['number'] ?? '0' . $loop->iteration }}
-                                </span>
-                                <div>
-                                    <h3 class="text-sm sm:text-base font-bold text-slate-900">
-                                        {{ $komitmen['title'] ?? '' }}
-                                    </h3>
-                                    <p class="text-xs sm:text-sm text-slate-600 mt-1 leading-relaxed">
-                                        {{ $komitmen['description'] ?? '' }}
-                                    </p>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>

@@ -45,6 +45,7 @@ class IconAssetForm
                             ->label('Icon Image File')
                             ->disk('public')
                             ->directory('icons')
+                            ->maxSize(2048)
                             ->acceptedFileTypes(['image/svg+xml', 'image/png', 'image/webp', 'image/jpeg'])
                             ->openable()
                             ->downloadable()
