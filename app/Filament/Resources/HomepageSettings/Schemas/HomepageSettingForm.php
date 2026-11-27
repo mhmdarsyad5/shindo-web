@@ -321,20 +321,6 @@ class HomepageSettingForm
                                             ->rows(2),
                                     ]),
                             ]),
-
-                        // TAB 9: WHATSAPP & CONTACT
-                        Tab::make('WhatsApp & Contact')
-                            ->icon('heroicon-o-chat-bubble-left-right')
-                            ->schema([
-                                Section::make('Floating WhatsApp Widget')
-                                    ->description('Controls the floating WhatsApp contact button displayed across the site.')
-                                    ->schema([
-                                        TextInput::make('whatsapp_number')
-                                            ->label('WhatsApp Number (e.g. 6282128889556)')
-                                            ->default('6282128889556')
-                                            ->required(),
-                                    ]),
-                            ]),
                     ])
                     ->columnSpanFull(),
             ]);

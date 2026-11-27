@@ -45,10 +45,6 @@ class SparepartsSettingForm
                             ->schema([
                                 Section::make('WhatsApp Consultation')
                                     ->schema([
-                                        TextInput::make('whatsapp_number')
-                                            ->label('WhatsApp Number (e.g. 6282128889556)')
-                                            ->required(),
-
                                         TextInput::make('whatsapp_button_text')
                                             ->label('WhatsApp Button Label')
                                             ->default('Hubungi Kami')

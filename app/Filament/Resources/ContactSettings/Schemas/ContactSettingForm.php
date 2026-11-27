@@ -52,10 +52,6 @@ class ContactSettingForm
                                             ->columnSpanFull()
                                             ->required(),
 
-                                        TextInput::make('office_phone')
-                                            ->label('Phone Number / Hotline')
-                                            ->required(),
-
                                         TextInput::make('office_email')
                                             ->label('Email Address')
                                             ->email()

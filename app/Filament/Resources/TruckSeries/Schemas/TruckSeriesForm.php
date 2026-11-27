@@ -29,14 +29,9 @@ class TruckSeriesForm
                                 ->placeholder('X3000')
                                 ->required(),
                         ]),
-                        Grid::make(2)->schema([
-                            TextInput::make('badge')
-                                ->label('Series Badge')
-                                ->placeholder('e.g. Heavy Duty Series'),
-                            TextInput::make('title')
-                                ->label('Series Title')
-                                ->placeholder('e.g. SHACMAN X3000 Series'),
-                        ]),
+                        TextInput::make('title')
+                            ->label('Series Title')
+                            ->placeholder('e.g. SHACMAN X3000 Series'),
                         CmsImageField::make(
                             name: 'image',
                             label: 'Series Image (Transparent PNG)',

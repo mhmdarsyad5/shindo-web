@@ -75,25 +75,15 @@ class ProductForm
                             ->label('Default WhatsApp Message')
                             ->placeholder('Hello, I am interested in this unit.')
                             ->columnSpanFull(),
-                        Grid::make(3)->schema([
-                            TextInput::make('badge')
-                                ->label('Badge Label')
-                                ->placeholder('e.g. Best Seller, Mining Spec')
-                                ->maxLength(50),
+                        Grid::make(2)->schema([
                             TextInput::make('order_column')
                                 ->label('Sort Order')
                                 ->numeric()
                                 ->default(0),
-                            Grid::make(2)->schema([
-                                Toggle::make('is_featured')
-                                    ->label('Featured (Homepage)')
-                                    ->default(true)
-                                    ->inline(false),
-                                Toggle::make('is_active')
-                                    ->label('Active')
-                                    ->default(true)
-                                    ->inline(false),
-                            ]),
+                            Toggle::make('is_active')
+                                ->label('Active')
+                                ->default(true)
+                                ->inline(false),
                         ]),
                     ]),
 

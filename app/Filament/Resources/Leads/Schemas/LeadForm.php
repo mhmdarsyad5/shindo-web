@@ -32,20 +32,11 @@ class LeadForm
                             TextInput::make('company')
                                 ->label('Company / Project')
                                 ->placeholder('Company name'),
-                            TextInput::make('location')
-                                ->label('Site Location')
-                                ->placeholder('e.g. Morowali, Sangatta, etc.'),
                         ]),
                     ]),
 
                 Section::make('Fleet Requirements')
                     ->schema([
-                        Grid::make(2)->schema([
-                            TextInput::make('truck_series')
-                                ->label('Requested Series'),
-                            TextInput::make('quantity')
-                                ->label('Estimated Units'),
-                        ]),
                         Textarea::make('notes')
                             ->label('Notes & Specifications')
                             ->rows(4)
